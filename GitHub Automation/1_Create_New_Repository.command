@@ -4,14 +4,22 @@ echo "\033[1;36m========================================================\033[0m"
 echo "\033[1;32m       🚀 GITHUB AUTOMATION: CREATE NEW REPOSITORY      \033[0m"
 echo "\033[1;36m========================================================\033[0m"
 echo ""
-printf "\033[1;33mEnter a name for your new project/repo (e.g. my-app): \033[0m"
+printf "\033[1;33mEnter project/repo name (e.g. my-app, or 'b' to go back): \033[0m"
 read REPO_NAME
 
 # Trim whitespace
 REPO_NAME=$(echo "$REPO_NAME" | tr -d '[:space:]')
 
+if [[ "$REPO_NAME" == "b" || "$REPO_NAME" == "B" || "$REPO_NAME" == "0" ]]; then
+  exit 0
+fi
+
 if [[ -z "$REPO_NAME" ]]; then
   echo "\033[1;31mError: Repository name cannot be empty.\033[0m"
+  if [[ "$CALLED_FROM_MENU" == "1" ]]; then
+    sleep 1.2
+    exit 0
+  fi
   echo "Press any key to exit..."
   read -k 1
   exit 1
@@ -75,5 +83,11 @@ else
 fi
 
 echo ""
-printf "Press any key to close this window..."
-read -k 1
+if [[ "$CALLED_FROM_MENU" == "1" ]]; then
+  printf "\033[1;36mPress [ENTER] to return to Main Menu... \033[0m"
+  read -r DUMMY
+else
+  printf "Press any key to close this window..."
+  read -k 1
+fi
+exit 0

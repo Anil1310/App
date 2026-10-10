@@ -12,6 +12,7 @@ DIM='\033[2m'
 RESET='\033[0m'
 
 SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
+export CALLED_FROM_MENU=1
 
 while true; do
   clear

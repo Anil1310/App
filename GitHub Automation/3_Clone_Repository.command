@@ -10,8 +10,16 @@ read REPO_INPUT
 
 REPO_INPUT=$(echo "$REPO_INPUT" | tr -d '[:space:]')
 
+if [[ "$REPO_INPUT" == "b" || "$REPO_INPUT" == "B" || "$REPO_INPUT" == "0" ]]; then
+  exit 0
+fi
+
 if [[ -z "$REPO_INPUT" ]]; then
   echo "\033[1;31mError: No repository specified.\033[0m"
+  if [[ "$CALLED_FROM_MENU" == "1" ]]; then
+    sleep 1.2
+    exit 0
+  fi
   echo "Press any key to exit..."
   read -k 1
   exit 1
@@ -44,5 +52,11 @@ else
 fi
 
 echo ""
-printf "Press any key to close this window..."
-read -k 1
+if [[ "$CALLED_FROM_MENU" == "1" ]]; then
+  printf "\033[1;36mPress [ENTER] to return to Main Menu... \033[0m"
+  read -r DUMMY
+else
+  printf "Press any key to close this window..."
+  read -k 1
+fi
+exit 0

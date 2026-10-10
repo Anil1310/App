@@ -4,22 +4,28 @@ echo "\033[1;36m========================================================\033[0m"
 echo "\033[1;32m         ⚡ GITHUB AUTOMATION: QUICK SYNC / PUSH        \033[0m"
 echo "\033[1;36m========================================================\033[0m"
 echo ""
-echo "Drag & drop your project folder into this window and press [ENTER]:"
+echo "Drag & drop project folder (or press [ENTER] for current project, 'b' to go back):"
 printf "\033[1;33mFolder path: \033[0m"
 read TARGET_FOLDER
 
 # Remove quotes or trailing slashes added by macOS drag-and-drop
 TARGET_FOLDER=$(echo "$TARGET_FOLDER" | sed -e "s/^'//" -e "s/'$//" -e 's/^"//' -e 's/"$//' -e 's/\\//g')
 
+if [[ "$TARGET_FOLDER" == "b" || "$TARGET_FOLDER" == "B" || "$TARGET_FOLDER" == "0" ]]; then
+  exit 0
+fi
+
 if [[ -z "$TARGET_FOLDER" ]]; then
-  echo "\033[1;31mError: No folder provided.\033[0m"
-  echo "Press any key to exit..."
-  read -k 1
-  exit 1
+  SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
+  TARGET_FOLDER=$(cd "$SCRIPT_DIR/.." && pwd)
 fi
 
 if [[ ! -d "$TARGET_FOLDER" ]]; then
   echo "\033[1;31mError: Directory '$TARGET_FOLDER' does not exist.\033[0m"
+  if [[ "$CALLED_FROM_MENU" == "1" ]]; then
+    sleep 1.2
+    exit 0
+  fi
   echo "Press any key to exit..."
   read -k 1
   exit 1
@@ -86,5 +92,11 @@ else
 fi
 
 echo ""
-printf "Press any key to close this window..."
-read -k 1
+if [[ "$CALLED_FROM_MENU" == "1" ]]; then
+  printf "\033[1;36mPress [ENTER] to return to Main Menu... \033[0m"
+  read -r DUMMY
+else
+  printf "Press any key to close this window..."
+  read -k 1
+fi
+exit 0
