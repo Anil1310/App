@@ -14,6 +14,9 @@ RESET='\033[0m'
 SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 export CALLED_FROM_MENU=1
 
+# Set Terminal Window Title
+printf "\033]2;GitHub & Netlify Automation\007"
+
 while true; do
   clear
   echo "${MAGENTA}================================================================${RESET}"
@@ -60,7 +63,12 @@ while true; do
       ;;
     5|q|Q|exit|Exit)
       echo ""
-      echo "${GREEN}Goodbye! 👋${RESET}"
+      echo "${GREEN}Closing window... Goodbye! 👋${RESET}"
+      sleep 0.5
+      # Gracefully close the Terminal window on macOS
+      osascript -e 'tell application "Terminal" to close (every window whose name contains "GitHub & Netlify Automation")' &>/dev/null &
+      osascript -e 'tell application "Terminal" to close front window' &>/dev/null &
+      kill -9 $PPID 2>/dev/null
       exit 0
       ;;
     *)
