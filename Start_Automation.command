@@ -282,19 +282,22 @@ while true; do
   echo "  ${GREEN}[2]${RESET} ⚡ ${BOLD}Quick Push Changes${RESET}"
   echo "      ${DIM}Stage, commit, push edits to GitHub & update live Netlify site${RESET}"
   echo ""
-  echo "  ${GREEN}[3]${RESET} 🌐 ${BOLD}Deploy Project to Netlify (1-Click)${RESET}"
+  echo "  ${GREEN}[3]${RESET} ⬇️  ${BOLD}Quick Pull Changes${RESET}"
+  echo "      ${DIM}Fetch & pull latest changes from GitHub into your local folder${RESET}"
+  echo ""
+  echo "  ${GREEN}[4]${RESET} 🌐 ${BOLD}Deploy Project to Netlify (1-Click)${RESET}"
   echo "      ${DIM}Instantly upload & publish any project to a live .netlify.app URL${RESET}"
   echo ""
-  echo "  ${GREEN}[4]${RESET} 📥 ${BOLD}Clone Existing Repository${RESET}"
+  echo "  ${GREEN}[5]${RESET} 📥 ${BOLD}Clone Existing Repository${RESET}"
   echo "      ${DIM}Download any repository from GitHub to your Desktop${RESET}"
   echo ""
-  echo "  ${RED}[5]${RESET} 🗑️  ${BOLD}Delete Repository${RESET}"
+  echo "  ${RED}[6]${RESET} 🗑️  ${BOLD}Delete Repository${RESET}"
   echo "      ${DIM}Permanently delete a repository on GitHub & unlink locally${RESET}"
   echo ""
-  echo "  ${RED}[6]${RESET} ❌ ${BOLD}Exit${RESET}"
+  echo "  ${RED}[7]${RESET} ❌ ${BOLD}Exit${RESET}"
   echo ""
   echo "${MAGENTA}----------------------------------------------------------------${RESET}"
-  printf "${YELLOW}${BOLD}Enter choice (1-6): ${RESET}"
+  printf "${YELLOW}${BOLD}Enter choice (1-7): ${RESET}"
   read -r CHOICE
 
   case "$CHOICE" in
@@ -308,16 +311,20 @@ while true; do
       ;;
     3)
       echo ""
-      "$SCRIPT_DIR/4_Deploy_To_Netlify.command"
+      "$SCRIPT_DIR/5_Quick_Pull_Changes.command"
       ;;
     4)
       echo ""
-      "$SCRIPT_DIR/3_Clone_Repository.command"
+      "$SCRIPT_DIR/4_Deploy_To_Netlify.command"
       ;;
     5)
+      echo ""
+      "$SCRIPT_DIR/3_Clone_Repository.command"
+      ;;
+    6)
       delete_repository
       ;;
-    6|q|Q|exit|Exit)
+    7|q|Q|exit|Exit)
       echo ""
       echo "${GREEN}Quitting Terminal... Goodbye! 👋${RESET}"
       sleep 0.3
@@ -328,7 +335,7 @@ while true; do
       ;;
     *)
       echo ""
-      echo "${RED}Invalid choice. Please enter 1, 2, 3, 4, 5, or 6.${RESET}"
+      echo "${RED}Invalid choice. Please enter 1, 2, 3, 4, 5, 6, or 7.${RESET}"
       sleep 1.5
       ;;
   esac
