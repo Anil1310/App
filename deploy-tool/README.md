@@ -6,8 +6,8 @@ This folder contains the universal deployment script that you can copy to **any*
 
 ## 📁 Exact File Location
 
-- **Inside this project:** `automation/deploy.sh`
-- **Full Path:** `/Users/anilkumarchahar/Desktop/Coaching Class Demo/automation/deploy.sh`
+- **Inside this project:** `deploy-tool/deploy.sh`
+- **Full Path:** `/Users/anilkumarchahar/Desktop/Coaching Class Demo/deploy-tool/deploy.sh`
 
 ---
 
@@ -18,10 +18,10 @@ This folder contains the universal deployment script that you can copy to **any*
 Whenever you create a new project folder (e.g. `My-New-Project`), run this in your terminal:
 
 ```bash
-cp "/Users/anilkumarchahar/Desktop/Coaching Class Demo/automation/deploy.sh" "/path/to/My-New-Project/"
+cp "/Users/anilkumarchahar/Desktop/Coaching Class Demo/deploy-tool/deploy.sh" "/path/to/My-New-Project/"
 ```
 
-*(Or simply drag and drop `deploy.sh` from this `automation` folder into your new project folder in Finder).*
+*(Or simply drag and drop `deploy.sh` from this `deploy-tool` folder into your new project folder in Finder).*
 
 ---
 
