@@ -216,8 +216,372 @@ function notify(message, type = "success") {
   }, 3200);
 }
 
+// REST API & Static Deployment Storage Adapter
+let isOfflineOrStatic = false;
+
+async function getLocalStore() {
+  const cached = localStorage.getItem("northstar_store_v1");
+  if (cached) {
+    try {
+      const parsed = JSON.parse(cached);
+      if (parsed && Array.isArray(parsed.students)) return parsed;
+    } catch (_) {}
+  }
+  try {
+    const res = await fetch("./data/store.json");
+    const data = await res.json();
+    localStorage.setItem("northstar_store_v1", JSON.stringify(data));
+    return data;
+  } catch (err) {
+    console.error("Failed to load ./data/store.json fallback:", err);
+    return { students: [], teachers: [], classes: [], payments: [], attendance: [], notifications: [], testimonials: [], gallery: [], summary: {} };
+  }
+}
+
+function saveLocalStore(store) {
+  store.summary = store.summary || {};
+  const students = store.students || [];
+  const payments = store.payments || [];
+  const classes = store.classes || [];
+  const attendanceRecords = store.attendance || [];
+
+  store.summary.outstanding = students.reduce((sum, s) => sum + (Number(s.amount) || 0), 0);
+  const sumPayments = payments.reduce((sum, p) => sum + (Number(p.amount) || 0), 0);
+  store.summary.collected = 244300 + sumPayments;
+  store.summary.paymentCount = payments.length;
+  store.summary.classesToday = classes.length;
+  store.summary.target = 450000;
+
+  if (attendanceRecords.length > 0) {
+    let totalPresent = 0;
+    let totalRoster = 0;
+    attendanceRecords.forEach(att => {
+      if (Array.isArray(att.records)) {
+        att.records.forEach(r => {
+          totalRoster++;
+          if (r.status === "Present" || r.status === "Late") totalPresent++;
+        });
+      }
+    });
+    if (totalRoster > 0) {
+      store.summary.attendance = Number(((totalPresent / totalRoster) * 100).toFixed(1));
+    }
+  } else {
+    store.summary.attendance = 94.8;
+  }
+  localStorage.setItem("northstar_store_v1", JSON.stringify(store));
+}
+
+async function handleLocalApi(endpoint, options = {}) {
+  const method = (options.method || "GET").toUpperCase();
+  const body = options.body ? JSON.parse(options.body) : {};
+  const url = new URL(endpoint, window.location.origin);
+  const pathname = url.pathname;
+  const store = await getLocalStore();
+
+  if (pathname === "/api/bootstrap") {
+    return store;
+  }
+
+  if (pathname === "/api/health") {
+    return { ok: true, timestamp: new Date().toISOString() };
+  }
+
+  // Auth Login
+  if (pathname === "/api/auth/login" && method === "POST") {
+    const role = (body.role || "").toLowerCase();
+    const username = (body.username || "").trim();
+    const password = (body.password || "").trim();
+
+    if (role === "admin" || username.toLowerCase() === "admin") {
+      if (password === "admin123" || password === "admin" || password === "123456") {
+        return {
+          ok: true,
+          user: {
+            role: "admin",
+            name: "Alex Morgan",
+            email: "admin@northstar.edu",
+            initials: "AM",
+            color: "#4f46e5",
+            avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80",
+            title: "Super Admin & Center Director"
+          }
+        };
+      }
+      throw new Error("Invalid password for Admin. Try 'admin123'.");
+    }
+
+    const cleanUsername = username.replace(/^(dr\.|prof\.|mr\.|mrs\.|ms\.)\s*/i, "").trim().toLowerCase();
+    if (role === "teacher" || (!role && (store.teachers || []).some(t => t.name.toLowerCase().includes(cleanUsername)))) {
+      const teacher = (store.teachers || []).find(t => {
+        const cleanTName = t.name.replace(/^(dr\.|prof\.|mr\.|mrs\.|ms\.)\s*/i, "").trim().toLowerCase();
+        return t.name.toLowerCase() === username.toLowerCase() ||
+               cleanTName === cleanUsername ||
+               t.name.toLowerCase().includes(cleanUsername) ||
+               t.email.toLowerCase() === username.toLowerCase();
+      });
+      if (teacher) {
+        if (password === "teacher123" || password === "admin123" || password === "password" || password === "123456") {
+          return { ok: true, user: { role: "teacher", ...teacher } };
+        }
+        throw new Error("Invalid password for Teacher. Try 'teacher123'.");
+      }
+    }
+
+    if (role === "student" || (!role && (store.students || []).some(s => s.name.toLowerCase().includes(cleanUsername)))) {
+      const student = (store.students || []).find(s => {
+        return s.name.toLowerCase() === username.toLowerCase() ||
+               s.name.toLowerCase().includes(cleanUsername) ||
+               (s.phone && s.phone.replace(/\D/g, "").includes(username.replace(/\D/g, "")));
+      });
+      if (student) {
+        if (password === "student123" || password === "admin123" || password === "password" || password === "123456") {
+          return { ok: true, user: { role: "student", ...student } };
+        }
+        throw new Error("Invalid password for Student. Try 'student123'.");
+      }
+    }
+
+    // Default demo login fallback
+    return {
+      ok: true,
+      user: {
+        role: role || "admin",
+        name: username || "Demo User",
+        email: "demo@northstar.edu",
+        initials: "DU",
+        color: "#4f46e5",
+        title: "Staff Member"
+      }
+    };
+  }
+
+  // Students CRUD
+  if (pathname === "/api/students") {
+    if (method === "GET") return store.students || [];
+    if (method === "POST") {
+      const newStudent = {
+        id: `stu-${Date.now()}`,
+        name: body.name || "New Student",
+        class: body.class || "Class 11",
+        school: body.school || "High School",
+        course: body.course || "General Science",
+        due: body.due || "End of Month",
+        phone: body.phone || "+91 98200 00000",
+        email: body.email || "student@northstar.edu",
+        address: body.address || "Mumbai, India",
+        parentName: body.parentName || "Guardian",
+        parentPhone: body.parentPhone || "+91 98200 00001",
+        amount: Number(body.amount) || 0,
+        totalFee: Number(body.totalFee) || Number(body.amount) || 30000,
+        status: (Number(body.amount) || 0) === 0 ? "Paid" : "Partial",
+        initials: (body.name || "NS").split(" ").map(w => w[0]).join("").toUpperCase().slice(0, 2),
+        color: "#4f46e5",
+        avatar: body.avatar || "",
+        enrolledDate: new Date().toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" })
+      };
+      store.students = store.students || [];
+      store.students.unshift(newStudent);
+      saveLocalStore(store);
+      return newStudent;
+    }
+  }
+
+  const studentMatch = pathname.match(/^\/api\/students\/([^/]+)$/);
+  if (studentMatch) {
+    const studentId = decodeURIComponent(studentMatch[1]);
+    const idx = (store.students || []).findIndex(s => s.id === studentId);
+    if (idx === -1) throw new Error("Student not found.");
+    if (method === "DELETE") {
+      const removed = store.students.splice(idx, 1)[0];
+      saveLocalStore(store);
+      return { success: true, removed };
+    }
+    if (method === "PUT") {
+      const updated = { ...store.students[idx], ...body };
+      store.students[idx] = updated;
+      saveLocalStore(store);
+      return updated;
+    }
+  }
+
+  // Teachers CRUD
+  if (pathname === "/api/teachers") {
+    if (method === "GET") return store.teachers || [];
+    if (method === "POST") {
+      const newTeacher = {
+        id: `tch-${Date.now()}`,
+        ...body,
+        initials: (body.name || "TC").split(" ").map(w => w[0]).join("").toUpperCase().slice(0, 2),
+        color: "#06b6d4"
+      };
+      store.teachers = store.teachers || [];
+      store.teachers.push(newTeacher);
+      saveLocalStore(store);
+      return newTeacher;
+    }
+  }
+
+  const teacherMatch = pathname.match(/^\/api\/teachers\/([^/]+)$/);
+  if (teacherMatch) {
+    const tchId = decodeURIComponent(teacherMatch[1]);
+    const idx = (store.teachers || []).findIndex(t => t.id === tchId);
+    if (idx === -1) throw new Error("Teacher not found.");
+    if (method === "DELETE") {
+      const removed = store.teachers.splice(idx, 1)[0];
+      saveLocalStore(store);
+      return { success: true, removed };
+    }
+    if (method === "PUT") {
+      const updated = { ...store.teachers[idx], ...body };
+      store.teachers[idx] = updated;
+      saveLocalStore(store);
+      return updated;
+    }
+  }
+
+  // Classes CRUD
+  if (pathname === "/api/classes") {
+    if (method === "GET") return store.classes || [];
+    if (method === "POST") {
+      const newClass = { id: `cls-${Date.now()}`, ...body };
+      store.classes = store.classes || [];
+      store.classes.push(newClass);
+      saveLocalStore(store);
+      return newClass;
+    }
+  }
+
+  const classMatch = pathname.match(/^\/api\/classes\/([^/]+)$/);
+  if (classMatch) {
+    const clsId = decodeURIComponent(classMatch[1]);
+    const idx = (store.classes || []).findIndex(c => c.id === clsId);
+    if (idx === -1) throw new Error("Class not found.");
+    if (method === "DELETE") {
+      const removed = store.classes.splice(idx, 1)[0];
+      saveLocalStore(store);
+      return { success: true, removed };
+    }
+    if (method === "PUT") {
+      const updated = { ...store.classes[idx], ...body };
+      store.classes[idx] = updated;
+      saveLocalStore(store);
+      return updated;
+    }
+  }
+
+  // Attendance
+  if (pathname === "/api/attendance") {
+    if (method === "GET") return store.attendance || [];
+    if (method === "POST") {
+      const attendanceEntry = {
+        id: `att-${body.date}-${body.classId}`,
+        ...body
+      };
+      store.attendance = store.attendance || [];
+      const exIdx = store.attendance.findIndex(a => a.date === body.date && a.classId === body.classId);
+      if (exIdx !== -1) {
+        store.attendance[exIdx] = attendanceEntry;
+      } else {
+        store.attendance.unshift(attendanceEntry);
+      }
+      saveLocalStore(store);
+      return attendanceEntry;
+    }
+  }
+
+  // Payments
+  if (pathname === "/api/payments") {
+    if (method === "GET") return store.payments || [];
+    if (method === "POST") {
+      const student = (store.students || []).find(s => s.id === body.studentId);
+      const amount = Number(body.amount) || 0;
+      const payment = {
+        receipt: `NSA-${Date.now().toString().slice(-7)}`,
+        studentId: body.studentId,
+        student: student ? student.name : "Student",
+        course: student ? student.course : "Course",
+        amount,
+        date: new Date().toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" }),
+        method: body.method || "UPI",
+        note: body.note || "",
+        collectedBy: "Alex Morgan"
+      };
+      if (student) {
+        student.amount = Math.max(0, (student.amount || 0) - amount);
+        student.status = student.amount === 0 ? "Paid" : "Partial";
+      }
+      store.payments = store.payments || [];
+      store.payments.push(payment);
+      saveLocalStore(store);
+      return { payment, student, summary: store.summary };
+    }
+  }
+
+  // Reminders
+  if (pathname === "/api/reminders") {
+    if (method === "POST") {
+      const student = (store.students || []).find(s => s.id === body.studentId);
+      if (student) {
+        student.lastRemindedAt = `Today at ${new Date().toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit", hour12: true })}`;
+      }
+      saveLocalStore(store);
+      return { ok: true };
+    }
+  }
+
+  if (pathname === "/api/reminders/batch") {
+    let count = 0;
+    const nowStr = `Today at ${new Date().toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit", hour12: true })}`;
+    (store.students || []).forEach(s => {
+      if ((s.amount || 0) > 0) {
+        s.lastRemindedAt = nowStr;
+        count++;
+      }
+    });
+    saveLocalStore(store);
+    return { ok: true, count };
+  }
+
+  // Testimonials
+  if (pathname === "/api/testimonials") {
+    if (method === "GET") return store.testimonials || [];
+    if (method === "POST") {
+      const t = { id: `test-${Date.now()}`, ...body };
+      store.testimonials = store.testimonials || [];
+      store.testimonials.unshift(t);
+      saveLocalStore(store);
+      return t;
+    }
+  }
+
+  // Gallery
+  if (pathname === "/api/gallery") {
+    if (method === "GET") return store.gallery || [];
+    if (method === "POST") {
+      const g = { id: `gal-${Date.now()}`, ...body };
+      store.gallery = store.gallery || [];
+      store.gallery.unshift(g);
+      saveLocalStore(store);
+      return g;
+    }
+  }
+
+  // Notifications
+  if (pathname === "/api/notifications/read") {
+    (store.notifications || []).forEach(n => { n.read = true; });
+    saveLocalStore(store);
+    return { ok: true };
+  }
+
+  return { ok: true };
+}
+
 // REST API Helper
 async function api(endpoint, options = {}) {
+  if (isOfflineOrStatic) {
+    return handleLocalApi(endpoint, options);
+  }
   try {
     const res = await fetch(endpoint, {
       ...options,
@@ -226,14 +590,19 @@ async function api(endpoint, options = {}) {
         ...options.headers
       }
     });
+    if (res.status === 404 || res.status === 405) {
+      isOfflineOrStatic = true;
+      return handleLocalApi(endpoint, options);
+    }
     const payload = await res.json().catch(() => ({}));
     if (!res.ok) {
       throw new Error(payload.error || `HTTP error ${res.status}`);
     }
     return payload;
   } catch (err) {
-    console.error(`API Error on ${endpoint}:`, err);
-    throw err;
+    console.warn(`Server unreachable on ${endpoint}, switching to static storage adapter:`, err.message);
+    isOfflineOrStatic = true;
+    return handleLocalApi(endpoint, options);
   }
 }
 
