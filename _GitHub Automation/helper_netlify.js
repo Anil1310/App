@@ -168,7 +168,7 @@ async function deploy(targetDir) {
   const zipPath = path.join(os.tmpdir(), `netlify-${Date.now()}.zip`);
   process.stdout.write("  Packaging project bundle... ");
   execSync(
-    `zip -q -r "${zipPath}" . -x "node_modules/*" ".git/*" "*.zip" "*.log" ".netlify-site.json" "GitHub Automation/*" "deploy-tool/*"`,
+    `zip -q -r "${zipPath}" . -x "node_modules/*" ".git/*" "*.zip" "*.log" ".netlify-site.json" "GitHub Automation/*" "_GitHub Automation/*" "deploy-tool/*"`,
     { cwd: targetDir }
   );
   console.log(`${C.green}Done${C.reset}`);

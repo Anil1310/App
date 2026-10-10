@@ -11,7 +11,7 @@
 During this session, we transformed your setup from having no linked GitHub repository to a fully automated development and deployment pipeline:
 
 1. **Git & GitHub Authentication**: Configured your Git identity and generated a secure ED25519 SSH key permanently linking your Mac to GitHub.
-2. **Desktop Automation Suite**: Created a 1-click folder on your Desktop (`Desktop/GitHub Automation`) containing double-clickable scripts to create, push, and clone repositories without typing terminal commands.
+2. **Desktop Automation Suite**: Created a 1-click folder on your Desktop (`Desktop/_GitHub Automation`) containing double-clickable scripts to create, push, and clone repositories without typing terminal commands.
 3. **Portfolio Repository**: Created your first repository, **Portfolio**, and pushed it live to GitHub.
 4. **Custom Developer Portfolio Website**: Engineered a modern dark glassmorphic portfolio highlighting your work at Udaan.com, your skills (Python, SQL, Automation, Excel/VBA), and your projects.
 5. **Free Hosting on GitHub Pages**: Deployed the site live on the internet at `https://anil1310.github.io/Portfolio/`.
@@ -34,7 +34,7 @@ Your Mac is now permanently authenticated with GitHub via SSH:
 
 ## 🛠️ 2. Desktop Automation Tools
 
-**Folder Location:** `Desktop/GitHub Automation`
+**Folder Location:** `Desktop/_GitHub Automation`
 
 Inside this folder are 3 double-clickable tools created specifically for your workflow:
 
@@ -99,7 +99,7 @@ To add new projects or update links:
      </svg>
    </a>
    ```
-4. Double-click `Desktop/GitHub Automation/2_Quick_Push_Changes.command` to push the update to your live site.
+4. Double-click `Desktop/_GitHub Automation/2_Quick_Push_Changes.command` to push the update to your live site.
 
 ---
 
