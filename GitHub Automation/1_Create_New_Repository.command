@@ -1,0 +1,79 @@
+#!/bin/zsh
+clear
+echo "\033[1;36m========================================================\033[0m"
+echo "\033[1;32m       🚀 GITHUB AUTOMATION: CREATE NEW REPOSITORY      \033[0m"
+echo "\033[1;36m========================================================\033[0m"
+echo ""
+printf "\033[1;33mEnter a name for your new project/repo (e.g. my-app): \033[0m"
+read REPO_NAME
+
+# Trim whitespace
+REPO_NAME=$(echo "$REPO_NAME" | tr -d '[:space:]')
+
+if [[ -z "$REPO_NAME" ]]; then
+  echo "\033[1;31mError: Repository name cannot be empty.\033[0m"
+  echo "Press any key to exit..."
+  read -k 1
+  exit 1
+fi
+
+PROJECT_DIR="$HOME/Desktop/$REPO_NAME"
+
+if [[ -d "$PROJECT_DIR" ]]; then
+  echo "\033[1;33mNotice: Folder '$PROJECT_DIR' already exists. Linking existing folder...\033[0m"
+else
+  mkdir -p "$PROJECT_DIR"
+  echo "# $REPO_NAME" > "$PROJECT_DIR/README.md"
+  echo "Created project folder at $PROJECT_DIR"
+fi
+
+cd "$PROJECT_DIR" || exit 1
+
+if [[ ! -d ".git" ]]; then
+  git init -b main
+else
+  git branch -M main
+fi
+
+git add .
+git commit -m "Initial commit" 2>/dev/null || true
+git remote remove origin 2>/dev/null || true
+git remote add origin "git@github.com:Anil1310/$REPO_NAME.git"
+
+echo ""
+echo "\033[1;34mOpening GitHub in your browser to create the remote repository...\033[0m"
+open "https://github.com/new?name=$REPO_NAME"
+
+echo ""
+echo "\033[1;32m>>> Step:\033[0m In your browser, just click the green \033[1m'Create repository'\033[0m button."
+echo "    (Leave 'Add a README' unchecked since we already created one for you)."
+echo ""
+printf "\033[1;33mOnce you clicked 'Create repository', press [ENTER] here to upload your code: \033[0m"
+read -r DUMMY
+
+echo ""
+echo "Uploading to GitHub..."
+git push -u origin main
+
+SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
+
+if [[ $? -eq 0 ]]; then
+  echo ""
+  echo "\033[1;32m🎉 SUCCESS! Your repository is live at:\033[0m"
+  echo "👉 https://github.com/Anil1310/$REPO_NAME"
+  open "https://github.com/Anil1310/$REPO_NAME"
+
+  echo ""
+  echo "\033[1;36m========================================================\033[0m"
+  echo "\033[1;32m         🌐 NETLIFY AUTOMATION: PUBLISHING LIVE SITE     \033[0m"
+  echo "\033[1;36m========================================================\033[0m"
+  node "$SCRIPT_DIR/helper_netlify.js" "$PROJECT_DIR"
+  open "$PROJECT_DIR"
+else
+  echo ""
+  echo "\033[1;31mPush encountered an issue. Please verify you clicked 'Create repository' on GitHub.\033[0m"
+fi
+
+echo ""
+printf "Press any key to close this window..."
+read -k 1
