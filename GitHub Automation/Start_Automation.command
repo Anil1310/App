@@ -63,12 +63,12 @@ while true; do
       ;;
     5|q|Q|exit|Exit)
       echo ""
-      echo "${GREEN}Closing window... Goodbye! 👋${RESET}"
-      sleep 0.5
-      # Gracefully close the Terminal window on macOS
-      osascript -e 'tell application "Terminal" to close (every window whose name contains "GitHub & Netlify Automation")' &>/dev/null &
-      osascript -e 'tell application "Terminal" to close front window' &>/dev/null &
-      kill -9 $PPID 2>/dev/null
+      echo "${GREEN}Quitting Terminal... Goodbye! 👋${RESET}"
+      sleep 0.3
+      # Quit Terminal application completely
+      osascript -e 'tell application "Terminal" to quit' &>/dev/null &
+      sleep 0.2
+      killall Terminal 2>/dev/null
       exit 0
       ;;
     *)
