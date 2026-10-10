@@ -69,7 +69,7 @@
       "due": "Oct 14, 2026",
       "amount": 4500,
       "status": "Partial",
-      "lastRemindedAt": "Today at 12:07 am",
+      "lastRemindedAt": "Today at 12:29 am",
       "avatar": "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=200&q=80",
       "password": "student123",
       "school": "St. Xavier's High School, Fort"
@@ -1457,6 +1457,14 @@
     }
   ],
   "notifications": [
+    {
+      "id": "notif-1791658776708",
+      "title": "Fee Reminder Dispatched",
+      "message": "Sent WHATSAPP reminder to Meera Nair (+91 98203 34567) for ₹4,500.",
+      "time": "Just now",
+      "type": "info",
+      "read": false
+    },
     {
       "id": "notif-1791657422518",
       "title": "Fee Reminder Dispatched",
