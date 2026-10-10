@@ -1,8 +1,8 @@
 {
   "summary": {
-    "collected": 346000,
-    "outstanding": 57300,
-    "paymentCount": 20,
+    "collected": 350500,
+    "outstanding": 52800,
+    "paymentCount": 21,
     "target": 450000,
     "attendance": 92.3,
     "classesToday": 20
@@ -23,8 +23,8 @@
       "enrolledDate": "2026-06-15",
       "totalFee": 45000,
       "due": "Oct 05, 2026",
-      "amount": 4500,
-      "status": "Overdue",
+      "amount": 0,
+      "status": "Paid",
       "lastRemindedAt": "Today at 06:10 pm",
       "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80",
       "password": "student123",
@@ -1348,6 +1348,17 @@
       "method": "UPI",
       "note": "October installment",
       "collectedBy": "Alex Morgan"
+    },
+    {
+      "receipt": "NSA-1374878",
+      "studentId": "stu-1001",
+      "student": "Riya Sharma",
+      "course": "Mathematics · Grade 12",
+      "amount": 4500,
+      "date": "10 Oct 2026",
+      "method": "UPI",
+      "note": "",
+      "collectedBy": "Alex Morgan"
     }
   ],
   "attendance": [
@@ -1436,6 +1447,14 @@
     }
   ],
   "notifications": [
+    {
+      "id": "notif-1791651374932",
+      "title": "Fee Payment Logged",
+      "message": "Recorded payment of ₹4,500 from Riya Sharma.",
+      "time": "Just now",
+      "type": "success",
+      "read": true
+    },
     {
       "id": "notif-1791636027472",
       "title": "Fee Reminder Dispatched",

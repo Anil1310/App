@@ -219,6 +219,7 @@ button {
   font-size: 13px;
   font-weight: 500;
   text-align: left;
+  white-space: nowrap;
   transition: var(--transition);
 }
 
@@ -2151,7 +2152,7 @@ button {
   font-size: 10px;
   color: var(--primary);
   font-weight: 700;
-  text-transform: uppercase;
+  text-transform: capitalize;
   letter-spacing: 0.3px;
 }
 

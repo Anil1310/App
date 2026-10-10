@@ -706,7 +706,12 @@ function setPage(pageId) {
   };
 
   document.querySelectorAll(".page-view").forEach(el => el.classList.remove("active"));
-  const targetView = document.getElementById(`${pageId}View`);
+  const viewMap = {
+    "teacher-portal": "teacherPortalView",
+    "student-portal": "studentPortalView"
+  };
+  const targetId = viewMap[pageId] || `${pageId}View`;
+  const targetView = document.getElementById(targetId) || document.getElementById(`${pageId}View`);
   if (targetView) targetView.classList.add("active");
 
   document.querySelectorAll(".nav-btn").forEach(btn => {
@@ -715,7 +720,7 @@ function setPage(pageId) {
 
   const breadcrumb = document.getElementById("activeBreadcrumb");
   if (breadcrumb) breadcrumb.textContent = pageTitles[pageId] || "Overview";
-  document.title = `${pageTitles[pageId] || "Portal"} — Northstar Academy`;
+  document.title = `${pageTitles[pageId] || "Portal"} — Divine Coaching`;
 
   // Close mobile drawer if open
   closeMobileDrawer();
@@ -1945,16 +1950,22 @@ function printReceipt() {
 // =========================================================================
 // MULTI-ROLE AUTHENTICATION (ADMIN / TEACHER / STUDENT)
 // =========================================================================
+function formatRole(r) {
+  if (!r) return "Admin";
+  return r.charAt(0).toUpperCase() + r.slice(1).toLowerCase();
+}
+
 function updateUserUI() {
   const u = state.currentUser || { role: "admin", name: "Alex Morgan", initials: "AM", title: "Admin" };
   const role = (u.role || "admin").toLowerCase();
+  const displayRole = formatRole(role);
 
   // Topbar Profile
   const topName = document.getElementById("topUserName");
   const topRole = document.getElementById("topUserRole");
   const topAvatar = document.getElementById("topUserAvatar");
   if (topName) topName.textContent = u.name;
-  if (topRole) topRole.textContent = role.toUpperCase();
+  if (topRole) topRole.textContent = displayRole;
   if (topAvatar) {
     if (u.avatar) {
       topAvatar.innerHTML = `<img src="${escapeHTML(u.avatar)}" alt="${escapeHTML(u.name)}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;
@@ -1969,7 +1980,7 @@ function updateUserUI() {
   const sideRole = document.getElementById("sidebarUserRole");
   const sideAvatar = document.getElementById("sidebarUserAvatar");
   if (sideName) sideName.textContent = u.name;
-  if (sideRole) sideRole.textContent = `${role.toUpperCase()} • ${u.class || u.qualification || "Northstar Academy"}`;
+  if (sideRole) sideRole.textContent = `${displayRole} • ${u.class || u.qualification || "Divine Coaching"}`;
   if (sideAvatar) {
     if (u.avatar) {
       sideAvatar.innerHTML = `<img src="${escapeHTML(u.avatar)}" alt="${escapeHTML(u.name)}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;
@@ -2022,11 +2033,11 @@ function updateUserUI() {
     if (navReports) navReports.style.display = "flex";
     if (navTeacher) {
       navTeacher.style.display = "flex";
-      setNavLabel(navTeacher, "Faculty Hub (Admin View)");
+      setNavLabel(navTeacher, "Faculty Hub");
     }
     if (navStudent) {
       navStudent.style.display = "flex";
-      setNavLabel(navStudent, "Student Portal (Admin View)");
+      setNavLabel(navStudent, "Student Portal");
     }
     setNavLabel(navStudents, "Students");
     setNavLabel(navClasses, "Classes & Timetable");
@@ -2206,7 +2217,7 @@ async function handleLoginSubmit(e) {
     localStorage.setItem("northstar_user", JSON.stringify(res.user));
     updateUserUI();
     closeModal("loginModal");
-    notify(`Signed in as ${res.user.name} (${res.user.role.toUpperCase()})`);
+    notify(`Signed in as ${res.user.name} (${formatRole(res.user.role)})`);
 
     // Jump to role portal
     if (res.user.role === "student") {
@@ -2501,7 +2512,7 @@ function openFeeReminderModal(studentId) {
 
   // Prefill personalized professional message template
   const messageBox = document.getElementById("remindMessageText");
-  const template = `Dear ${s.name} (${s.class || "Class 12"}),\n\nGreetings from Northstar Academy. This is a payment reminder for your tuition fee installment of ${rupees(s.amount)} for ${s.course}, due on ${s.due}.\n\nKindly complete the payment via UPI or at our center admissions desk.\n\nHelpline: +91 90000 00000\nThank you!\nNorthstar Academy Admin`;
+  const template = `Dear ${s.name} (${s.class || "Class 12"}),\n\nGreetings from Divine Coaching. This is a payment reminder for your tuition fee installment of ${rupees(s.amount)} for ${s.course}, due on ${s.due}.\n\nKindly complete the payment via UPI or at our center admissions desk.\n\nHelpline: +91 90000 00000\nThank you!\nDivine Coaching Admin`;
   if (messageBox) messageBox.value = template;
 
   // Last sent text

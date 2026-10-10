@@ -689,7 +689,7 @@ async function handleApi(request, response, url) {
       const body = await readBody(request);
       const name = validateText(body.name, "Name", 80);
       const achievement = validateText(body.achievement, "Achievement / Class", 100);
-      const school = validateText(body.school, "School name", 120, true) || "Northstar Academy";
+      const school = validateText(body.school, "School name", 120, true) || "Divine Coaching";
       const quote = validateText(body.quote, "Testimonial review", 1000);
       const category = validateText(body.category || "iit-jee", "Category", 40);
       const rating = Math.min(5, Math.max(1, Number(body.rating) || 5));
@@ -815,4 +815,4 @@ const server = http.createServer(async (request, response) => {
   }
 });
 
-server.listen(port, () => console.log(`Northstar Academy is running at http://localhost:${port}`));
+server.listen(port, () => console.log(`Divine Coaching is running at http://localhost:${port}`));
