@@ -4,8 +4,19 @@ echo "\033[1;36m========================================================\033[0m"
 echo "\033[1;32m         🌐 NETLIFY AUTOMATION: 1-CLICK DEPLOY           \033[0m"
 echo "\033[1;36m========================================================\033[0m"
 echo ""
-echo "Drag & drop your project folder into this window and press [ENTER]"
-echo "(or just press [ENTER] to deploy the current folder):"
+SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
+
+if [[ -n "$CALLING_PROJECT_DIR" && -d "$CALLING_PROJECT_DIR" && "$CALLING_PROJECT_DIR" != "$SCRIPT_DIR" && "$CALLING_PROJECT_DIR" != "$HOME" && "$CALLING_PROJECT_DIR" != "$HOME/Desktop" ]]; then
+  DEFAULT_FOLDER="$CALLING_PROJECT_DIR"
+  FOLDER_LABEL=$(basename "$DEFAULT_FOLDER")
+  echo "Current project: \033[1;32m$FOLDER_LABEL\033[0m ($DEFAULT_FOLDER)"
+  echo "Press [ENTER] to deploy this project, or drag & drop another folder ('b' to go back):"
+else
+  DEFAULT_FOLDER=$(cd "$SCRIPT_DIR/.." && pwd)
+  echo "Drag & drop your project folder into this window and press [ENTER]"
+  echo "(or just press [ENTER] to deploy the current folder):"
+fi
+
 printf "\033[1;33mFolder path: \033[0m"
 read TARGET_FOLDER
 
@@ -17,10 +28,7 @@ if [[ "$TARGET_FOLDER" == "b" || "$TARGET_FOLDER" == "B" || "$TARGET_FOLDER" == 
 fi
 
 if [[ -z "$TARGET_FOLDER" ]]; then
-  # Use parent directory of this script if placed inside a project
-  SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
-  PARENT_DIR=$(cd "$SCRIPT_DIR/.." && pwd)
-  TARGET_FOLDER="$PARENT_DIR"
+  TARGET_FOLDER="$DEFAULT_FOLDER"
 fi
 
 if [[ ! -d "$TARGET_FOLDER" ]]; then

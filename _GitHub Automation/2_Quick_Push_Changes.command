@@ -4,7 +4,18 @@ echo "\033[1;36m========================================================\033[0m"
 echo "\033[1;32m         ⚡ GITHUB AUTOMATION: QUICK SYNC / PUSH        \033[0m"
 echo "\033[1;36m========================================================\033[0m"
 echo ""
-echo "Drag & drop project folder (or press [ENTER] for current project, 'b' to go back):"
+SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
+
+if [[ -n "$CALLING_PROJECT_DIR" && -d "$CALLING_PROJECT_DIR" && "$CALLING_PROJECT_DIR" != "$SCRIPT_DIR" && "$CALLING_PROJECT_DIR" != "$HOME" && "$CALLING_PROJECT_DIR" != "$HOME/Desktop" ]]; then
+  DEFAULT_FOLDER="$CALLING_PROJECT_DIR"
+  FOLDER_LABEL=$(basename "$DEFAULT_FOLDER")
+  echo "Current project: \033[1;32m$FOLDER_LABEL\033[0m ($DEFAULT_FOLDER)"
+  echo "Press [ENTER] to sync this project, or drag & drop another folder ('b' to go back):"
+else
+  DEFAULT_FOLDER=$(cd "$SCRIPT_DIR/.." && pwd)
+  echo "Drag & drop project folder (or press [ENTER] for current project, 'b' to go back):"
+fi
+
 printf "\033[1;33mFolder path: \033[0m"
 read TARGET_FOLDER
 
@@ -16,8 +27,7 @@ if [[ "$TARGET_FOLDER" == "b" || "$TARGET_FOLDER" == "B" || "$TARGET_FOLDER" == 
 fi
 
 if [[ -z "$TARGET_FOLDER" ]]; then
-  SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
-  TARGET_FOLDER=$(cd "$SCRIPT_DIR/.." && pwd)
+  TARGET_FOLDER="$DEFAULT_FOLDER"
 fi
 
 if [[ ! -d "$TARGET_FOLDER" ]]; then
