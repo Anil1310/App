@@ -1,8 +1,8 @@
 {
   "summary": {
-    "collected": 350500,
-    "outstanding": 52800,
-    "paymentCount": 21,
+    "collected": 353500,
+    "outstanding": 49800,
+    "paymentCount": 22,
     "target": 450000,
     "attendance": 92.3,
     "classesToday": 20
@@ -45,8 +45,8 @@
       "enrolledDate": "2026-06-20",
       "totalFee": 42000,
       "due": "Oct 12, 2026",
-      "amount": 3000,
-      "status": "Partial",
+      "amount": 0,
+      "status": "Paid",
       "lastRemindedAt": null,
       "avatar": "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=200&q=80",
       "password": "student123",
@@ -69,7 +69,7 @@
       "due": "Oct 14, 2026",
       "amount": 4500,
       "status": "Partial",
-      "lastRemindedAt": null,
+      "lastRemindedAt": "Today at 12:07 am",
       "avatar": "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=200&q=80",
       "password": "student123",
       "school": "St. Xavier's High School, Fort"
@@ -135,7 +135,7 @@
       "due": "Oct 19, 2026",
       "amount": 6000,
       "status": "Partial",
-      "lastRemindedAt": null,
+      "lastRemindedAt": "Today at 11:09 pm",
       "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80",
       "password": "student123",
       "school": "Dhirubhai Ambani International School"
@@ -454,6 +454,7 @@
       "id": "tch-1001",
       "name": "Priya Menon",
       "initials": "PM",
+      "avatar": "https://images.unsplash.com/photo-1573496799652-408c2ac9fe98?auto=format&fit=crop&w=200&q=80",
       "color": "#e5dbf2",
       "phone": "+91 90000 00001",
       "email": "priya.menon@northstar.edu",
@@ -465,9 +466,7 @@
       ],
       "experienceYears": 8,
       "availability": "Mon–Sat · 9:00 am–6:00 pm",
-      "status": "Active",
-      "avatar": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80",
-      "password": "teacher123"
+      "status": "Active"
     },
     {
       "id": "tch-1002",
@@ -880,7 +879,7 @@
       "location": "Room 04 (Seminar Room)",
       "students": 12,
       "teacher": "Aditi Shah",
-      "live": false,
+      "live": true,
       "days": [
         "Wed",
         "Fri",
@@ -1359,6 +1358,17 @@
       "method": "UPI",
       "note": "",
       "collectedBy": "Alex Morgan"
+    },
+    {
+      "receipt": "NSA-4451350",
+      "studentId": "stu-1002",
+      "student": "Arjun Patel",
+      "course": "Physics · Grade 12",
+      "amount": 3000,
+      "date": "10 Oct 2026",
+      "method": "UPI",
+      "note": "",
+      "collectedBy": "Alex Morgan"
     }
   ],
   "attendance": [
@@ -1447,6 +1457,30 @@
     }
   ],
   "notifications": [
+    {
+      "id": "notif-1791657422518",
+      "title": "Fee Reminder Dispatched",
+      "message": "Sent WHATSAPP reminder to Meera Nair (+91 98203 34567) for ₹4,500.",
+      "time": "Just now",
+      "type": "info",
+      "read": true
+    },
+    {
+      "id": "notif-1791654451356",
+      "title": "Fee Payment Logged",
+      "message": "Recorded payment of ₹3,000 from Arjun Patel.",
+      "time": "Just now",
+      "type": "success",
+      "read": true
+    },
+    {
+      "id": "notif-1791653985128",
+      "title": "Fee Reminder Dispatched",
+      "message": "Sent WHATSAPP reminder to Dev Malhotra (+91 98206 67890) for ₹6,000.",
+      "time": "Just now",
+      "type": "info",
+      "read": true
+    },
     {
       "id": "notif-1791651374932",
       "title": "Fee Payment Logged",

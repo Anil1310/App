@@ -2,8 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="theme-color" content="#4f46e5">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="format-detection" content="telephone=no">
   <meta name="description" content="Divine Coaching — Comprehensive coaching class management system for students, faculty, scheduling, attendance, and fee ledgers.">
   <title>Divine Coaching — Coaching Class Management</title>
   
@@ -32,6 +36,13 @@
           <div class="brand-title">Divine</div>
           <div class="brand-badge">Coaching Portal</div>
         </div>
+        <button class="icon-btn sidebar-collapse-btn" id="sidebarInnerToggle" title="Collapse sidebar" aria-label="Collapse sidebar" style="margin-left:auto;width:32px;height:32px;background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.12);color:#cbd5e1;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;">
+            <rect x="3" y="3" width="18" height="18" rx="3"></rect>
+            <line x1="9" y1="3" x2="9" y2="21"></line>
+            <rect x="4.5" y="4.5" width="3.5" height="15" rx="1" fill="currentColor" opacity="0.35" stroke="none"></rect>
+          </svg>
+        </button>
       </div>
 
       <nav class="nav-section">
@@ -167,6 +178,13 @@
       <!-- Sticky Topbar -->
       <header class="topbar">
         <div class="topbar-left">
+          <button class="icon-btn sidebar-toggle-btn" id="sidebarToggleBtn" title="Collapse sidebar" aria-label="Toggle sidebar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="3"></rect>
+              <line x1="9" y1="3" x2="9" y2="21"></line>
+              <rect x="4.5" y="4.5" width="3.5" height="15" rx="1" fill="currentColor" opacity="0.35" stroke="none"></rect>
+            </svg>
+          </button>
           <button class="mobile-menu-toggle" id="menuToggle" aria-label="Toggle navigation">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="3" y1="12" x2="21" y2="12"/>
@@ -209,7 +227,7 @@
           </button>
 
           <!-- Quick Record Payment -->
-          <button class="btn btn-primary btn-sm" id="topRecordPaymentBtn">
+          <button class="btn btn-primary btn-sm" id="topRecordPaymentBtn" title="Record Payment" aria-label="Record Payment">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="12" y1="5" x2="12" y2="19"/>
               <line x1="5" y1="12" x2="19" y2="12"/>
@@ -217,16 +235,13 @@
             <span>Record Payment</span>
           </button>
 
-          <!-- Topbar Active User & Role Switcher -->
-          <div class="user-switch-pill" id="topUserSwitchPill" title="Switch between Admin, Teacher, and Student portals">
+          <!-- Topbar Active User & Profile -->
+          <div class="user-switch-pill" id="topUserSwitchPill" title="Account profile">
             <div class="user-avatar" id="topUserAvatar" style="width:28px;height:28px;font-size:11px;">AM</div>
             <div class="user-switch-info">
-              <strong id="topUserName">Alex Morgan</strong>
+              <strong id="topUserName">Alex</strong>
               <span id="topUserRole">Admin</span>
             </div>
-            <button class="btn btn-sm btn-secondary" id="openLoginModalBtn" style="padding:3px 8px;font-size:11px;">
-              <span>Switch / Login</span>
-            </button>
           </div>
         </div>
       </header>
@@ -2086,6 +2101,11 @@
     </svg>
     <span id="toastNoticeText"></span>
   </div>
+
+  <!-- Mobile App Bottom Navigation Bar -->
+  <nav class="mobile-bottom-nav" id="mobileBottomNav" aria-label="Mobile Navigation">
+    <!-- Populated dynamically based on user role -->
+  </nav>
 
   <!-- Scripts -->
   <script src="app.js"></script>

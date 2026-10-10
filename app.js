@@ -722,6 +722,11 @@ function setPage(pageId) {
   if (breadcrumb) breadcrumb.textContent = pageTitles[pageId] || "Overview";
   document.title = `${pageTitles[pageId] || "Portal"} — Divine Coaching`;
 
+  // Update mobile bottom nav active state
+  document.querySelectorAll(".bottom-nav-item").forEach(item => {
+    item.classList.toggle("active", item.dataset.bottomPage === pageId);
+  });
+
   // Close mobile drawer if open
   closeMobileDrawer();
 
@@ -804,7 +809,7 @@ function renderDashboard() {
     previewBody.innerHTML = list.map(student => `
       <tr>
         <td>
-          <div class="student-col">
+          <div class="student-col" onclick="viewStudentProfile('${student.id}')" title="Click to view student profile">
             <span class="student-avatar" style="background:${escapeHTML(student.color)}">${escapeHTML(student.initials)}</span>
             <div class="student-meta">
               <strong>${escapeHTML(student.name)}</strong>
@@ -942,38 +947,37 @@ function renderStudents() {
     tbody.innerHTML = filtered.length ? filtered.map(student => `
       <tr>
         <td>
-          <div class="student-col">
-            ${getAvatarHTML(student, 38)}
+          <div class="student-col" onclick="viewStudentProfile('${student.id}')" title="Click to view student profile">
+            ${getAvatarHTML(student, 34)}
             <div class="student-meta">
               <strong>${escapeHTML(student.name)} <span class="tag-pill" style="margin-left:4px;font-size:10px;">${escapeHTML(student.class || "Class 12")}</span></strong>
-              <span>${escapeHTML(student.email || student.phone)}</span>
+              <span style="font-size:11px;">${escapeHTML(student.email || student.phone)}</span>
             </div>
           </div>
         </td>
         <td>
-          <div style="font-size:12px;font-weight:600;color:var(--ink-800);">🏫 ${escapeHTML(student.school || "Delhi Public School")}</div>
+          <div style="font-size:12px;font-weight:600;color:var(--ink-800);max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${escapeHTML(student.school || "Delhi Public School")}">🏫 ${escapeHTML(student.school || "Delhi Public School")}</div>
         </td>
-        <td><span class="tag-pill">${escapeHTML(student.course)}</span></td>
+        <td><span class="tag-pill" style="white-space:nowrap;">${escapeHTML(student.course)}</span></td>
         <td>
           <a href="tel:${escapeHTML((student.phone || "").replace(/\D/g, ""))}" class="contact-pill">📱 ${escapeHTML(student.phone || "—")}</a>
         </td>
         <td>
-          <div><strong>${escapeHTML(student.parentName || "Guardian")}</strong></div>
+          <div style="font-size:12px;font-weight:600;white-space:nowrap;">${escapeHTML(student.parentName || "Guardian")}</div>
           <a href="tel:${escapeHTML((student.parentPhone || student.phone || "").replace(/\D/g, ""))}" class="contact-pill" style="margin-top:2px;">👨‍👩‍👧 ${escapeHTML(student.parentPhone || student.phone || "—")}</a>
         </td>
         <td>
-          <div style="font-size:11px;color:var(--ink-600);line-height:1.3;max-width:200px;" title="${escapeHTML(student.address || "")}">📍 ${escapeHTML(student.address || "Mumbai")}</div>
+          <div style="font-size:11px;color:var(--ink-600);line-height:1.3;max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${escapeHTML(student.address || "")}">📍 ${escapeHTML(student.address || "Mumbai")}</div>
         </td>
-        <td>${escapeHTML(student.due)}</td>
-        <td><strong>${student.amount ? rupees(student.amount) : "₹0"}</strong></td>
+        <td><span style="white-space:nowrap;">${escapeHTML(student.due)}</span></td>
+        <td><strong style="white-space:nowrap;">${student.amount ? rupees(student.amount) : "₹0"}</strong></td>
         <td><span class="status-pill status-${student.status.toLowerCase()}">${escapeHTML(student.status)}</span></td>
         <td>
-          <div style="display:flex;gap:5px;flex-wrap:wrap;">
-            <button class="btn btn-sm btn-secondary" onclick="viewStudentProfile('${student.id}')" title="View details">Profile</button>
-            ${student.amount > 0 ? `<button class="btn btn-sm btn-whatsapp" onclick="openFeeReminderModal('${student.id}')" title="Send WhatsApp/SMS Fee Reminder">💬 Remind</button>` : ""}
-            ${isAdmin && student.amount > 0 ? `<button class="btn btn-sm btn-primary" onclick="openPaymentModal('${student.id}')">Pay</button>` : ""}
-            ${isAdmin ? `<button class="btn btn-sm btn-secondary" onclick="editStudentModal('${student.id}')" title="Edit student">Edit</button>` : ""}
-            ${isAdmin ? `<button class="btn btn-sm btn-danger" onclick="confirmDeleteStudent('${student.id}')" title="Delete">✕</button>` : ""}
+          <div class="actions-cell-group" style="display:inline-flex;align-items:center;gap:4px;flex-wrap:nowrap;white-space:nowrap;">
+            ${student.amount > 0 ? `<button class="btn btn-xs btn-whatsapp" onclick="openFeeReminderModal('${student.id}')" title="Send WhatsApp/SMS Fee Reminder">💬 Remind</button>` : ""}
+            ${isAdmin && student.amount > 0 ? `<button class="btn btn-xs btn-primary" onclick="openPaymentModal('${student.id}')">Pay</button>` : ""}
+            ${isAdmin ? `<button class="btn btn-xs btn-secondary" onclick="editStudentModal('${student.id}')" title="Edit student">Edit</button>` : ""}
+            ${isAdmin ? `<button class="btn btn-xs btn-danger" onclick="confirmDeleteStudent('${student.id}')" title="Delete" style="padding:0 6px;">✕</button>` : ""}
           </div>
         </td>
       </tr>
@@ -1217,11 +1221,13 @@ function renderTeachers() {
       return `
         <article class="teacher-card">
           <div class="teacher-top">
-            ${getAvatarHTML(t, 48)}
+            <div onclick="openTeacherModal('${t.id}')" style="cursor:pointer;" title="Click to view/edit teacher profile">
+              ${getAvatarHTML(t, 48)}
+            </div>
             <span class="status-pill status-${t.status === "Active" ? "paid" : "partial"}">${escapeHTML(t.status)}</span>
           </div>
 
-          <h3>${escapeHTML(t.name)}</h3>
+          <h3 onclick="openTeacherModal('${t.id}')" style="cursor:pointer;" title="Click to view/edit teacher profile">${escapeHTML(t.name)}</h3>
           <div class="teacher-qual">${escapeHTML(t.qualification)}</div>
 
           <div class="tag-list">
@@ -1955,16 +1961,26 @@ function formatRole(r) {
   return r.charAt(0).toUpperCase() + r.slice(1).toLowerCase();
 }
 
+function getFirstName(fullName) {
+  if (!fullName) return "";
+  const parts = fullName.trim().split(/\s+/);
+  if (parts.length > 1 && /^(dr\.?|mr\.?|mrs\.?|ms\.?|prof\.?)$/i.test(parts[0])) {
+    return parts[1];
+  }
+  return parts[0];
+}
+
 function updateUserUI() {
   const u = state.currentUser || { role: "admin", name: "Alex Morgan", initials: "AM", title: "Admin" };
   const role = (u.role || "admin").toLowerCase();
   const displayRole = formatRole(role);
 
-  // Topbar Profile
+  // Topbar Profile (First Name Only)
   const topName = document.getElementById("topUserName");
   const topRole = document.getElementById("topUserRole");
   const topAvatar = document.getElementById("topUserAvatar");
-  if (topName) topName.textContent = u.name;
+  const firstName = getFirstName(u.name);
+  if (topName) topName.textContent = firstName || u.name;
   if (topRole) topRole.textContent = displayRole;
   if (topAvatar) {
     if (u.avatar) {
@@ -2116,6 +2132,166 @@ function updateUserUI() {
   if (markAllBtn) markAllBtn.style.display = role === "student" ? "none" : "inline-flex";
   if (saveAttBtn) saveAttBtn.style.display = role === "student" ? "none" : "inline-flex";
   if (notifyAbsBtn) notifyAbsBtn.style.display = role === "student" ? "none" : "inline-flex";
+
+  updateMobileBottomNav();
+}
+
+// Mobile Bottom Navigation Bar Controller
+function updateMobileBottomNav() {
+  const role = (state.currentUser?.role || "admin").toLowerCase();
+  const navWrap = document.getElementById("mobileBottomNav");
+  if (!navWrap) return;
+
+  if (role === "teacher") {
+    navWrap.innerHTML = `
+      <button class="bottom-nav-item" data-bottom-page="teacher-portal" id="bnav-home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+        </svg>
+        <span>Faculty Hub</span>
+      </button>
+      <button class="bottom-nav-item" data-bottom-page="classes">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+          <line x1="16" y1="2" x2="16" y2="6"/>
+          <line x1="8" y1="2" x2="8" y2="6"/>
+          <line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+        <span>Classes</span>
+      </button>
+      <button class="bottom-nav-item" data-bottom-page="attendance">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 11l3 3L22 4"/>
+          <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+        </svg>
+        <span>Attendance</span>
+      </button>
+      <button class="bottom-nav-item" data-bottom-page="students">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+        <span>Students</span>
+      </button>
+      <button class="bottom-nav-item" id="bnav-menu" title="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+        <span>Menu</span>
+      </button>
+    `;
+  } else if (role === "student") {
+    navWrap.innerHTML = `
+      <button class="bottom-nav-item" data-bottom-page="student-portal" id="bnav-home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+          <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+        </svg>
+        <span>My Portal</span>
+      </button>
+      <button class="bottom-nav-item" data-bottom-page="classes">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+          <line x1="16" y1="2" x2="16" y2="6"/>
+          <line x1="8" y1="2" x2="8" y2="6"/>
+          <line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+        <span>Timetable</span>
+      </button>
+      <button class="bottom-nav-item" data-bottom-page="attendance">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 11l3 3L22 4"/>
+          <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+        </svg>
+        <span>Attendance</span>
+      </button>
+      <button class="bottom-nav-item" data-bottom-page="gallery">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <polyline points="21 15 16 10 5 21"/>
+        </svg>
+        <span>Campus</span>
+      </button>
+      <button class="bottom-nav-item" id="bnav-menu" title="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+        <span>Menu</span>
+      </button>
+    `;
+  } else {
+    // Admin
+    navWrap.innerHTML = `
+      <button class="bottom-nav-item" data-bottom-page="dashboard" id="bnav-home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="7" height="9" rx="1.5"/>
+          <rect x="14" y="3" width="7" height="5" rx="1.5"/>
+          <rect x="14" y="12" width="7" height="9" rx="1.5"/>
+          <rect x="3" y="16" width="7" height="5" rx="1.5"/>
+        </svg>
+        <span>Overview</span>
+      </button>
+      <button class="bottom-nav-item" data-bottom-page="students">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+        <span>Students</span>
+      </button>
+      <button class="bottom-nav-item" data-bottom-page="classes">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+          <line x1="16" y1="2" x2="16" y2="6"/>
+          <line x1="8" y1="2" x2="8" y2="6"/>
+          <line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+        <span>Classes</span>
+      </button>
+      <button class="bottom-nav-item" data-bottom-page="fees">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+          <line x1="1" y1="10" x2="23" y2="10"/>
+        </svg>
+        <span>Fees</span>
+      </button>
+      <button class="bottom-nav-item" id="bnav-menu" title="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+        <span>Menu</span>
+      </button>
+    `;
+  }
+
+  // Bind clicks
+  navWrap.querySelectorAll("[data-bottom-page]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      setPage(btn.dataset.bottomPage);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  });
+
+  navWrap.querySelector("#bnav-menu")?.addEventListener("click", () => {
+    document.getElementById("sidebar")?.classList.toggle("open");
+    document.getElementById("drawerOverlay")?.classList.toggle("open");
+  });
+
+  // Highlight active
+  navWrap.querySelectorAll(".bottom-nav-item").forEach(item => {
+    item.classList.toggle("active", item.dataset.bottomPage === state.activePage);
+  });
 }
 
 function openLoginModal(targetRole = "admin") {
@@ -3017,13 +3193,48 @@ function bindEvents() {
     btn.addEventListener("click", () => setPage(btn.dataset.nav));
   });
 
-  // Mobile drawer toggle
-  document.getElementById("menuToggle")?.addEventListener("click", () => {
-    document.getElementById("sidebar")?.classList.toggle("open");
-    document.getElementById("drawerOverlay")?.classList.toggle("open");
-  });
+  // Sidebar Expand / Collapse Toggle (Desktop collapse & Mobile drawer)
+  function toggleSidebar() {
+    if (window.innerWidth <= 900) {
+      document.getElementById("sidebar")?.classList.toggle("open");
+      document.getElementById("drawerOverlay")?.classList.toggle("open");
+    } else {
+      const isCollapsed = document.body.classList.toggle("sidebar-collapsed");
+      localStorage.setItem("divine_sidebar_collapsed", isCollapsed ? "1" : "0");
+      updateSidebarTooltips();
+    }
+  }
 
+  function updateSidebarTooltips() {
+    const isCollapsed = document.body.classList.contains("sidebar-collapsed");
+    const label = isCollapsed ? "Expand sidebar (⌘B)" : "Collapse sidebar (⌘B)";
+    const topBtn = document.getElementById("sidebarToggleBtn");
+    const innerBtn = document.getElementById("sidebarInnerToggle");
+    if (topBtn) topBtn.title = label;
+    if (innerBtn) innerBtn.title = label;
+  }
+
+  // Restore saved collapse state on desktop
+  if (window.innerWidth > 900 && localStorage.getItem("divine_sidebar_collapsed") === "1") {
+    document.body.classList.add("sidebar-collapsed");
+    updateSidebarTooltips();
+  }
+
+  document.getElementById("sidebarToggleBtn")?.addEventListener("click", toggleSidebar);
+  document.getElementById("sidebarInnerToggle")?.addEventListener("click", toggleSidebar);
+  document.getElementById("menuToggle")?.addEventListener("click", toggleSidebar);
   document.getElementById("drawerOverlay")?.addEventListener("click", closeMobileDrawer);
+
+  // Shortcut: Cmd/Ctrl + B to toggle sidebar
+  document.addEventListener("keydown", e => {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "b") {
+      const tag = document.activeElement?.tagName?.toLowerCase();
+      if (tag !== "input" && tag !== "textarea") {
+        e.preventDefault();
+        toggleSidebar();
+      }
+    }
+  });
 
   // Notifications
   document.getElementById("notifBtn")?.addEventListener("click", toggleNotifDrawer);
@@ -3165,6 +3376,7 @@ function bindEvents() {
   document.getElementById("printReportBtn")?.addEventListener("click", () => window.print());
 
   // Login & Multi-Role Events
+  document.getElementById("topUserSwitchPill")?.addEventListener("click", () => openLoginModal());
   document.getElementById("openLoginModalBtn")?.addEventListener("click", () => openLoginModal());
   document.getElementById("sidebarUserSnippet")?.addEventListener("click", () => openLoginModal());
   document.getElementById("sidebarLogoutBtn")?.addEventListener("click", e => {
