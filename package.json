@@ -1,0 +1,12 @@
+{
+  "name": "northstar-coaching-demo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Full-stack coaching class management demo",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,0 +1,2093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#4f46e5">
+  <meta name="description" content="Northstar Academy — Comprehensive coaching class management system for students, faculty, scheduling, attendance, and fee ledgers.">
+  <title>Northstar Academy — Coaching Class Management</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Modern Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <!-- Overlay for mobile drawer -->
+    <div class="modal-overlay" id="drawerOverlay" style="z-index: 45;"></div>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar" aria-label="Main Navigation">
+      <div class="brand">
+        <div class="brand-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title">Northstar</div>
+          <div class="brand-badge">Academy Portal</div>
+        </div>
+      </div>
+
+      <nav class="nav-section">
+        <div class="nav-heading" id="sidebarNavHeading">Workspace</div>
+        <button class="nav-btn active" data-page="dashboard" id="nav-dashboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="9" rx="1.5"/>
+            <rect x="14" y="3" width="7" height="5" rx="1.5"/>
+            <rect x="14" y="12" width="7" height="9" rx="1.5"/>
+            <rect x="3" y="16" width="7" height="5" rx="1.5"/>
+          </svg>
+          <span>Overview</span>
+        </button>
+
+        <button class="nav-btn" data-page="students" id="nav-students">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+          <span>Students</span>
+          <span class="nav-badge" id="studentsBadge">20</span>
+        </button>
+
+        <button class="nav-btn" data-page="teachers" id="nav-teachers">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <line x1="19" y1="8" x2="19" y2="14"/>
+            <line x1="22" y1="11" x2="16" y2="11"/>
+          </svg>
+          <span>Teachers</span>
+          <span class="nav-badge" id="teachersBadge">20</span>
+        </button>
+
+        <button class="nav-btn" data-page="classes" id="nav-classes">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+          <span>Classes &amp; Timetable</span>
+          <span class="nav-badge" id="classesBadge">20</span>
+        </button>
+
+        <button class="nav-btn" data-page="attendance" id="nav-attendance">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 11l3 3L22 4"/>
+            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+          </svg>
+          <span>Attendance</span>
+          <span class="nav-badge" id="attendanceBadge">20</span>
+        </button>
+
+        <button class="nav-btn" data-page="fees" id="nav-fees">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <line x1="2" y1="10" x2="22" y2="10"/>
+            <circle cx="7" cy="15" r="1"/>
+          </svg>
+          <span>Fees &amp; Ledger</span>
+          <span class="nav-badge" id="feesBadge">20</span>
+        </button>
+
+        <button class="nav-btn" data-page="reports" id="nav-reports">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="20" x2="18" y2="10"/>
+            <line x1="12" y1="20" x2="12" y2="4"/>
+            <line x1="6" y1="20" x2="6" y2="14"/>
+          </svg>
+          <span>Reports &amp; Stats</span>
+          <span class="nav-badge" id="reportsBadge">20</span>
+        </button>
+        <button class="nav-btn" data-page="teacher-portal" id="nav-teacher-portal" style="display:none;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+          </svg>
+          <span>My Faculty Hub</span>
+        </button>
+
+        <button class="nav-btn" data-page="student-portal" id="nav-student-portal" style="display:none;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+          </svg>
+          <span>My Student Portal</span>
+        </button>
+
+        <div class="nav-heading" style="margin-top:14px;">Campus &amp; Community</div>
+
+        <button class="nav-btn" data-page="testimonials" id="nav-testimonials">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+          </svg>
+          <span>Testimonials</span>
+          <span class="nav-badge" id="testimonialsBadge">12</span>
+        </button>
+
+        <button class="nav-btn" data-page="gallery" id="nav-gallery">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <polyline points="21 15 16 10 5 21"/>
+          </svg>
+          <span>Photo Gallery</span>
+          <span class="nav-badge" id="galleryBadge">16</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-snippet" id="sidebarUserSnippet" style="cursor:pointer;" title="Click to Switch Account or Sign Out">
+          <div class="user-avatar" id="sidebarUserAvatar">AM</div>
+          <div class="user-info">
+            <strong id="sidebarUserName">Alex Morgan</strong>
+            <span id="sidebarUserRole">Admin &bull; Main Branch</span>
+          </div>
+          <button class="icon-btn" id="sidebarLogoutBtn" title="Switch Account / Logout" style="margin-left:auto;width:28px;height:28px;padding:4px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+              <polyline points="16 17 21 12 16 7"/>
+              <line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main App Body -->
+    <div class="main-wrapper">
+      <!-- Sticky Topbar -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="mobile-menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="12" x2="21" y2="12"/>
+              <line x1="3" y1="6" x2="21" y2="6"/>
+              <line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+          </button>
+          <div class="breadcrumbs">
+            <span>Workspace</span>
+            <span>/</span>
+            <strong id="activeBreadcrumb">Overview</strong>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <!-- Universal Search -->
+          <div class="search-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <input type="search" class="search-input" id="globalSearch" placeholder="Search students, faculty, classes..." aria-label="Universal search">
+            <span class="search-shortcut">/</span>
+          </div>
+
+          <!-- Theme Switcher -->
+          <button class="icon-btn" id="themeToggle" title="Toggle Light / Dark mode" aria-label="Toggle theme">
+            <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+          </button>
+
+          <!-- Notification Drawer Toggle -->
+          <button class="icon-btn" id="notifBtn" title="Notifications" aria-label="View notifications">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+            </svg>
+            <span class="badge-dot" id="notifDot"></span>
+          </button>
+
+          <!-- Quick Record Payment -->
+          <button class="btn btn-primary btn-sm" id="topRecordPaymentBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="5" x2="12" y2="19"/>
+              <line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            <span>Record Payment</span>
+          </button>
+
+          <!-- Topbar Active User & Role Switcher -->
+          <div class="user-switch-pill" id="topUserSwitchPill" title="Switch between Admin, Teacher, and Student portals">
+            <div class="user-avatar" id="topUserAvatar" style="width:28px;height:28px;font-size:11px;">AM</div>
+            <div class="user-switch-info">
+              <strong id="topUserName">Alex Morgan</strong>
+              <span id="topUserRole">Admin</span>
+            </div>
+            <button class="btn btn-sm btn-secondary" id="openLoginModalBtn" style="padding:3px 8px;font-size:11px;">
+              <span>Switch / Login</span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Notification Center Drawer -->
+      <div class="notif-drawer" id="notifDrawer">
+        <div class="notif-header">
+          <h4>Notifications</h4>
+          <button class="text-btn" id="markAllReadBtn">Mark all read</button>
+        </div>
+        <div class="notif-list" id="notifList">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+
+      <!-- Main Page Container -->
+      <main class="page-container">
+
+        <!-- =================================================================
+             PAGE 1: OVERVIEW / DASHBOARD
+             ================================================================= -->
+        <section class="page-view active" id="dashboardView">
+          <div class="page-head">
+            <div>
+              <div class="page-eyebrow" id="currentDateStr">Saturday, October 10, 2026</div>
+              <h1 class="page-title">Good morning, Alex ✦</h1>
+              <p class="page-subtitle">Here is a complete operational pulse of Northstar Academy today.</p>
+            </div>
+            <div class="head-actions">
+              <button class="btn btn-secondary" id="exportSummaryBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                  <polyline points="7 10 12 15 17 10"/>
+                  <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                <span>Export Summary</span>
+              </button>
+              <button class="btn btn-primary" id="dashRecordPaymentBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="12" y1="5" x2="12" y2="19"/>
+                  <line x1="5" y1="12" x2="19" y2="12"/>
+                </svg>
+                <span>Record a Payment</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick Action Bar -->
+          <div class="quick-action-bar">
+            <div class="quick-action-card" id="qaRecordPayment">
+              <div class="qa-icon tint-green">₹</div>
+              <div class="qa-info">
+                <strong>Record Fee Payment</strong>
+                <span>Issue digital receipt</span>
+              </div>
+            </div>
+            <div class="quick-action-card" id="qaAddStudent">
+              <div class="qa-icon tint-indigo">＋</div>
+              <div class="qa-info">
+                <strong>Enroll Student</strong>
+                <span>Add new student to batch</span>
+              </div>
+            </div>
+            <div class="quick-action-card" id="qaScheduleClass">
+              <div class="qa-icon tint-amber">▦</div>
+              <div class="qa-info">
+                <strong>Schedule Class</strong>
+                <span>Assign teacher &amp; time</span>
+              </div>
+            </div>
+            <div class="quick-action-card" id="qaTakeAttendance">
+              <div class="qa-icon tint-rose">✓</div>
+              <div class="qa-info">
+                <strong>Mark Attendance</strong>
+                <span>Today's live session</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Key Metrics Grid -->
+          <div class="stat-grid">
+            <article class="stat-card primary">
+              <div class="stat-head">
+                <span class="stat-label">Total Enrolled</span>
+                <span class="stat-icon tint-indigo">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                  </svg>
+                </span>
+              </div>
+              <div class="stat-val" id="statTotalStudents">20</div>
+              <div class="stat-foot">
+                <span class="trend-badge trend-up">↑ 18.5%</span>
+                <span>Active students across batches</span>
+              </div>
+            </article>
+
+            <article class="stat-card success">
+              <div class="stat-head">
+                <span class="stat-label">Fees Collected</span>
+                <span class="stat-icon tint-green">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="1" x2="12" y2="23"/>
+                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                  </svg>
+                </span>
+              </div>
+              <div class="stat-val" id="statFeesCollected">₹3,48,500</div>
+              <div class="stat-foot">
+                <span class="trend-badge trend-up">↑ 16.8%</span>
+                <span>This month vs last month</span>
+              </div>
+            </article>
+
+            <article class="stat-card warning">
+              <div class="stat-head">
+                <span class="stat-label">Outstanding Balance</span>
+                <span class="stat-icon tint-amber">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12 6 12 12 16 14"/>
+                  </svg>
+                </span>
+              </div>
+              <div class="stat-val" id="statOutstanding">₹53,300</div>
+              <div class="stat-foot">
+                <span class="trend-badge trend-down" id="statOwingCount">11 students</span>
+                <span>require payment follow-up</span>
+              </div>
+            </article>
+
+            <article class="stat-card danger">
+              <div class="stat-head">
+                <span class="stat-label">Attendance Rate</span>
+                <span class="stat-icon tint-rose">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                    <polyline points="22 4 12 14.01 9 11.01"/>
+                  </svg>
+                </span>
+              </div>
+              <div class="stat-val" id="statAttendance">95.2%</div>
+              <div class="stat-foot">
+                <span class="trend-badge trend-up">Target 90%+</span>
+                <span>Avg across 20 batches</span>
+              </div>
+            </article>
+          </div>
+
+          <!-- 2-Column Dashboard Grid -->
+          <div class="dashboard-grid">
+            <!-- Left Stack -->
+            <div class="stack">
+              <!-- Fee Collection Bar Chart -->
+              <section class="panel">
+                <div class="panel-head">
+                  <div>
+                    <h2 class="panel-title">Fee Collection Trends</h2>
+                    <p class="panel-desc">Monthly collections compared to last term</p>
+                  </div>
+                  <div class="tabs-group" id="chartPeriodTabs">
+                    <button class="tab-btn active" data-period="6m">6 Months</button>
+                    <button class="tab-btn" data-period="12m">12 Months</button>
+                  </div>
+                </div>
+                <div class="chart-box">
+                  <div class="chart-header-stat">
+                    <strong id="chartCollectionTotal">₹3,48,500</strong>
+                    <span class="trend-badge trend-up">↑ 16.8% this month</span>
+                  </div>
+                  <div class="chart-bars-wrap" id="chartBarsWrap">
+                    <!-- Dynamic Bars Generated by JavaScript -->
+                  </div>
+                  <div class="chart-legend">
+                    <div class="legend-item">
+                      <span class="legend-dot" style="background:#cbd5e1"></span>
+                      <span>Previous Year</span>
+                    </div>
+                    <div class="legend-item">
+                      <span class="legend-dot" style="background:var(--primary)"></span>
+                      <span>Current Year</span>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- Recent Fee Activity Table -->
+              <section class="panel">
+                <div class="panel-head">
+                  <div>
+                    <h2 class="panel-title">Student Fee Roster</h2>
+                    <p class="panel-desc">Recent student balances and payment status</p>
+                  </div>
+                  <button class="text-btn" data-nav="fees">View all in Ledger &rarr;</button>
+                </div>
+                <div class="table-responsive">
+                  <table class="table-modern">
+                    <thead>
+                      <tr>
+                        <th>Student</th>
+                        <th>Course / Grade</th>
+                        <th>Due Date</th>
+                        <th>Balance</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody id="dashStudentsTableBody">
+                      <!-- Populated via JS -->
+                    </tbody>
+                  </table>
+                </div>
+                <div class="table-foot">
+                  <span id="dashStudentsFootText">Showing active students</span>
+                  <button class="text-btn" data-nav="students">Manage all 20 students &rarr;</button>
+                </div>
+              </section>
+            </div>
+
+            <!-- Right Stack -->
+            <div class="stack">
+              <!-- Monthly Target Progress -->
+              <section class="panel">
+                <div class="panel-head">
+                  <div>
+                    <h2 class="panel-title">October Collection Goal</h2>
+                    <p class="panel-desc">Target: ₹4,50,000</p>
+                  </div>
+                  <button class="text-btn" id="targetDetailsBtn">Details</button>
+                </div>
+                <div class="target-widget">
+                  <div class="target-numbers">
+                    <span>Progress</span>
+                    <strong id="targetProgressPct">77% Completed</strong>
+                  </div>
+                  <div class="progress-track">
+                    <div class="progress-fill" id="targetProgressBar" style="width: 77%;"></div>
+                  </div>
+                  <div class="target-caption" id="targetCaptionText">
+                    ₹3,48,500 collected &bull; ₹1,01,500 remaining to target
+                  </div>
+                </div>
+              </section>
+
+              <!-- Today's Classes Timetable -->
+              <section class="panel">
+                <div class="panel-head">
+                  <div>
+                    <h2 class="panel-title">Today's Class Schedule</h2>
+                    <p class="panel-desc" id="todayScheduleCount">20 sessions scheduled</p>
+                  </div>
+                  <button class="text-btn" data-nav="classes">Full Schedule &rarr;</button>
+                </div>
+                <div class="session-list" id="dashTodayClasses">
+                  <!-- Generated by JS -->
+                </div>
+              </section>
+
+              <!-- Fee Reminders Alert Box -->
+              <section class="panel">
+                <div class="panel-head">
+                  <div>
+                    <h2 class="panel-title">Pending Payment Reminders</h2>
+                    <p class="panel-desc">Students with upcoming or overdue fees</p>
+                  </div>
+                  <button class="btn btn-sm btn-primary" id="blastRemindersBtn">Send All</button>
+                </div>
+                <div class="alert-list" id="dashRemindersList">
+                  <!-- Generated by JS -->
+                </div>
+              </section>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- =================================================================
+             PAGE 2: STUDENTS MANAGEMENT (20 RECORDS)
+             ================================================================= -->
+        <section class="page-view" id="studentsView">
+          <div class="page-head">
+            <div>
+              <div class="page-eyebrow">Student Roster &amp; Profiles</div>
+              <h1 class="page-title">Students (20)</h1>
+              <p class="page-subtitle">Manage enrolled students, academic courses, guardian contacts, and fee balances.</p>
+            </div>
+            <div class="head-actions">
+              <button class="btn btn-secondary" id="exportStudentsBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                  <polyline points="7 10 12 15 17 10"/>
+                  <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                <span>Export CSV</span>
+              </button>
+              <button class="btn btn-primary" id="addStudentBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="12" y1="5" x2="12" y2="19"/>
+                  <line x1="5" y1="12" x2="19" y2="12"/>
+                </svg>
+                <span>Enroll Student</span>
+              </button>
+            </div>
+          </div>
+
+          <section class="panel">
+            <div class="filter-toolbar">
+              <div class="tabs-group" id="studentFilterTabs">
+                <button class="tab-btn active" data-filter="all">All Students (<span id="countAllStudents">20</span>)</button>
+                <button class="tab-btn" data-filter="overdue">Overdue (<span id="countOverdueStudents">5</span>)</button>
+                <button class="tab-btn" data-filter="partial">Partial (<span id="countPartialStudents">6</span>)</button>
+                <button class="tab-btn" data-filter="paid">Paid (<span id="countPaidStudents">9</span>)</button>
+              </div>
+
+              <div class="search-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"/>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                </svg>
+                <input type="search" class="search-input" id="studentSearchInput" placeholder="Filter by name, phone, course...">
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table-modern">
+                <thead>
+                  <tr>
+                    <th>Student &amp; Class</th>
+                    <th>School Name</th>
+                    <th>Course &amp; Batch</th>
+                    <th>Student Phone</th>
+                    <th>Guardian Name &amp; Contact</th>
+                    <th>Residential Address</th>
+                    <th>Next Due</th>
+                    <th>Balance</th>
+                    <th>Fee Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="studentsTableBody">
+                  <!-- Populated by JS -->
+                </tbody>
+              </table>
+            </div>
+            <div class="table-foot">
+              <span id="studentsFootInfo">Showing 20 students</span>
+            </div>
+          </section>
+        </section>
+
+
+        <!-- =================================================================
+             PAGE 3: TEACHERS & FACULTY (20 RECORDS)
+             ================================================================= -->
+        <section class="page-view" id="teachersView">
+          <div class="page-head">
+            <div>
+              <div class="page-eyebrow">Academic Faculty</div>
+              <h1 class="page-title">Teachers &amp; Faculty (20)</h1>
+              <p class="page-subtitle">Manage faculty contacts, qualifications, assigned subjects, and schedule availability.</p>
+            </div>
+            <div class="head-actions">
+              <button class="btn btn-primary" id="addTeacherBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="12" y1="5" x2="12" y2="19"/>
+                  <line x1="5" y1="12" x2="19" y2="12"/>
+                </svg>
+                <span>Add Teacher</span>
+              </button>
+            </div>
+          </div>
+
+          <section class="panel">
+            <div class="filter-toolbar">
+              <div class="tabs-group" id="teacherFilterTabs">
+                <button class="tab-btn active" data-filter="all">All Faculty (<span id="countAllTeachers">20</span>)</button>
+                <button class="tab-btn" data-filter="active">Active (<span id="countActiveTeachers">20</span>)</button>
+                <button class="tab-btn" data-filter="leave">On Leave (0)</button>
+              </div>
+
+              <div class="search-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"/>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                </svg>
+                <input type="search" class="search-input" id="teacherSearchInput" placeholder="Filter by subject or name...">
+              </div>
+            </div>
+
+            <div class="teachers-grid" id="teachersGrid">
+              <!-- Populated by JS -->
+            </div>
+          </section>
+        </section>
+
+
+        <!-- =================================================================
+             PAGE 4: CLASSES & TIMETABLE (20 RECORDS)
+             ================================================================= -->
+        <section class="page-view" id="classesView">
+          <div class="page-head">
+            <div>
+              <div class="page-eyebrow">Class Batches &amp; Timetable</div>
+              <h1 class="page-title">Classes &amp; Schedule (20)</h1>
+              <p class="page-subtitle">Weekly timetables, classroom locations, assigned teachers, and live status.</p>
+            </div>
+            <div class="head-actions">
+              <button class="btn btn-primary" id="addClassBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="12" y1="5" x2="12" y2="19"/>
+                  <line x1="5" y1="12" x2="19" y2="12"/>
+                </svg>
+                <span>Add Class Schedule</span>
+              </button>
+            </div>
+          </div>
+
+          <section class="panel">
+            <div class="filter-toolbar">
+              <div class="tabs-group" id="classDayFilterTabs">
+                <button class="tab-btn active" data-day="all">All 20 Batches</button>
+                <button class="tab-btn" data-day="Sat">Today (Sat)</button>
+                <button class="tab-btn" data-day="Mon">Mon</button>
+                <button class="tab-btn" data-day="Tue">Tue</button>
+                <button class="tab-btn" data-day="Wed">Wed</button>
+                <button class="tab-btn" data-day="Thu">Thu</button>
+                <button class="tab-btn" data-day="Fri">Fri</button>
+              </div>
+
+              <div class="search-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"/>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                </svg>
+                <input type="search" class="search-input" id="classSearchInput" placeholder="Filter classes, subjects, rooms...">
+              </div>
+            </div>
+
+            <div class="classes-grid" id="classesGrid">
+              <!-- Populated by JS -->
+            </div>
+          </section>
+        </section>
+
+
+        <!-- =================================================================
+             PAGE 5: ATTENDANCE TRACKER (20 STUDENTS ROSTER)
+             ================================================================= -->
+        <section class="page-view" id="attendanceView">
+          <div class="page-head">
+            <div>
+              <div class="page-eyebrow">Daily Attendance Registry</div>
+              <h1 class="page-title">Attendance Tracker (20)</h1>
+              <p class="page-subtitle">Mark daily attendance for batches, monitor student presence, and alert parents.</p>
+            </div>
+            <div class="head-actions">
+              <button class="btn btn-secondary" id="markAllPresentBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                <span>Mark All Present</span>
+              </button>
+              <button class="btn btn-primary" id="saveAttendanceBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                  <polyline points="17 21 17 13 7 13 7 21"/>
+                  <polyline points="7 3 7 8 15 8"/>
+                </svg>
+                <span>Save Attendance Sheet</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Attendance Selector Header Card -->
+          <div class="attendance-header-card">
+            <div class="attendance-controls">
+              <div class="form-group">
+                <label class="form-label" for="attClassSelect">Select Batch / Class (20 Batches)</label>
+                <select class="form-select" id="attClassSelect" style="min-width: 260px;">
+                  <!-- Populated by JS -->
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="attDateInput">Session Date</label>
+                <input type="date" class="form-input" id="attDateInput">
+              </div>
+            </div>
+
+            <div class="attendance-stats-summary">
+              <div class="att-stat-item">
+                <div class="att-stat-num" id="attTotalRoster">20</div>
+                <div class="att-stat-desc">Enrolled</div>
+              </div>
+              <div class="att-stat-item">
+                <div class="att-stat-num" style="color:var(--success)" id="attPresentCount">18</div>
+                <div class="att-stat-desc">Present</div>
+              </div>
+              <div class="att-stat-item">
+                <div class="att-stat-num" style="color:var(--danger)" id="attAbsentCount">2</div>
+                <div class="att-stat-desc">Absent</div>
+              </div>
+              <div class="att-stat-item">
+                <div class="att-stat-num" style="color:var(--primary)" id="attRatePct">95.2%</div>
+                <div class="att-stat-desc">Rate</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Attendance Sheet Table -->
+          <div class="attendance-table-wrap">
+            <div class="filter-toolbar">
+              <div>
+                <strong>Class Roster (20 Students)</strong>
+                <span style="color:var(--ink-500);font-size:12px;margin-left:8px;" id="attClassMetaLabel">Advanced Mathematics &bull; Room 02</span>
+              </div>
+              <button class="btn btn-sm btn-secondary" id="notifyAbsenteesBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 2L11 13"/>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                </svg>
+                <span>Notify Absentees</span>
+              </button>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table-modern">
+                <thead>
+                  <tr>
+                    <th>Student</th>
+                    <th>Course</th>
+                    <th>Guardian Contact</th>
+                    <th>Attendance Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="attendanceRosterBody">
+                  <!-- Populated by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- =================================================================
+             PAGE 6: FEES & PAYMENTS (20 RECORDS)
+             ================================================================= -->
+        <section class="page-view" id="feesView">
+          <div class="page-head">
+            <div>
+              <div class="page-eyebrow">Finance &amp; Collections</div>
+              <h1 class="page-title">Fees &amp; Ledger (20 Transactions)</h1>
+              <p class="page-subtitle">Track student fee installments, view payment receipts, and audit collection ledger.</p>
+            </div>
+            <div class="head-actions">
+              <button class="btn btn-secondary" id="exportLedgerBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                  <polyline points="7 10 12 15 17 10"/>
+                  <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                <span>Export Ledger CSV</span>
+              </button>
+              <button class="btn btn-primary" id="feesRecordPaymentBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="12" y1="5" x2="12" y2="19"/>
+                  <line x1="5" y1="12" x2="19" y2="12"/>
+                </svg>
+                <span>Record a Payment</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Metrics grid -->
+          <div class="stat-grid">
+            <article class="stat-card success">
+              <div class="stat-head">
+                <span class="stat-label">Collected this Month</span>
+                <span class="stat-icon tint-green">₹</span>
+              </div>
+              <div class="stat-val" id="feesCollectedTotal">₹3,48,500</div>
+              <div class="stat-foot">
+                <span class="trend-badge trend-up">↑ 16.5%</span>
+                <span>October 2026</span>
+              </div>
+            </article>
+
+            <article class="stat-card warning">
+              <div class="stat-head">
+                <span class="stat-label">Outstanding Balance</span>
+                <span class="stat-icon tint-amber">◷</span>
+              </div>
+              <div class="stat-val" id="feesOutstandingTotal">₹53,300</div>
+              <div class="stat-foot">
+                <span id="feesOwingStudentsCount">11 students have balance</span>
+              </div>
+            </article>
+
+            <article class="stat-card danger">
+              <div class="stat-head">
+                <span class="stat-label">Overdue Accounts</span>
+                <span class="stat-icon tint-rose">!</span>
+              </div>
+              <div class="stat-val" id="feesOverdueTotal">5</div>
+              <div class="stat-foot">
+                <span class="trend-badge trend-down">Needs follow-up</span>
+              </div>
+            </article>
+
+            <article class="stat-card primary">
+              <div class="stat-head">
+                <span class="stat-label">Transactions Recorded</span>
+                <span class="stat-icon tint-indigo">↗</span>
+              </div>
+              <div class="stat-val" id="feesTransactionsTotal">20</div>
+              <div class="stat-foot">
+                <span>Verified payments</span>
+              </div>
+            </article>
+          </div>
+
+          <!-- Ledger Table -->
+          <section class="panel">
+            <div class="filter-toolbar">
+              <div class="tabs-group" id="feeSubtabs">
+                <button class="tab-btn active" data-subtab="balances">Student Balances (20)</button>
+                <button class="tab-btn" data-subtab="transactions">Transaction History (20)</button>
+              </div>
+
+              <div class="search-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"/>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                </svg>
+                <input type="search" class="search-input" id="feeSearchInput" placeholder="Search receipt, student...">
+              </div>
+            </div>
+
+            <!-- Balances view -->
+            <div id="feeBalancesWrap">
+              <div class="table-responsive">
+                <table class="table-modern">
+                  <thead>
+                    <tr>
+                      <th>Student</th>
+                      <th>Course</th>
+                      <th>Due Date</th>
+                      <th>Balance Due</th>
+                      <th>Fee Status</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="feeBalancesBody">
+                    <!-- Populated by JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Transactions view -->
+            <div id="feeTransactionsWrap" style="display:none;">
+              <div class="table-responsive">
+                <table class="table-modern">
+                  <thead>
+                    <tr>
+                      <th>Receipt #</th>
+                      <th>Student</th>
+                      <th>Course</th>
+                      <th>Date</th>
+                      <th>Method</th>
+                      <th>Amount</th>
+                      <th>Receipt</th>
+                    </tr>
+                  </thead>
+                  <tbody id="feeTransactionsBody">
+                    <!-- Populated by JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+        </section>
+
+
+        <!-- =================================================================
+             PAGE 7: REPORTS & ANALYTICS (20 METRICS INSIGHTS)
+             ================================================================= -->
+        <section class="page-view" id="reportsView">
+          <div class="page-head">
+            <div>
+              <div class="page-eyebrow">Executive Intelligence</div>
+              <h1 class="page-title">Reports &amp; Center Analytics (20 Batches)</h1>
+              <p class="page-subtitle">Monthly financial health, batch occupancy, faculty distribution, and attendance statistics.</p>
+            </div>
+            <div class="head-actions">
+              <button class="btn btn-secondary" id="printReportBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6 9 6 2 18 2 18 9"/>
+                  <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+                  <rect x="6" y="14" width="12" height="8"/>
+                </svg>
+                <span>Print Executive Report</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="stat-grid">
+            <article class="stat-card primary">
+              <div class="stat-head"><span class="stat-label">Average Attendance</span><span class="stat-icon tint-indigo">✓</span></div>
+              <div class="stat-val" id="repAttendance">95.2%</div>
+              <div class="stat-foot"><span class="trend-badge trend-up">↑ 3.1% vs Sep</span></div>
+            </article>
+
+            <article class="stat-card success">
+              <div class="stat-head"><span class="stat-label">Revenue Collected</span><span class="stat-icon tint-green">₹</span></div>
+              <div class="stat-val" id="repCollected">₹3,48,500</div>
+              <div class="stat-foot"><span>October Term to Date</span></div>
+            </article>
+
+            <article class="stat-card warning">
+              <div class="stat-head"><span class="stat-label">Target Completion</span><span class="stat-icon tint-amber">◎</span></div>
+              <div class="stat-val" id="repTargetPct">77%</div>
+              <div class="stat-foot"><span>Goal: ₹4,50,000</span></div>
+            </article>
+
+            <article class="stat-card danger">
+              <div class="stat-head"><span class="stat-label">Total Batches</span><span class="stat-icon tint-rose">▣</span></div>
+              <div class="stat-val" id="repBatches">20</div>
+              <div class="stat-foot"><span>385 enrolled seatings</span></div>
+            </article>
+          </div>
+
+          <div class="dashboard-grid">
+            <section class="panel">
+              <div class="panel-head">
+                <div>
+                  <h2 class="panel-title">Revenue by Subject Area</h2>
+                  <p class="panel-desc">Fee distribution across courses</p>
+                </div>
+              </div>
+              <div class="panel-body">
+                <div style="display:flex;flex-direction:column;gap:16px;" id="revenueBreakdownList">
+                  <!-- Generated by JS -->
+                </div>
+              </div>
+            </section>
+
+            <section class="panel">
+              <div class="panel-head">
+                <div>
+                  <h2 class="panel-title">Payment Method Share</h2>
+                  <p class="panel-desc">Breakdown of transaction methods</p>
+                </div>
+              </div>
+              <div class="panel-body">
+                <div style="display:flex;flex-direction:column;gap:14px;" id="paymentMethodsBreakdown">
+                  <!-- Generated by JS -->
+                </div>
+              </div>
+            </section>
+          </div>
+        </section>
+
+
+        <!-- =================================================================
+             PAGE 8: TEACHER / FACULTY PORTAL (DEDICATED VIEW)
+             ================================================================= -->
+        <section class="page-view" id="teacherPortalView">
+          <div class="page-head">
+            <div>
+              <div class="page-eyebrow">Faculty Portal</div>
+              <h1 class="page-title" id="tpTeacherTitle">Faculty Dashboard</h1>
+              <p class="page-subtitle">Your assigned class timetable, enrolled students, and direct attendance management.</p>
+            </div>
+            <div class="head-actions">
+              <button class="btn btn-secondary" id="tpSwitchBtn">Switch Faculty Account</button>
+            </div>
+          </div>
+
+          <!-- Teacher Profile Card -->
+          <div class="panel" style="margin-bottom:24px;">
+            <div class="panel-body" style="padding:24px;">
+              <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+                <div class="photo-display-circle" id="tpAvatarCircle" style="width:84px;height:84px;min-width:84px;min-height:84px;">
+                  <img id="tpAvatarImg" src="" alt="Teacher Photo" style="display:none;width:100%;height:100%;object-fit:cover;border-radius:50%;">
+                  <span id="tpAvatarInitials" class="photo-placeholder-initials" style="font-size:26px;">TC</span>
+                </div>
+                <div style="flex:1;min-width:240px;">
+                  <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+                    <h2 style="font-size:22px;margin:0;" id="tpName">Dr. Priya Menon</h2>
+                    <span class="status-pill status-paid" id="tpStatus">Active Faculty</span>
+                  </div>
+                  <div style="font-size:13px;color:var(--primary);font-weight:600;margin-top:4px;" id="tpQualification">M.Sc. Mathematics, B.Ed.</div>
+                  <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;" id="tpSubjectsTags">
+                    <!-- Populated dynamically -->
+                  </div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:8px;font-size:12px;background:var(--bg-card-subtle);padding:14px 18px;border-radius:var(--radius-md);border:1px solid var(--border-subtle);min-width:220px;">
+                  <div><span style="color:var(--ink-400);">Contact:</span> <strong id="tpPhone">+91 90000 00001</strong></div>
+                  <div><span style="color:var(--ink-400);">Email:</span> <strong id="tpEmail">teacher@northstar.edu</strong></div>
+                  <div><span style="color:var(--ink-400);">Hours:</span> <strong id="tpAvailability">Mon–Sat · 9:00 am–6:00 pm</strong></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Teacher's Assigned Classes and Timetable -->
+          <div class="dashboard-grid">
+            <section class="panel">
+              <div class="panel-head">
+                <div>
+                  <h2 class="panel-title">My Assigned Batches &amp; Timetable</h2>
+                  <p class="panel-desc" id="tpClassCount">Weekly classes</p>
+                </div>
+              </div>
+              <div class="panel-body" style="padding:16px;">
+                <div class="session-list" id="tpClassesList">
+                  <!-- Generated by JS -->
+                </div>
+              </div>
+            </section>
+
+            <section class="panel">
+              <div class="panel-head">
+                <div>
+                  <h2 class="panel-title">My Enrolled Students</h2>
+                  <p class="panel-desc">Students across your batches</p>
+                </div>
+              </div>
+              <div class="panel-body" style="padding:16px;">
+                <div class="table-responsive" style="max-height:360px;overflow-y:auto;">
+                  <table class="table-modern">
+                    <thead>
+                      <tr>
+                        <th>Student</th>
+                        <th>Class</th>
+                        <th>Course</th>
+                        <th>Student Contact</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tpStudentsTableBody">
+                      <!-- Generated by JS -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+          </div>
+        </section>
+
+
+        <!-- =================================================================
+             PAGE 9: STUDENT PERSONAL PORTAL (DEDICATED VIEW)
+             ================================================================= -->
+        <section class="page-view" id="studentPortalView">
+          <div class="page-head">
+            <div>
+              <div class="page-eyebrow">Student Academic &amp; Fee Portal</div>
+              <h1 class="page-title" id="spStudentTitle">Student Dashboard</h1>
+              <p class="page-subtitle">Personal academic schedule, verified fee ledger, payment receipts, and enrollment record.</p>
+            </div>
+            <div class="head-actions">
+              <button class="btn btn-secondary" id="spSwitchBtn">Switch Student Account</button>
+            </div>
+          </div>
+
+          <!-- Student Profile Card with Round Photo, Class & Residential Address -->
+          <div class="panel" style="margin-bottom:24px;">
+            <div class="panel-body" style="padding:24px;">
+              <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+                <div class="photo-display-circle" id="spAvatarCircle" style="width:84px;height:84px;min-width:84px;min-height:84px;">
+                  <img id="spAvatarImg" src="" alt="Student Photo" style="display:none;width:100%;height:100%;object-fit:cover;border-radius:50%;">
+                  <span id="spAvatarInitials" class="photo-placeholder-initials" style="font-size:26px;">ST</span>
+                </div>
+                <div style="flex:1;min-width:240px;">
+                  <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+                    <h2 style="font-size:22px;margin:0;" id="spName">Riya Sharma</h2>
+                    <span class="tag-pill" style="font-size:12px;font-weight:700;" id="spClassBadge">Class 12</span>
+                    <span class="status-pill status-overdue" id="spFeeStatusPill">Overdue</span>
+                  </div>
+                  <div style="font-size:13px;color:var(--primary);font-weight:600;margin-top:4px;" id="spCourse">Mathematics · Grade 12</div>
+                  <div style="font-size:12px;color:var(--ink-700);margin-top:4px;display:flex;align-items:center;gap:6px;">
+                    <span>🏫 School:</span> <strong id="spSchool">Delhi Public School, R.K. Puram</strong>
+                  </div>
+                  <div style="font-size:12px;color:var(--ink-600);margin-top:4px;display:flex;align-items:center;gap:6px;">
+                    <span>📍 Address:</span> <strong id="spAddress">B-402, Oberoi Splendor, JVLR, Andheri East, Mumbai</strong>
+                  </div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:8px;font-size:12px;background:var(--bg-card-subtle);padding:14px 18px;border-radius:var(--radius-md);border:1px solid var(--border-subtle);min-width:240px;">
+                  <div><span style="color:var(--ink-400);">Student Contact:</span> <strong id="spPhone">+91 98201 12345</strong></div>
+                  <div><span style="color:var(--ink-400);">Email:</span> <strong id="spEmail">riya.sharma@example.com</strong></div>
+                  <div><span style="color:var(--ink-400);">Guardian:</span> <strong id="spGuardian">Suresh Sharma (+91 98201 54321)</strong></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Financial Snapshot & Dues -->
+          <div class="stat-grid" style="margin-bottom:24px;">
+            <article class="stat-card danger">
+              <div class="stat-head"><span class="stat-label">Fee Balance Due</span><span class="stat-icon tint-rose">₹</span></div>
+              <div class="stat-val" id="spPendingAmount" style="color:var(--danger-text);">₹4,500</div>
+              <div class="stat-foot"><span id="spDueDateText">Due Date: Oct 05, 2026</span></div>
+            </article>
+
+            <article class="stat-card success">
+              <div class="stat-head"><span class="stat-label">Total Paid to Date</span><span class="stat-icon tint-green">✓</span></div>
+              <div class="stat-val" id="spPaidAmount">₹40,500</div>
+              <div class="stat-foot"><span>Verified installments received</span></div>
+            </article>
+
+            <article class="stat-card primary">
+              <div class="stat-head"><span class="stat-label">Annual Tuition Fee</span><span class="stat-icon tint-indigo">📋</span></div>
+              <div class="stat-val" id="spTotalFee">₹45,000</div>
+              <div class="stat-foot"><span>Full academic year</span></div>
+            </article>
+          </div>
+
+          <!-- Academic Batches and Payment History with Digital Receipts -->
+          <div class="dashboard-grid">
+            <section class="panel">
+              <div class="panel-head">
+                <div>
+                  <h2 class="panel-title">My Class Schedule &amp; Timetable</h2>
+                  <p class="panel-desc">Attending sessions &amp; room info</p>
+                </div>
+              </div>
+              <div class="panel-body" style="padding:16px;">
+                <div class="session-list" id="spScheduleList">
+                  <!-- Generated by JS -->
+                </div>
+              </div>
+            </section>
+
+            <section class="panel">
+              <div class="panel-head">
+                <div>
+                  <h2 class="panel-title">Payment History &amp; Official Receipts</h2>
+                  <p class="panel-desc">Downloadable verified fee receipts</p>
+                </div>
+                <button class="btn btn-sm btn-primary" id="spPayNowBtn">Pay Pending Fee</button>
+              </div>
+              <div class="panel-body" style="padding:16px;">
+                <div style="display:flex;flex-direction:column;gap:10px;" id="spReceiptsList">
+                  <!-- Generated by JS -->
+                </div>
+              </div>
+            </section>
+          </div>
+        </section>
+
+
+        <!-- =================================================================
+             PAGE 10: TESTIMONIALS & SUCCESS STORIES
+             ================================================================= -->
+        <section class="page-view" id="testimonialsView">
+          <div class="page-head">
+            <div>
+              <div class="page-eyebrow">Hall of Fame &amp; Feedback</div>
+              <h1 class="page-title">Student &amp; Parent Testimonials (12)</h1>
+              <p class="page-subtitle">Real success stories, verified rankers in IIT-JEE, NEET, Board examinations, and parental feedback.</p>
+            </div>
+            <div class="head-actions">
+              <button class="btn btn-primary" id="openTestimonialModalBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 20h9"/>
+                  <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                </svg>
+                <span>Write a Testimonial</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Highlight KPI Stats -->
+          <div class="stat-grid" style="margin-bottom:24px;">
+            <article class="stat-card primary">
+              <div class="stat-head"><span class="stat-label">Average Rating</span><span class="stat-icon tint-indigo">★</span></div>
+              <div class="stat-val">4.9 / 5.0</div>
+              <div class="stat-foot"><span>Based on 250+ student reviews</span></div>
+            </article>
+            <article class="stat-card success">
+              <div class="stat-head"><span class="stat-label">Selection Rate</span><span class="stat-icon tint-green">🎯</span></div>
+              <div class="stat-val">93.4%</div>
+              <div class="stat-foot"><span>Qualified in Premier Entrance Tests</span></div>
+            </article>
+            <article class="stat-card">
+              <div class="stat-head"><span class="stat-label">Top IIT-JEE Rank</span><span class="stat-icon tint-amber">🏆</span></div>
+              <div class="stat-val">AIR 142</div>
+              <div class="stat-foot"><span>IIT Bombay Computer Science</span></div>
+            </article>
+            <article class="stat-card info">
+              <div class="stat-head"><span class="stat-label">Top NEET Score</span><span class="stat-icon tint-purple">🩺</span></div>
+              <div class="stat-val">695 / 720</div>
+              <div class="stat-foot"><span>AIIMS &amp; JIPMER Cohort</span></div>
+            </article>
+          </div>
+
+          <section class="panel">
+            <div class="filter-toolbar">
+              <div class="tabs-group" id="testimonialFilterTabs">
+                <button class="tab-btn active" data-test-filter="all">All Stories (<span id="countAllTestimonials">12</span>)</button>
+                <button class="tab-btn" data-test-filter="iit-jee">IIT-JEE Achievers (4)</button>
+                <button class="tab-btn" data-test-filter="neet">NEET / Medical (3)</button>
+                <button class="tab-btn" data-test-filter="boards">Board Toppers (3)</button>
+                <button class="tab-btn" data-test-filter="parents">Parents' Feedback (2)</button>
+              </div>
+
+              <div class="search-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"/>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                </svg>
+                <input type="search" class="search-input" id="testimonialSearchInput" placeholder="Filter by student, school, rank...">
+              </div>
+            </div>
+
+            <div class="testimonials-grid" id="testimonialsGrid" style="display:grid;grid-template-columns:repeat(auto-fill, minmax(360px, 1fr));gap:20px;padding:24px;">
+              <!-- Generated by JS -->
+            </div>
+          </section>
+        </section>
+
+
+        <!-- =================================================================
+             PAGE 11: PHOTO GALLERY & CAMPUS TOUR
+             ================================================================= -->
+        <section class="page-view" id="galleryView">
+          <div class="page-head">
+            <div>
+              <div class="page-eyebrow">Campus &amp; Facilities</div>
+              <h1 class="page-title">Photo Gallery &amp; Campus Tour (16)</h1>
+              <p class="page-subtitle">Explore our state-of-the-art smart classrooms, advanced science labs, study library, and felicitation ceremonies.</p>
+            </div>
+            <div class="head-actions">
+              <button class="btn btn-primary" id="openPhotoUploadBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                  <circle cx="8.5" cy="8.5" r="1.5"/>
+                  <polyline points="21 15 16 10 5 21"/>
+                </svg>
+                <span>Upload Photo</span>
+              </button>
+            </div>
+          </div>
+
+          <section class="panel">
+            <div class="filter-toolbar">
+              <div class="tabs-group" id="galleryFilterTabs">
+                <button class="tab-btn active" data-gal-filter="all">All Photos (16)</button>
+                <button class="tab-btn" data-gal-filter="classrooms">Classrooms &amp; Campus (4)</button>
+                <button class="tab-btn" data-gal-filter="awards">Felicitation &amp; Awards (4)</button>
+                <button class="tab-btn" data-gal-filter="labs">Science Labs (4)</button>
+                <button class="tab-btn" data-gal-filter="doubts">Doubt Sessions &amp; Pods (2)</button>
+                <button class="tab-btn" data-gal-filter="annual">Annual Events &amp; Sports (2)</button>
+              </div>
+
+              <div class="search-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"/>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                </svg>
+                <input type="search" class="search-input" id="gallerySearchInput" placeholder="Filter photos by title, facility...">
+              </div>
+            </div>
+
+            <div class="gallery-grid" id="galleryGrid" style="display:grid;grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));gap:20px;padding:24px;">
+              <!-- Generated by JS -->
+            </div>
+          </section>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+
+  <!-- =================================================================
+       MODALS SYSTEM
+       ================================================================= -->
+
+  <!-- 0. MULTI-ROLE LOGIN MODAL (ADMIN / TEACHER / STUDENT) -->
+  <div class="modal-overlay" id="loginModal">
+    <div class="modal-card" style="width:min(480px, 100%);">
+      <div class="modal-head">
+        <div>
+          <h2>Portal Login &amp; Role Switcher</h2>
+          <p>Sign in using your account credentials.</p>
+        </div>
+        <button class="close-btn" data-close-modal>&times;</button>
+      </div>
+      <div class="modal-body">
+        <!-- Role Selector Tabs -->
+        <div class="tabs-group" id="loginRoleTabs" style="margin-bottom:16px;display:grid;grid-template-columns:1fr 1fr 1fr;">
+          <button type="button" class="tab-btn active" data-login-role="admin">👑 Admin</button>
+          <button type="button" class="tab-btn" data-login-role="teacher">👩‍🏫 Teacher</button>
+          <button type="button" class="tab-btn" data-login-role="student">🎓 Student</button>
+        </div>
+
+        <!-- Role Description Pill -->
+        <div style="background:var(--bg-card-subtle);border:1px solid var(--border-subtle);border-radius:var(--radius-md);padding:10px 14px;margin-bottom:14px;font-size:12px;color:var(--ink-600);" id="loginRoleDesc">
+          <strong>Admin Access:</strong> Full portal management, fee reminders, faculty hiring, student enrollment, photo uploads.
+        </div>
+
+        <!-- Quick 1-Click Demo Login Chips -->
+        <div style="margin-bottom:16px;">
+          <div style="font-size:11px;font-weight:700;color:var(--ink-500);margin-bottom:6px;">Quick 1-Click Demo Logins:</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;" id="loginDemoChips">
+            <!-- Populated dynamically based on role -->
+          </div>
+        </div>
+
+        <form id="loginForm">
+          <input type="hidden" id="loginActiveRole" value="admin">
+          <div class="form-group" style="margin-bottom:14px;">
+            <label class="form-label" for="loginUsername" id="loginUsernameLabel">Admin Name or Username</label>
+            <input type="text" class="form-input" id="loginUsername" required placeholder="admin or Alex Morgan" value="admin">
+          </div>
+
+          <div class="form-group" style="margin-bottom:14px;">
+            <label class="form-label" for="loginPassword">Password</label>
+            <input type="password" class="form-input" id="loginPassword" required placeholder="Enter password" value="admin123">
+          </div>
+
+          <div class="form-error" id="loginError" style="margin-bottom:12px;"></div>
+
+          <button type="submit" class="btn btn-primary" id="loginSubmitBtn" style="width:100%;justify-content:center;padding:11px;">
+            <span>Sign In to Portal &rarr;</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- 1. RECORD PAYMENT MODAL -->
+  <div class="modal-overlay" id="paymentModal">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div>
+          <h2>Record Fee Payment</h2>
+          <p>Update student balance and generate an official receipt.</p>
+        </div>
+        <button class="close-btn" data-close-modal>&times;</button>
+      </div>
+      <form id="paymentForm">
+        <div class="modal-body">
+          <div class="form-grid">
+            <div class="form-group full">
+              <label class="form-label" for="payStudentSelect">Student</label>
+              <select class="form-select" id="payStudentSelect" required>
+                <!-- Populated dynamically -->
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="payAmountInput">Payment Amount (₹)</label>
+              <input type="number" class="form-input" id="payAmountInput" min="1" step="1" required placeholder="e.g. 4500">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="payMethodSelect">Payment Method</label>
+              <select class="form-select" id="payMethodSelect">
+                <option value="UPI">UPI (GooglePay / PhonePe)</option>
+                <option value="Bank transfer">Bank Transfer (IMPS/NEFT)</option>
+                <option value="Cash">Cash at Center</option>
+                <option value="Card">Credit / Debit Card</option>
+                <option value="Cheque">Cheque</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="payDateInput">Payment Date</label>
+              <input type="date" class="form-input" id="payDateInput" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="payNoteInput">Reference / Note</label>
+              <input type="text" class="form-input" id="payNoteInput" placeholder="Txn ID or remarks">
+            </div>
+
+            <div class="form-error" id="payFormError"></div>
+          </div>
+        </div>
+        <div class="modal-foot">
+          <button type="button" class="btn btn-secondary" data-close-modal>Cancel</button>
+          <button type="submit" class="btn btn-primary">Save &amp; Generate Receipt</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- 2. STUDENT ENROLLMENT / EDIT MODAL -->
+  <div class="modal-overlay" id="studentModal">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div>
+          <h2 id="studentModalTitle">Enroll New Student</h2>
+          <p>Register student details, batch, and fee structure.</p>
+        </div>
+        <button class="close-btn" data-close-modal>&times;</button>
+      </div>
+      <form id="studentForm">
+        <input type="hidden" id="editStudentId">
+        <div class="modal-body">
+          <!-- Round Photo Display & Selector -->
+          <div class="photo-enroll-wrapper">
+            <div class="photo-display-circle" id="stuPhotoDisplay">
+              <img id="stuPhotoImg" src="" alt="Student Photo" style="display:none;">
+              <span id="stuPhotoInitials" class="photo-placeholder-initials">ST</span>
+            </div>
+            <div class="photo-actions">
+              <div class="photo-title">Student Profile Photo</div>
+              <div class="photo-sub">Displayed in rosters, receipts, and profiles</div>
+              <div class="photo-btns">
+                <label class="btn btn-sm btn-secondary upload-btn-label">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                  <span>Upload Photo</span>
+                  <input type="file" id="stuPhotoFileInput" accept="image/*" style="display:none;">
+                </label>
+                <button type="button" class="btn btn-sm btn-secondary" id="stuRandomPhotoBtn" title="Choose from curated student avatars">
+                  <span>🎲 Random Avatar</span>
+                </button>
+                <button type="button" class="btn btn-sm btn-secondary" id="stuClearPhotoBtn" style="display:none;" title="Reset to initials">
+                  <span>✕ Clear</span>
+                </button>
+              </div>
+              <input type="hidden" id="stuAvatar" value="">
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label" for="stuName">Full Name</label>
+              <input type="text" class="form-input" id="stuName" required placeholder="e.g. Aarav Sharma" maxlength="80">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="stuClass">Class / Grade</label>
+              <input type="text" class="form-input" id="stuClass" required placeholder="e.g. Class 12" maxlength="40">
+            </div>
+
+            <div class="form-group full">
+              <label class="form-label" for="stuSchool">School / College Name</label>
+              <input type="text" class="form-input" id="stuSchool" placeholder="e.g. Delhi Public School or St. Xavier's High School" maxlength="120">
+            </div>
+
+            <div class="form-group full">
+              <label class="form-label" for="stuCourse">Course / Batch Subject</label>
+              <input type="text" class="form-input" id="stuCourse" required placeholder="e.g. Mathematics · Grade 12" maxlength="100">
+            </div>
+
+            <div class="form-group full">
+              <label class="form-label" for="stuAddress">Residential Address</label>
+              <input type="text" class="form-input" id="stuAddress" placeholder="e.g. Flat 402, Green Meadows, Powai, Mumbai" maxlength="200">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="stuPhone">Student Phone</label>
+              <input type="tel" class="form-input" id="stuPhone" placeholder="+91 98200 12345">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="stuEmail">Student Email</label>
+              <input type="email" class="form-input" id="stuEmail" placeholder="student@example.com">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="stuParentName">Parent / Guardian Name</label>
+              <input type="text" class="form-input" id="stuParentName" placeholder="e.g. Rajesh Sharma">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="stuParentPhone">Parent Phone</label>
+              <input type="tel" class="form-input" id="stuParentPhone" placeholder="+91 98200 54321">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="stuDue">Next Due Date</label>
+              <input type="date" class="form-input" id="stuDue" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="stuAmount">Fee Balance (₹)</label>
+              <input type="number" class="form-input" id="stuAmount" min="0" step="1" required placeholder="4500">
+            </div>
+
+            <div class="form-error" id="studentFormError"></div>
+          </div>
+        </div>
+        <div class="modal-foot">
+          <button type="button" class="btn btn-secondary" data-close-modal>Cancel</button>
+          <button type="submit" class="btn btn-primary" id="saveStudentBtn">Save Student</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- 3. TEACHER ADD / EDIT MODAL -->
+  <div class="modal-overlay" id="teacherModal">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div>
+          <h2 id="teacherModalTitle">Add Faculty Member</h2>
+          <p>Register qualifications, subjects, and availability.</p>
+        </div>
+        <button class="close-btn" data-close-modal>&times;</button>
+      </div>
+      <form id="teacherForm">
+        <input type="hidden" id="editTeacherId">
+        <div class="modal-body">
+          <!-- Round Photo Display & Selector -->
+          <div class="photo-enroll-wrapper">
+            <div class="photo-display-circle" id="tchPhotoDisplay">
+              <img id="tchPhotoImg" src="" alt="Faculty Photo" style="display:none;">
+              <span id="tchPhotoInitials" class="photo-placeholder-initials">TC</span>
+            </div>
+            <div class="photo-actions">
+              <div class="photo-title">Faculty Member Photo</div>
+              <div class="photo-sub">Displayed in timetable, faculty directory, and cards</div>
+              <div class="photo-btns">
+                <label class="btn btn-sm btn-secondary upload-btn-label">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                  <span>Upload Photo</span>
+                  <input type="file" id="tchPhotoFileInput" accept="image/*" style="display:none;">
+                </label>
+                <button type="button" class="btn btn-sm btn-secondary" id="tchRandomPhotoBtn" title="Choose from curated faculty portraits">
+                  <span>🎲 Random Avatar</span>
+                </button>
+                <button type="button" class="btn btn-sm btn-secondary" id="tchClearPhotoBtn" style="display:none;" title="Reset to initials">
+                  <span>✕ Clear</span>
+                </button>
+              </div>
+              <input type="hidden" id="tchAvatar" value="">
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group full">
+              <label class="form-label" for="tchName">Full Name</label>
+              <input type="text" class="form-input" id="tchName" required placeholder="e.g. Dr. Priya Menon" maxlength="80">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="tchPhone">Phone Number</label>
+              <input type="tel" class="form-input" id="tchPhone" required placeholder="+91 90000 00001">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="tchEmail">Email Address</label>
+              <input type="email" class="form-input" id="tchEmail" required placeholder="teacher@northstar.edu">
+            </div>
+
+            <div class="form-group full">
+              <label class="form-label" for="tchQualification">Qualification / Degrees</label>
+              <input type="text" class="form-input" id="tchQualification" required placeholder="e.g. M.Sc. Mathematics, B.Ed.">
+            </div>
+
+            <div class="form-group full">
+              <label class="form-label" for="tchSubjects">Subjects Taught (comma separated)</label>
+              <input type="text" class="form-input" id="tchSubjects" required placeholder="e.g. Mathematics, Calculus, Algebra">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="tchExperience">Experience (Years)</label>
+              <input type="number" class="form-input" id="tchExperience" min="0" max="60" required placeholder="8">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="tchStatus">Status</label>
+              <select class="form-select" id="tchStatus">
+                <option value="Active">Active</option>
+                <option value="On leave">On leave</option>
+                <option value="Inactive">Inactive</option>
+              </select>
+            </div>
+
+            <div class="form-group full">
+              <label class="form-label" for="tchAvailability">Availability Timings</label>
+              <input type="text" class="form-input" id="tchAvailability" required placeholder="Mon–Sat · 9:00 am–6:00 pm">
+            </div>
+
+            <div class="form-error" id="teacherFormError"></div>
+          </div>
+        </div>
+        <div class="modal-foot">
+          <button type="button" class="btn btn-secondary" data-close-modal>Cancel</button>
+          <button type="submit" class="btn btn-primary" id="saveTeacherBtn">Save Faculty</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- 4. CLASS SCHEDULE ADD / EDIT MODAL -->
+  <div class="modal-overlay" id="classModal">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div>
+          <h2 id="classModalTitle">Schedule Class / Batch</h2>
+          <p>Define timetable slot, assigned teacher, and room.</p>
+        </div>
+        <button class="close-btn" data-close-modal>&times;</button>
+      </div>
+      <form id="classForm">
+        <input type="hidden" id="editClassId">
+        <div class="modal-body">
+          <div class="form-grid">
+            <div class="form-group full">
+              <label class="form-label" for="clsName">Batch / Class Name</label>
+              <input type="text" class="form-input" id="clsName" required placeholder="e.g. Advanced Mathematics" maxlength="80">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="clsCourse">Course / Grade</label>
+              <input type="text" class="form-input" id="clsCourse" required placeholder="e.g. Grade 12">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="clsTime">Time Slot</label>
+              <input type="text" class="form-input" id="clsTime" required placeholder="e.g. 09:00 - 10:30">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="clsLocation">Room / Location</label>
+              <input type="text" class="form-input" id="clsLocation" required placeholder="e.g. Room 02 (Main Wing)">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="clsTeacher">Assigned Teacher</label>
+              <select class="form-select" id="clsTeacher" required>
+                <!-- Populated dynamically -->
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="clsStudents">Enrolled Capacity</label>
+              <input type="number" class="form-input" id="clsStudents" min="0" required placeholder="18">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Live Session Status</label>
+              <label style="display:flex;align-items:center;gap:8px;margin-top:8px;font-size:13px;cursor:pointer;">
+                <input type="checkbox" id="clsLive">
+                <span>Mark session as currently LIVE</span>
+              </label>
+            </div>
+
+            <div class="form-group full">
+              <label class="form-label">Days of Week</label>
+              <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:6px;">
+                <label style="display:flex;align-items:center;gap:4px;font-size:12px;"><input type="checkbox" name="clsDay" value="Mon"> Mon</label>
+                <label style="display:flex;align-items:center;gap:4px;font-size:12px;"><input type="checkbox" name="clsDay" value="Tue"> Tue</label>
+                <label style="display:flex;align-items:center;gap:4px;font-size:12px;"><input type="checkbox" name="clsDay" value="Wed"> Wed</label>
+                <label style="display:flex;align-items:center;gap:4px;font-size:12px;"><input type="checkbox" name="clsDay" value="Thu"> Thu</label>
+                <label style="display:flex;align-items:center;gap:4px;font-size:12px;"><input type="checkbox" name="clsDay" value="Fri"> Fri</label>
+                <label style="display:flex;align-items:center;gap:4px;font-size:12px;"><input type="checkbox" name="clsDay" value="Sat"> Sat</label>
+                <label style="display:flex;align-items:center;gap:4px;font-size:12px;"><input type="checkbox" name="clsDay" value="Sun"> Sun</label>
+              </div>
+            </div>
+
+            <div class="form-error" id="classFormError"></div>
+          </div>
+        </div>
+        <div class="modal-foot">
+          <button type="button" class="btn btn-secondary" data-close-modal>Cancel</button>
+          <button type="submit" class="btn btn-primary" id="saveClassBtn">Save Schedule</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- 5. PRINTABLE DIGITAL RECEIPT MODAL -->
+  <div class="modal-overlay" id="receiptModal">
+    <div class="modal-card modal-lg">
+      <div class="modal-head">
+        <div>
+          <h2>Fee Payment Receipt</h2>
+          <p>Official verified digital receipt issued by Northstar Academy.</p>
+        </div>
+        <button class="close-btn" data-close-modal>&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="receipt-paper" id="printableReceiptArea">
+          <div class="receipt-header">
+            <div class="receipt-brand">
+              <h2>NORTHSTAR ACADEMY</h2>
+              <p>Senior Secondary Coaching &amp; Entrance Preparatory Center</p>
+              <p>Branch: 104 Central Hub, Knowledge Park &bull; Tel: +91 90000 00000</p>
+            </div>
+            <div class="receipt-badge-title">
+              <h3>FEE RECEIPT</h3>
+              <p id="rcptNumber">NSA-2026101</p>
+            </div>
+          </div>
+
+          <div class="receipt-info-grid">
+            <div>
+              <div style="font-size:11px;color:#6b7280;text-transform:uppercase;">Student Name</div>
+              <strong style="font-size:14px;" id="rcptStudent">Kabir Khan</strong>
+            </div>
+            <div>
+              <div style="font-size:11px;color:#6b7280;text-transform:uppercase;">Course / Batch</div>
+              <strong style="font-size:14px;" id="rcptCourse">Mathematics · Grade 10</strong>
+            </div>
+            <div>
+              <div style="font-size:11px;color:#6b7280;text-transform:uppercase;">Payment Date</div>
+              <strong style="font-size:14px;" id="rcptDate">02 Oct 2026</strong>
+            </div>
+            <div>
+              <div style="font-size:11px;color:#6b7280;text-transform:uppercase;">Payment Mode</div>
+              <strong style="font-size:14px;" id="rcptMethod">UPI</strong>
+            </div>
+          </div>
+
+          <table class="receipt-table">
+            <thead>
+              <tr>
+                <th>Description</th>
+                <th style="text-align:right;">Amount (INR)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Tuition Fee Installment &bull; Term October 2026</td>
+                <td style="text-align:right;" id="rcptAmountTable">₹4,500</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="receipt-total-row">
+            <span>Total Received:</span>
+            <span id="rcptTotalAmount" style="color:var(--primary);">₹4,500</span>
+          </div>
+
+          <div class="receipt-footer-stamp">
+            <div class="stamp-box">
+              ✓ VERIFIED &amp; PAID
+            </div>
+            <div class="receipt-sign">
+              <div class="receipt-sign-line"></div>
+              <span>Authorized Signatory</span>
+              <div style="font-size:10px;color:#9ca3af;" id="rcptCollector">Alex Morgan</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button type="button" class="btn btn-secondary" data-close-modal>Close</button>
+        <button type="button" class="btn btn-primary" id="printReceiptBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 6 2 18 2 18 9"/>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+            <rect x="6" y="14" width="12" height="8"/>
+          </svg>
+          <span>Print / Download PDF</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- 6. STUDENT PROFILE DRAWER / MODAL -->
+  <div class="modal-overlay" id="studentProfileModal">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div>
+          <h2>Student Profile</h2>
+          <p>Academic record, fee history, and guardian contact.</p>
+        </div>
+        <button class="close-btn" data-close-modal>&times;</button>
+      </div>
+      <div class="modal-body" id="studentProfileBody">
+        <!-- Populated dynamically -->
+      </div>
+      <div class="modal-foot">
+        <button type="button" class="btn btn-secondary" data-close-modal>Close</button>
+        <button type="button" class="btn btn-primary" id="profilePayBtn">Record Payment</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- 7. REUSABLE CONFIRM DELETE MODAL -->
+  <div class="modal-overlay" id="confirmDeleteModal">
+    <div class="modal-card" style="width:min(400px, 100%);">
+      <div class="modal-head">
+        <div>
+          <h2 style="color:var(--danger)">Confirm Removal</h2>
+          <p>This action cannot be undone.</p>
+        </div>
+        <button class="close-btn" data-close-modal>&times;</button>
+      </div>
+      <div class="modal-body">
+        <p id="deleteConfirmMessage" style="font-size:13px;color:var(--ink-700);">Are you sure you want to delete this entry?</p>
+      </div>
+      <div class="modal-foot">
+        <button type="button" class="btn btn-secondary" data-close-modal>Cancel</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. INDIVIDUAL FEE REMINDER MODAL -->
+  <div class="modal-overlay" id="feeReminderModal">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div>
+          <h2>Send Fee Payment Reminder</h2>
+          <p>Dispatch personalized message to student or guardian phone.</p>
+        </div>
+        <button class="close-btn" data-close-modal>&times;</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="remindStudentId">
+        <div style="background:var(--bg-card-subtle);border:1px solid var(--border-subtle);border-radius:var(--radius-md);padding:14px;margin-bottom:16px;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+            <div>
+              <strong style="font-size:15px;" id="remindStudentName">Riya Sharma</strong>
+              <div style="font-size:11px;color:var(--ink-500);" id="remindStudentCourse">Mathematics · Grade 12</div>
+            </div>
+            <div style="text-align:right;">
+              <span class="status-pill status-overdue" id="remindStudentStatus">Overdue</span>
+              <div style="font-size:14px;font-weight:800;color:var(--danger-text);margin-top:4px;" id="remindStudentAmount">₹4,500</div>
+            </div>
+          </div>
+          <div style="font-size:11px;color:var(--ink-500);" id="remindStudentDueDate">Due: Oct 05, 2026</div>
+        </div>
+
+        <div class="form-group" style="margin-bottom:14px;">
+          <label class="form-label" for="remindContactSelect">Recipient Contact Number</label>
+          <select class="form-select" id="remindContactSelect">
+            <!-- Populated dynamically with student phone and parent phone -->
+          </select>
+        </div>
+
+        <div class="form-group" style="margin-bottom:14px;">
+          <label class="form-label" for="remindMessageText">Message Template</label>
+          <textarea class="form-textarea" id="remindMessageText" rows="4"></textarea>
+        </div>
+
+        <div style="font-size:11px;color:var(--ink-500);display:flex;align-items:center;gap:6px;" id="remindLastSentText">
+          <span>🕒 Last sent: Not yet dispatched</span>
+        </div>
+      </div>
+      <div class="modal-foot" style="flex-wrap:wrap;gap:8px;">
+        <button type="button" class="btn btn-secondary btn-sm" id="copyReminderTextBtn">Copy Text</button>
+        <button type="button" class="btn btn-sms btn-sm" id="sendReminderSmsBtn">
+          <span>💬 Send SMS</span>
+        </button>
+        <button type="button" class="btn btn-whatsapp btn-sm" id="sendReminderWhatsAppBtn">
+          <span>🟢 Send via WhatsApp</span>
+        </button>
+        <button type="button" class="btn btn-primary btn-sm" id="markReminderLoggedBtn">
+          <span>✓ Log as Sent</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 9. BATCH REMINDERS BROADCAST MODAL -->
+  <div class="modal-overlay" id="batchRemindersModal">
+    <div class="modal-card modal-lg">
+      <div class="modal-head">
+        <div>
+          <h2>Fee Reminders Broadcast</h2>
+          <p>All students with pending tuition fee balances.</p>
+        </div>
+        <button class="close-btn" data-close-modal>&times;</button>
+      </div>
+      <div class="modal-body">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+          <strong id="batchOwingSummary">11 students with outstanding dues (₹53,300 total)</strong>
+          <button class="btn btn-sm btn-secondary" id="copyAllPhonesBtn">Copy All Phone Numbers</button>
+        </div>
+        <div class="table-responsive" style="max-height:280px;overflow-y:auto;">
+          <table class="table-modern">
+            <thead>
+              <tr>
+                <th>Student</th>
+                <th>Course</th>
+                <th>Student Contact</th>
+                <th>Guardian Contact</th>
+                <th>Balance Due</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="batchRemindersTableBody">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button type="button" class="btn btn-secondary" data-close-modal>Close</button>
+        <button type="button" class="btn btn-primary" id="broadcastAllRemindersBtn">
+          <span>⚡ Send Broadcast to All</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- 7. SUBMIT TESTIMONIAL MODAL -->
+  <div class="modal-overlay" id="testimonialModal">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div>
+          <h2>Share Your Success Story</h2>
+          <p>Submit your experience, rank achievement, or feedback.</p>
+        </div>
+        <button class="close-btn" data-close-modal>&times;</button>
+      </div>
+      <form id="testimonialForm">
+        <div class="modal-body">
+          <div class="form-alert" id="testimonialFormError"></div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label" for="testName">Full Name *</label>
+              <input type="text" class="form-input" id="testName" required placeholder="e.g. Aryan Kulkarni">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="testRole">Role *</label>
+              <select class="form-select" id="testRole">
+                <option value="Student">Student</option>
+                <option value="Parent">Parent</option>
+                <option value="Alumnus">Alumnus</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label" for="testAchievement">Exam Rank / Result *</label>
+              <input type="text" class="form-input" id="testAchievement" required placeholder="e.g. AIR 142 · IIT Bombay (CSE) or 98.6% CBSE">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="testCategory">Category *</label>
+              <select class="form-select" id="testCategory">
+                <option value="iit-jee">IIT-JEE Engineering</option>
+                <option value="neet">NEET / Medical</option>
+                <option value="boards">Board Examinations</option>
+                <option value="parents">Parents' Feedback</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label" for="testSchool">School Name *</label>
+              <input type="text" class="form-input" id="testSchool" required placeholder="e.g. DPS R.K. Puram / Bombay Scottish">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="testRating">Star Rating (1 - 5) *</label>
+              <select class="form-select" id="testRating">
+                <option value="5">⭐⭐⭐⭐⭐ (5 Stars)</option>
+                <option value="4">⭐⭐⭐⭐ (4 Stars)</option>
+                <option value="3">⭐⭐⭐ (3 Stars)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="testQuote">Your Testimonial / Review *</label>
+            <textarea class="form-input" id="testQuote" rows="4" required placeholder="Share how Northstar Academy faculty, study materials, and tests helped you succeed..."></textarea>
+          </div>
+        </div>
+        <div class="modal-foot">
+          <button type="button" class="btn btn-secondary" data-close-modal>Cancel</button>
+          <button type="submit" class="btn btn-primary" id="saveTestimonialBtn">Publish Testimonial</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 8. PHOTO UPLOAD MODAL -->
+  <div class="modal-overlay" id="photoUploadModal">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div>
+          <h2>Add Photo to Gallery</h2>
+          <p>Showcase campus facilities, award ceremonies, and classroom moments.</p>
+        </div>
+        <button class="close-btn" data-close-modal>&times;</button>
+      </div>
+      <form id="photoUploadForm">
+        <div class="modal-body">
+          <div class="form-alert" id="photoFormError"></div>
+          <div class="form-group">
+            <label class="form-label" for="photoTitle">Photo Title *</label>
+            <input type="text" class="form-input" id="photoTitle" required placeholder="e.g. Smart Physics Demonstration Lab">
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label" for="photoCategory">Category *</label>
+              <select class="form-select" id="photoCategory">
+                <option value="classrooms">Classrooms &amp; Campus</option>
+                <option value="awards">Felicitation &amp; Awards</option>
+                <option value="labs">Science Labs</option>
+                <option value="doubts">Doubt Sessions &amp; Pods</option>
+                <option value="annual">Annual Events &amp; Sports</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="photoFileInput">Upload File</label>
+              <input type="file" class="form-input" id="photoFileInput" accept="image/*">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="photoUrl">Or Image URL</label>
+            <input type="url" class="form-input" id="photoUrl" placeholder="https://images.unsplash.com/...">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="photoCaption">Photo Caption &amp; Description *</label>
+            <textarea class="form-input" id="photoCaption" rows="3" required placeholder="Describe what is taking place in this photo..."></textarea>
+          </div>
+        </div>
+        <div class="modal-foot">
+          <button type="button" class="btn btn-secondary" data-close-modal>Cancel</button>
+          <button type="submit" class="btn btn-primary" id="savePhotoBtn">Upload to Gallery</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 9. PHOTO LIGHTBOX MODAL -->
+  <div class="modal-overlay" id="photoLightboxModal" style="background:rgba(0,0,0,0.92);backdrop-filter:blur(10px);">
+    <div style="position:relative;max-width:min(900px, 94vw);max-height:90vh;margin:auto;display:flex;flex-direction:column;align-items:center;">
+      <button class="close-btn" data-close-modal style="position:absolute;top:-40px;right:0;color:#fff;font-size:32px;background:none;border:none;cursor:pointer;">&times;</button>
+      <div style="width:100%;max-height:70vh;overflow:hidden;border-radius:12px;background:#000;display:flex;align-items:center;justify-content:center;">
+        <img id="lightboxImg" src="" alt="Photo Full View" style="max-width:100%;max-height:70vh;object-fit:contain;border-radius:12px;">
+      </div>
+      <div style="width:100%;margin-top:16px;background:var(--bg-card);padding:16px 20px;border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,0.4);">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+          <h3 id="lightboxTitle" style="margin:0;font-size:18px;color:var(--ink-900);">Photo Title</h3>
+          <span class="tag-pill" id="lightboxCategory" style="font-size:11px;">Category</span>
+        </div>
+        <p id="lightboxCaption" style="margin:6px 0 0 0;font-size:13px;color:var(--ink-600);line-height:1.5;"></p>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Toast Notification element -->
+  <div class="toast-notice" id="toastNotice" role="status">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;">
+      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+      <polyline points="22 4 12 14.01 9 11.01"/>
+    </svg>
+    <span id="toastNoticeText"></span>
+  </div>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+</body>
+</html>
