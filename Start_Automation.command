@@ -91,7 +91,20 @@ delete_repository() {
 
   echo "${CYAN}📡 Fetching repositories from GitHub (@$GITHUB_USER)...${RESET}"
 
-  REPOS_STR=$(python3 -c "
+  typeset -a RAW_REPOS
+
+  # 1. If gh CLI is logged in, it can fetch ALL public AND private repos directly from GitHub!
+  if command -v gh &>/dev/null && gh auth status &>/dev/null; then
+    while IFS= read -r line; do
+      [[ -n "$line" ]] && RAW_REPOS+=("$line")
+    done < <(gh repo list "$GITHUB_USER" --limit 100 --json name -q ".[].name" 2>/dev/null)
+  fi
+
+  # 2. Fetch public repos via GitHub REST API if gh didn't return
+  if [[ $#RAW_REPOS -eq 0 ]]; then
+    while IFS= read -r line; do
+      [[ -n "$line" ]] && RAW_REPOS+=("$line")
+    done < <(python3 -c "
 import urllib.request, json
 try:
     req = urllib.request.Request('https://api.github.com/users/$GITHUB_USER/repos?per_page=100&sort=updated', headers={'User-Agent': 'GitHubAutomation'})
@@ -104,11 +117,27 @@ try:
 except Exception:
     pass
 ")
-
-  typeset -a REPOS
-  if [[ -n "$REPOS_STR" ]]; then
-    REPOS=("${(@f)REPOS_STR}")
   fi
+
+  # 3. Also include any local Git projects found on Desktop (captures private repos like 'Web')
+  for gitdir in "$HOME/Desktop"/*/.git(N/); do
+    pdir=$(dirname "$gitdir")
+    premote=$(git -C "$pdir" remote get-url origin 2>/dev/null)
+    prepo=$(basename -s .git "$premote" 2>/dev/null)
+    if [[ -n "$prepo" ]]; then
+      RAW_REPOS+=("$prepo")
+    fi
+  done
+
+  # Deduplicate repos
+  typeset -a REPOS
+  typeset -A SEEN
+  for r in "${RAW_REPOS[@]}"; do
+    if [[ -z "${SEEN[$r]}" ]]; then
+      SEEN[$r]=1
+      REPOS+=("$r")
+    fi
+  done
 
   echo ""
   REPO_NAME=""
