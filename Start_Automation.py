@@ -228,23 +228,53 @@ def view_status(project_dir):
     subprocess.run("git status -s", shell=True, cwd=project_dir)
 
 
+def view_status_and_switch(target_project):
+    """Display project and Netlify details, with option to switch."""
+    view_status(target_project)
+    print(f"\n{YELLOW}Switch to another project? [y/N]: {RESET}", end="")
+    try:
+        ans = input().strip().lower()
+    except (EOFError, KeyboardInterrupt):
+        return target_project
+
+    if ans in ("y", "yes"):
+        all_projs = list_desktop_projects()
+        print(f"\n{BOLD}Available Desktop Projects:{RESET}")
+        for i, p in enumerate(all_projs, start=1):
+            is_curr = f" {CYAN}(📍 Current){RESET}" if p == target_project else ""
+            print(f"  [{i}] {os.path.basename(p)}{is_curr}")
+        try:
+            p_ans = input(f"\n{YELLOW}Choose project (1-{len(all_projs)}): {RESET}").strip()
+            if p_ans.isdigit() and 1 <= int(p_ans) <= len(all_projs):
+                target_project = all_projs[int(p_ans) - 1]
+                print(f"{GREEN}Switched to: {os.path.basename(target_project)}{RESET}")
+        except (EOFError, KeyboardInterrupt):
+            pass
+    return target_project
+
+
 def main():
     target_project = select_project()
 
     while True:
         print_banner(target_project)
         print(f"{BOLD}What would you like to do?{RESET}\n")
-        print(f"  {GREEN}[1]{RESET} ⚡ {BOLD}Quick Push Changes{RESET}         {DIM}(Stage, commit, push to GitHub & update Netlify){RESET}")
-        print(f"  {GREEN}[2]{RESET} 🌐 {BOLD}Deploy to Netlify{RESET}          {DIM}(Interactive 1, 2, 3 project selector){RESET}")
-        print(f"  {RED}[3]{RESET} 🗑️  {BOLD}Delete Netlify Project{RESET}     {DIM}(Permanently remove unwanted Netlify sites){RESET}")
-        print(f"  {RED}[4]{RESET} 🗑️  {BOLD}Delete GitHub Repository{RESET}   {DIM}(Permanently remove GitHub repositories){RESET}")
-        print(f"  {GREEN}[5]{RESET} ⬇️  {BOLD}Quick Pull Changes{RESET}         {DIM}(Pull latest commits from GitHub){RESET}")
-        print(f"  {GREEN}[6]{RESET} 📊 {BOLD}View Project Info & Status{RESET}     {DIM}(Show branch, recent commits, live links){RESET}")
-        print(f"  {GREEN}[7]{RESET} 📁 {BOLD}Switch Working Project{RESET}     {DIM}(Select another Desktop project){RESET}")
-        print(f"  {RED}[8]{RESET} ❌ {BOLD}Exit{RESET}\n")
+
+        print(f"  {CYAN}{BOLD}--- 🐙 GITHUB AUTOMATION ---{RESET}")
+        print(f"  {GREEN}[1]{RESET} ⚡ {BOLD}Quick Push to GitHub{RESET}     {DIM}(Stage, commit, push changes & optional deploy){RESET}")
+        print(f"  {GREEN}[2]{RESET} ⬇️  {BOLD}Quick Pull from GitHub{RESET}   {DIM}(Pull latest commits from GitHub){RESET}")
+        print(f"  {RED}[3]{RESET} 🗑️  {BOLD}Delete GitHub Repo{RESET}       {DIM}(Permanently delete GitHub repository){RESET}\n")
+
+        print(f"  {CYAN}{BOLD}--- 🌐 NETLIFY AUTOMATION ---{RESET}")
+        print(f"  {GREEN}[4]{RESET} 🚀 {BOLD}Deploy to Netlify{RESET}        {DIM}(Interactive 1, 2, 3 project selector){RESET}")
+        print(f"  {RED}[5]{RESET} 🗑️  {BOLD}Delete Netlify Project{RESET}   {DIM}(Permanently remove unwanted Netlify site){RESET}\n")
+
+        print(f"  {CYAN}{BOLD}--- ⚙️  WORKSPACE & EXIT ---{RESET}")
+        print(f"  {GREEN}[6]{RESET} 📊 {BOLD}Project Info & Switch{RESET}    {DIM}(View branch, commits, or switch project){RESET}")
+        print(f"  {RED}[7]{RESET} ❌ {BOLD}Exit{RESET}\n")
 
         try:
-            choice = input(f"{YELLOW}{BOLD}Enter choice (1-8): {RESET}").strip()
+            choice = input(f"{YELLOW}{BOLD}Enter choice (1-7): {RESET}").strip()
         except (EOFError, KeyboardInterrupt):
             print("\nExiting...")
             break
@@ -252,33 +282,20 @@ def main():
         if choice == "1":
             quick_push(target_project)
         elif choice == "2":
-            deploy_netlify(target_project)
-        elif choice == "3":
-            delete_netlify(target_project)
-        elif choice == "4":
-            delete_github(target_project)
-        elif choice == "5":
             quick_pull(target_project)
+        elif choice == "3":
+            delete_github(target_project)
+        elif choice == "4":
+            deploy_netlify(target_project)
+        elif choice == "5":
+            delete_netlify(target_project)
         elif choice == "6":
-            view_status(target_project)
-        elif choice == "7":
-            all_projs = list_desktop_projects()
-            print(f"\n{BOLD}Available Desktop Projects:{RESET}")
-            for i, p in enumerate(all_projs, start=1):
-                is_curr = f" {CYAN}(📍 Current){RESET}" if p == target_project else ""
-                print(f"  [{i}] {os.path.basename(p)}{is_curr}")
-            try:
-                p_ans = input(f"\n{YELLOW}Choose project (1-{len(all_projs)}): {RESET}").strip()
-                if p_ans.isdigit() and 1 <= int(p_ans) <= len(all_projs):
-                    target_project = all_projs[int(p_ans) - 1]
-                    print(f"{GREEN}Switched to: {os.path.basename(target_project)}{RESET}")
-            except (EOFError, KeyboardInterrupt):
-                pass
-        elif choice in ("8", "q", "exit"):
+            target_project = view_status_and_switch(target_project)
+        elif choice in ("7", "q", "exit"):
             print(f"\n{GREEN}Goodbye! 👋{RESET}\n")
             break
         else:
-            print(f"{RED}Invalid selection. Please choose 1 to 8.{RESET}")
+            print(f"{RED}Invalid selection. Please choose 1 to 7.{RESET}")
 
         try:
             input(f"\n{DIM}Press [ENTER] to return to menu...{RESET}")
