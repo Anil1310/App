@@ -207,6 +207,100 @@ def quick_pull(project_dir):
     print(f"\n{GREEN}✅ SUCCESS! Local project '{proj_name}' is up to date.{RESET}")
 
 
+def create_repository(project_dir):
+    """Initialize and create a new GitHub repository."""
+    default_name = os.path.basename(project_dir) if project_dir else "my-app"
+    print(f"\n{CYAN}--------------------------------------------------------{RESET}")
+    print(f"➕ {BOLD}Create New GitHub Repository{RESET}")
+    print(f"{CYAN}--------------------------------------------------------{RESET}\n")
+
+    print(f"Current project folder: {GREEN}{default_name}{RESET} ({project_dir})")
+    try:
+        repo_name = input(f"{YELLOW}Enter repo name (press [ENTER] for '{default_name}', or 'c' to cancel): {RESET}").strip()
+    except (EOFError, KeyboardInterrupt):
+        return None
+
+    if repo_name.lower() in ("c", "cancel"):
+        return None
+    if not repo_name:
+        repo_name = default_name
+
+    target_dir = os.path.join(DESKTOP_DIR, repo_name) if repo_name != default_name else project_dir
+    os.makedirs(target_dir, exist_ok=True)
+
+    readme_path = os.path.join(target_dir, "README.md")
+    if not os.path.exists(readme_path):
+        with open(readme_path, "w") as f:
+            f.write(f"# {repo_name}\n")
+
+    if not os.path.exists(os.path.join(target_dir, ".git")):
+        run_cmd("git init -b main", cwd=target_dir)
+    else:
+        run_cmd("git branch -M main", cwd=target_dir)
+
+    run_cmd("git add .", cwd=target_dir)
+    subprocess.run('git commit -m "Initial commit"', shell=True, cwd=target_dir)
+    subprocess.run("git remote remove origin", shell=True, cwd=target_dir)
+    run_cmd(f'git remote add origin "git@github.com:Anil1310/{repo_name}.git"', cwd=target_dir)
+
+    print(f"\n{CYAN}Opening GitHub in browser to create remote repository...{RESET}")
+    subprocess.run(f'open "https://github.com/new?name={repo_name}"', shell=True)
+
+    print(f"\n{GREEN}>>> Step:{RESET} In your browser, click the green {BOLD}'Create repository'{RESET} button.")
+    print(f"    (Leave 'Add a README' unchecked since we already initialized it).")
+    try:
+        input(f"\n{YELLOW}Once created on GitHub, press [ENTER] to push your code: {RESET}")
+    except (EOFError, KeyboardInterrupt):
+        return None
+
+    print(f"\n{CYAN}Uploading to GitHub...{RESET}")
+    success = run_cmd("git push -u origin main", cwd=target_dir)
+    if success:
+        print(f"\n{GREEN}🎉 SUCCESS! Repository live at: https://github.com/Anil1310/{repo_name}{RESET}")
+        try:
+            subprocess.run(f'open "https://github.com/Anil1310/{repo_name}"', shell=True)
+        except Exception:
+            pass
+        return target_dir
+    return None
+
+
+def clone_repository():
+    """Clone a GitHub repository into Desktop."""
+    print(f"\n{CYAN}--------------------------------------------------------{RESET}")
+    print(f"📥 {BOLD}Clone GitHub Repository{RESET}")
+    print(f"{CYAN}--------------------------------------------------------{RESET}\n")
+
+    try:
+        repo_input = input(f"{YELLOW}Enter repo name (e.g. my-app) or paste git URL (or 'c' to cancel): {RESET}").strip()
+    except (EOFError, KeyboardInterrupt):
+        return None
+
+    if not repo_input or repo_input.lower() in ("c", "cancel"):
+        return None
+
+    if repo_input.startswith("git@") or repo_input.startswith("https://"):
+        clone_url = repo_input
+    else:
+        clone_url = f"git@github.com:Anil1310/{repo_input}.git"
+
+    print(f"\n{CYAN}Cloning {clone_url} into Desktop...{RESET}")
+    success = run_cmd(f'git clone "{clone_url}"', cwd=DESKTOP_DIR)
+
+    if success:
+        folder_name = os.path.basename(clone_url).replace(".git", "")
+        cloned_path = os.path.join(DESKTOP_DIR, folder_name)
+        print(f"\n{GREEN}✅ Repository cloned successfully to: {cloned_path}{RESET}")
+        try:
+            subprocess.run(f'open "{cloned_path}"', shell=True)
+        except Exception:
+            pass
+        return cloned_path
+    else:
+        print(f"\n{RED}❌ Failed to clone repository. Please verify the repository name.{RESET}")
+        return None
+
+
 def view_status(project_dir):
     """Display project and Netlify details."""
     proj_name = os.path.basename(project_dir)
@@ -228,31 +322,6 @@ def view_status(project_dir):
     subprocess.run("git status -s", shell=True, cwd=project_dir)
 
 
-def view_status_and_switch(target_project):
-    """Display project and Netlify details, with option to switch."""
-    view_status(target_project)
-    print(f"\n{YELLOW}Switch to another project? [y/N]: {RESET}", end="")
-    try:
-        ans = input().strip().lower()
-    except (EOFError, KeyboardInterrupt):
-        return target_project
-
-    if ans in ("y", "yes"):
-        all_projs = list_desktop_projects()
-        print(f"\n{BOLD}Available Desktop Projects:{RESET}")
-        for i, p in enumerate(all_projs, start=1):
-            is_curr = f" {CYAN}(📍 Current){RESET}" if p == target_project else ""
-            print(f"  [{i}] {os.path.basename(p)}{is_curr}")
-        try:
-            p_ans = input(f"\n{YELLOW}Choose project (1-{len(all_projs)}): {RESET}").strip()
-            if p_ans.isdigit() and 1 <= int(p_ans) <= len(all_projs):
-                target_project = all_projs[int(p_ans) - 1]
-                print(f"{GREEN}Switched to: {os.path.basename(target_project)}{RESET}")
-        except (EOFError, KeyboardInterrupt):
-            pass
-    return target_project
-
-
 def main():
     target_project = select_project()
 
@@ -261,21 +330,23 @@ def main():
         print(f"{BOLD}What would you like to do?{RESET}\n")
 
         print(f"  {CYAN}{BOLD}--- 🐙 GITHUB AUTOMATION ---{RESET}")
-        print(f"  {GREEN}[1]{RESET} ⚡ {BOLD}Quick Push to GitHub{RESET}     {DIM}(Stage, commit, push changes & optional deploy){RESET}")
-        print(f"  {GREEN}[2]{RESET} ⬇️  {BOLD}Quick Pull from GitHub{RESET}   {DIM}(Pull latest commits from GitHub){RESET}")
-        print(f"  {RED}[3]{RESET} 🗑️  {BOLD}Delete GitHub Repo{RESET}       {DIM}(Permanently delete GitHub repository){RESET}\n")
+        print(f"  {GREEN}[1]{RESET}  ⚡ {BOLD}Quick Push to GitHub{RESET}     {DIM}(Stage, commit, push changes & optional deploy){RESET}")
+        print(f"  {GREEN}[2]{RESET}  ⬇️  {BOLD}Quick Pull from GitHub{RESET}   {DIM}(Pull latest commits from GitHub){RESET}")
+        print(f"  {GREEN}[3]{RESET}  ➕ {BOLD}Create New Repository{RESET}    {DIM}(Initialize project & push to GitHub){RESET}")
+        print(f"  {GREEN}[4]{RESET}  📥 {BOLD}Clone Repository{RESET}         {DIM}(Download repository from GitHub to Desktop){RESET}")
+        print(f"  {RED}[5]{RESET}  🗑️  {BOLD}Delete GitHub Repo{RESET}       {DIM}(Permanently delete GitHub repository){RESET}\n")
 
         print(f"  {CYAN}{BOLD}--- 🌐 NETLIFY AUTOMATION ---{RESET}")
-        print(f"  {GREEN}[4]{RESET} 🚀 {BOLD}Deploy to Netlify{RESET}        {DIM}(Interactive 1, 2, 3 project selector){RESET}")
-        print(f"  {RED}[5]{RESET} 🗑️  {BOLD}Delete Netlify Project{RESET}   {DIM}(Permanently remove unwanted Netlify site){RESET}\n")
+        print(f"  {GREEN}[6]{RESET}  🚀 {BOLD}Deploy to Netlify{RESET}        {DIM}(Interactive 1, 2, 3 project selector){RESET}")
+        print(f"  {RED}[7]{RESET}  🗑️  {BOLD}Delete Netlify Project{RESET}   {DIM}(Permanently remove unwanted Netlify site){RESET}\n")
 
         print(f"  {CYAN}{BOLD}--- ⚙️  WORKSPACE & EXIT ---{RESET}")
-        print(f"  {GREEN}[6]{RESET} 📊 {BOLD}View Project Info & Status{RESET} {DIM}(Show branch, recent commits, live links){RESET}")
-        print(f"  {GREEN}[7]{RESET} 📁 {BOLD}Switch Working Project{RESET}     {DIM}(Select another Desktop project){RESET}")
-        print(f"  {RED}[8]{RESET} ❌ {BOLD}Exit{RESET}\n")
+        print(f"  {GREEN}[8]{RESET}  📊 {BOLD}View Project Info & Status{RESET} {DIM}(Show branch, recent commits, live links){RESET}")
+        print(f"  {GREEN}[9]{RESET}  📁 {BOLD}Switch Working Project{RESET}     {DIM}(Select another Desktop project){RESET}")
+        print(f"  {RED}[10]{RESET} ❌ {BOLD}Exit{RESET}\n")
 
         try:
-            choice = input(f"{YELLOW}{BOLD}Enter choice (1-8): {RESET}").strip()
+            choice = input(f"{YELLOW}{BOLD}Enter choice (1-10): {RESET}").strip()
         except (EOFError, KeyboardInterrupt):
             print("\nExiting...")
             break
@@ -285,14 +356,22 @@ def main():
         elif choice == "2":
             quick_pull(target_project)
         elif choice == "3":
-            delete_github(target_project)
+            new_proj = create_repository(target_project)
+            if new_proj:
+                target_project = new_proj
         elif choice == "4":
-            deploy_netlify(target_project)
+            cloned = clone_repository()
+            if cloned:
+                target_project = cloned
         elif choice == "5":
-            delete_netlify(target_project)
+            delete_github(target_project)
         elif choice == "6":
-            view_status(target_project)
+            deploy_netlify(target_project)
         elif choice == "7":
+            delete_netlify(target_project)
+        elif choice == "8":
+            view_status(target_project)
+        elif choice == "9":
             all_projs = list_desktop_projects()
             print(f"\n{BOLD}Available Desktop Projects:{RESET}")
             for i, p in enumerate(all_projs, start=1):
@@ -305,11 +384,11 @@ def main():
                     print(f"{GREEN}Switched to: {os.path.basename(target_project)}{RESET}")
             except (EOFError, KeyboardInterrupt):
                 pass
-        elif choice in ("8", "q", "exit"):
+        elif choice in ("10", "q", "exit"):
             print(f"\n{GREEN}Goodbye! 👋{RESET}\n")
             break
         else:
-            print(f"{RED}Invalid selection. Please choose 1 to 8.{RESET}")
+            print(f"{RED}Invalid selection. Please choose 1 to 10.{RESET}")
 
         try:
             input(f"\n{DIM}Press [ENTER] to return to menu...{RESET}")
@@ -319,3 +398,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
