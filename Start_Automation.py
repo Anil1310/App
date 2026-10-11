@@ -324,32 +324,37 @@ def view_status(project_dir):
 
 def main():
     target_project = select_project()
+    auto_choice = sys.argv[1].strip() if len(sys.argv) > 1 else None
 
     while True:
-        print_banner(target_project)
-        print(f"{BOLD}What would you like to do?{RESET}\n")
+        if auto_choice:
+            choice = auto_choice
+            auto_choice = None
+        else:
+            print_banner(target_project)
+            print(f"{BOLD}What would you like to do?{RESET}\n")
 
-        print(f"  {CYAN}{BOLD}--- 🐙 GITHUB AUTOMATION ---{RESET}")
-        print(f"  {GREEN}[1]{RESET}  ⚡ {BOLD}Quick Push to GitHub{RESET}     {DIM}(Stage, commit, push changes & optional deploy){RESET}")
-        print(f"  {GREEN}[2]{RESET}  ⬇️  {BOLD}Quick Pull from GitHub{RESET}   {DIM}(Pull latest commits from GitHub){RESET}")
-        print(f"  {GREEN}[3]{RESET}  ➕ {BOLD}Create New Repository{RESET}    {DIM}(Initialize project & push to GitHub){RESET}")
-        print(f"  {GREEN}[4]{RESET}  📥 {BOLD}Clone Repository{RESET}         {DIM}(Download repository from GitHub to Desktop){RESET}")
-        print(f"  {RED}[5]{RESET}  🗑️  {BOLD}Delete GitHub Repo{RESET}       {DIM}(Permanently delete GitHub repository){RESET}\n")
+            print(f"  {CYAN}{BOLD}--- 🐙 GITHUB AUTOMATION ---{RESET}")
+            print(f"  {GREEN}[1]{RESET}  ⚡ {BOLD}Quick Push to GitHub{RESET}     {DIM}(Stage, commit, push changes & optional deploy){RESET}")
+            print(f"  {GREEN}[2]{RESET}  ⬇️  {BOLD}Quick Pull from GitHub{RESET}   {DIM}(Pull latest commits from GitHub){RESET}")
+            print(f"  {GREEN}[3]{RESET}  ➕ {BOLD}Create New Repository{RESET}    {DIM}(Initialize project & push to GitHub){RESET}")
+            print(f"  {GREEN}[4]{RESET}  📥 {BOLD}Clone Repository{RESET}         {DIM}(Download repository from GitHub to Desktop){RESET}")
+            print(f"  {RED}[5]{RESET}  🗑️  {BOLD}Delete GitHub Repo{RESET}       {DIM}(Permanently delete GitHub repository){RESET}\n")
 
-        print(f"  {CYAN}{BOLD}--- 🌐 NETLIFY AUTOMATION ---{RESET}")
-        print(f"  {GREEN}[6]{RESET}  🚀 {BOLD}Deploy to Netlify{RESET}        {DIM}(Interactive 1, 2, 3 project selector){RESET}")
-        print(f"  {RED}[7]{RESET}  🗑️  {BOLD}Delete Netlify Project{RESET}   {DIM}(Permanently remove unwanted Netlify site){RESET}\n")
+            print(f"  {CYAN}{BOLD}--- 🌐 NETLIFY AUTOMATION ---{RESET}")
+            print(f"  {GREEN}[6]{RESET}  🚀 {BOLD}Deploy to Netlify{RESET}        {DIM}(Interactive 1, 2, 3 project selector){RESET}")
+            print(f"  {RED}[7]{RESET}  🗑️  {BOLD}Delete Netlify Project{RESET}   {DIM}(Permanently remove unwanted Netlify site){RESET}\n")
 
-        print(f"  {CYAN}{BOLD}--- ⚙️  WORKSPACE & EXIT ---{RESET}")
-        print(f"  {GREEN}[8]{RESET}  📊 {BOLD}View Project Info & Status{RESET} {DIM}(Show branch, recent commits, live links){RESET}")
-        print(f"  {GREEN}[9]{RESET}  📁 {BOLD}Switch Working Project{RESET}     {DIM}(Select another Desktop project){RESET}")
-        print(f"  {RED}[10]{RESET} ❌ {BOLD}Exit{RESET}\n")
+            print(f"  {CYAN}{BOLD}--- ⚙️  WORKSPACE & EXIT ---{RESET}")
+            print(f"  {GREEN}[8]{RESET}  📊 {BOLD}View Project Info & Status{RESET} {DIM}(Show branch, recent commits, live links){RESET}")
+            print(f"  {GREEN}[9]{RESET}  📁 {BOLD}Switch Working Project{RESET}     {DIM}(Select another Desktop project){RESET}")
+            print(f"  {RED}[10]{RESET} ❌ {BOLD}Exit{RESET}\n")
 
-        try:
-            choice = input(f"{YELLOW}{BOLD}Enter choice (1-10): {RESET}").strip()
-        except (EOFError, KeyboardInterrupt):
-            print("\nExiting...")
-            break
+            try:
+                choice = input(f"{YELLOW}{BOLD}Enter choice (1-10): {RESET}").strip()
+            except (EOFError, KeyboardInterrupt):
+                print("\nExiting...")
+                break
 
         if choice == "1":
             quick_push(target_project)
