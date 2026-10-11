@@ -226,7 +226,118 @@ async function deploy(targetDir) {
   return finalUrl;
 }
 
-deploy(targetFolder).catch(err => {
-  console.error(`\n${C.red}❌ Netlify Deploy Error: ${err.message}${C.reset}\n`);
+async function deleteSiteInteractive(targetDir) {
+  const token = await ensureNetlifyToken();
+
+  while (true) {
+    const rawSites = await fetchUserSites(token);
+    if (!rawSites || rawSites.length === 0) {
+      console.log(`${C.yellow}No Netlify projects found on your account.${C.reset}\n`);
+      return;
+    }
+
+    // Check currently configured project in .netlify-site.json if present
+    const siteConfigPath = path.join(targetDir, ".netlify-site.json");
+    let currentSiteId = null;
+    let currentSiteName = null;
+    if (fs.existsSync(siteConfigPath)) {
+      try {
+        const cached = JSON.parse(fs.readFileSync(siteConfigPath, "utf8"));
+        currentSiteId = cached.siteId;
+        currentSiteName = cached.name;
+      } catch (_) {}
+    }
+
+    console.log(`${C.magenta}================================================================${C.reset}`);
+    console.log(`${C.red}${C.bold}       🗑️  DELETE NETLIFY PROJECT (PERMANENT REMOVAL)            ${C.reset}`);
+    console.log(`${C.magenta}================================================================${C.reset}\n`);
+    console.log(`${C.bold}Select a Netlify project to permanently delete:${C.reset}\n`);
+
+    rawSites.forEach((site, idx) => {
+      const num = idx + 1;
+      const url = site.ssl_url || site.url;
+      const isCurrent = (site.id === currentSiteId || site.name === currentSiteName);
+      const badge = isCurrent ? ` ${C.cyan}${C.bold}(📍 Linked to local folder)${C.reset}` : "";
+      console.log(`  ${C.yellow}[${num}]${C.reset} ${C.bold}${site.name}${C.reset} ${C.dim}➔ ${url}${C.reset}${badge}`);
+    });
+
+    console.log(`\n  ${C.green}[c]${C.reset} Cancel / Return\n`);
+
+    const answer = await prompt(`${C.yellow}${C.bold}Enter number of project to DELETE (1-${rawSites.length}, or 'c'): ${C.reset}`);
+    const cleanAnswer = answer.trim();
+
+    if (cleanAnswer === "c" || cleanAnswer === "C" || cleanAnswer === "0" || cleanAnswer === "q" || cleanAnswer === "") {
+      console.log(`\n${C.green}Exited Netlify delete tool.${C.reset}\n`);
+      return;
+    }
+
+    const parsedNum = parseInt(cleanAnswer, 10);
+    let chosenSite = null;
+    if (!isNaN(parsedNum) && parsedNum >= 1 && parsedNum <= rawSites.length) {
+      chosenSite = rawSites[parsedNum - 1];
+    } else {
+      chosenSite = rawSites.find(s => s.name.toLowerCase() === cleanAnswer.toLowerCase());
+    }
+
+    if (!chosenSite) {
+      console.log(`${C.red}Invalid selection. Please choose 1 to ${rawSites.length}.${C.reset}`);
+      continue;
+    }
+
+    console.log(`\n${C.red}${C.bold}⚠️  WARNING: You are about to PERMANENTLY delete:${C.reset}`);
+    console.log(`  Project: ${C.bold}${chosenSite.name}${C.reset}`);
+    console.log(`  URL:     ${chosenSite.ssl_url || chosenSite.url}`);
+    console.log(`  Site ID: ${chosenSite.id}\n`);
+
+    const confirmAns = await prompt(`${C.yellow}${C.bold}Type 'yes' or '${chosenSite.name}' to confirm deletion: ${C.reset}`);
+    const cleanConfirm = confirmAns.trim().toLowerCase();
+
+    if (cleanConfirm !== "yes" && cleanConfirm !== "y" && cleanConfirm !== chosenSite.name.toLowerCase()) {
+      console.log(`${C.yellow}Deletion cancelled for ${chosenSite.name}.${C.reset}\n`);
+      continue;
+    }
+
+    process.stdout.write(`\nDeleting ${chosenSite.name} from Netlify... `);
+    const delRes = await fetch(`https://api.netlify.com/api/v1/sites/${chosenSite.id}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${token}` }
+    });
+
+    if (delRes.status === 204 || delRes.status === 200) {
+      console.log(`${C.green}Deleted! ✅${C.reset}\n`);
+      console.log(`${C.green}Project '${chosenSite.name}' has been completely removed from Netlify.${C.reset}\n`);
+
+      // If current project was linked to this deleted site, unlink it
+      if (chosenSite.id === currentSiteId && fs.existsSync(siteConfigPath)) {
+        try {
+          fs.unlinkSync(siteConfigPath);
+          console.log(`${C.dim}Unlinked local .netlify-site.json since site was deleted.${C.reset}\n`);
+        } catch (_) {}
+      }
+    } else {
+      const errText = await delRes.text();
+      console.log(`${C.red}Failed (HTTP ${delRes.status}): ${errText}${C.reset}\n`);
+    }
+
+    const moreAns = await prompt(`${C.yellow}Would you like to delete another Netlify project? [y/N]: ${C.reset}`);
+    if (moreAns.trim().toLowerCase() !== "y" && moreAns.trim().toLowerCase() !== "yes") {
+      console.log(`\n${C.green}Finished Netlify cleanup.${C.reset}\n`);
+      return;
+    }
+  }
+}
+
+async function main() {
+  const isDeleteMode = process.argv.includes("--delete") || process.argv.includes("-d");
+  if (isDeleteMode) {
+    await deleteSiteInteractive(targetFolder);
+  } else {
+    await deploy(targetFolder);
+  }
+}
+
+main().catch(err => {
+  console.error(`\n${C.red}❌ Netlify Error: ${err.message}${C.reset}\n`);
   process.exit(1);
 });
+
