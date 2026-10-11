@@ -1458,12 +1458,28 @@
   ],
   "notifications": [
     {
+      "id": "notif-1791735629983",
+      "title": "App Link Shared",
+      "message": "Shared portal link via WHATSAPP with 9876543210 (9876543210).",
+      "time": "Just now",
+      "type": "info",
+      "read": false
+    },
+    {
+      "id": "notif-1791734824336",
+      "title": "App Link Shared",
+      "message": "Shared portal link via WHATSAPP with 9820112345 (9820112345).",
+      "time": "Just now",
+      "type": "info",
+      "read": true
+    },
+    {
       "id": "notif-1791658776708",
       "title": "Fee Reminder Dispatched",
       "message": "Sent WHATSAPP reminder to Meera Nair (+91 98203 34567) for ₹4,500.",
       "time": "Just now",
       "type": "info",
-      "read": false
+      "read": true
     },
     {
       "id": "notif-1791657422518",

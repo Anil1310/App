@@ -225,7 +225,7 @@ async function getLocalStore() {
     try {
       const parsed = JSON.parse(cached);
       if (parsed && Array.isArray(parsed.students)) return parsed;
-    } catch (_) {}
+    } catch (_) { }
   }
   try {
     const res = await fetch("./data/store.json");
@@ -316,9 +316,9 @@ async function handleLocalApi(endpoint, options = {}) {
       const teacher = (store.teachers || []).find(t => {
         const cleanTName = t.name.replace(/^(dr\.|prof\.|mr\.|mrs\.|ms\.)\s*/i, "").trim().toLowerCase();
         return t.name.toLowerCase() === username.toLowerCase() ||
-               cleanTName === cleanUsername ||
-               t.name.toLowerCase().includes(cleanUsername) ||
-               t.email.toLowerCase() === username.toLowerCase();
+          cleanTName === cleanUsername ||
+          t.name.toLowerCase().includes(cleanUsername) ||
+          t.email.toLowerCase() === username.toLowerCase();
       });
       if (teacher) {
         if (password === "teacher123" || password === "admin123" || password === "password" || password === "123456") {
@@ -331,8 +331,8 @@ async function handleLocalApi(endpoint, options = {}) {
     if (role === "student" || (!role && (store.students || []).some(s => s.name.toLowerCase().includes(cleanUsername)))) {
       const student = (store.students || []).find(s => {
         return s.name.toLowerCase() === username.toLowerCase() ||
-               s.name.toLowerCase().includes(cleanUsername) ||
-               (s.phone && s.phone.replace(/\D/g, "").includes(username.replace(/\D/g, "")));
+          s.name.toLowerCase().includes(cleanUsername) ||
+          (s.phone && s.phone.replace(/\D/g, "").includes(username.replace(/\D/g, "")));
       });
       if (student) {
         if (password === "student123" || password === "admin123" || password === "password" || password === "123456") {
@@ -543,6 +543,23 @@ async function handleLocalApi(endpoint, options = {}) {
     return { ok: true, count };
   }
 
+  // Share Web Application Link
+  if (pathname === "/api/share-app") {
+    if (method === "POST") {
+      store.notifications = store.notifications || [];
+      store.notifications.unshift({
+        id: `notif-${Date.now()}`,
+        title: "App Link Shared",
+        message: `Shared portal link via ${(body.method || "whatsapp").toUpperCase()} with ${body.recipient || "Contact"} (${body.phone || ""}).`,
+        time: "Just now",
+        type: "info",
+        read: false
+      });
+      saveLocalStore(store);
+      return { ok: true };
+    }
+  }
+
   // Testimonials
   if (pathname === "/api/testimonials") {
     if (method === "GET") return store.testimonials || [];
@@ -657,7 +674,7 @@ function setupTheme() {
 
   const updateIcon = theme => {
     if (themeIcon) {
-      themeIcon.innerHTML = theme === "dark" 
+      themeIcon.innerHTML = theme === "dark"
         ? '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>'
         : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
     }
@@ -822,10 +839,10 @@ function renderDashboard() {
         <td><strong>${student.amount ? rupees(student.amount) : "—"}</strong></td>
         <td><span class="status-pill status-${student.status.toLowerCase()}">${escapeHTML(student.status)}</span></td>
         <td>
-          ${student.amount > 0 
-            ? `<button class="btn btn-sm btn-primary" onclick="openPaymentModal('${student.id}')">Pay</button>` 
-            : `<button class="btn btn-sm btn-secondary" onclick="viewStudentLatestReceipt('${student.id}')">Receipt</button>`
-          }
+          ${student.amount > 0
+        ? `<button class="btn btn-sm btn-primary" onclick="openPaymentModal('${student.id}')">Pay</button>`
+        : `<button class="btn btn-sm btn-secondary" onclick="viewStudentLatestReceipt('${student.id}')">Receipt</button>`
+      }
         </td>
       </tr>
     `).join("");
@@ -1412,10 +1429,10 @@ function renderClasses() {
       <article class="class-card">
         <div class="class-card-top">
           <span class="class-time-badge">${escapeHTML(c.time)}</span>
-          ${isStudent ? (c.live ? '<span class="live-chip">● LIVE NOW</span>' : '') : (c.live 
-            ? `<button class="btn btn-sm btn-danger" onclick="toggleClassLive('${c.id}', false)">● LIVE NOW (Stop)</button>` 
-            : `<button class="btn btn-sm btn-secondary" onclick="toggleClassLive('${c.id}', true)">Start Live</button>`
-          )}
+          ${isStudent ? (c.live ? '<span class="live-chip">● LIVE NOW</span>' : '') : (c.live
+        ? `<button class="btn btn-sm btn-danger" onclick="toggleClassLive('${c.id}', false)">● LIVE NOW (Stop)</button>`
+        : `<button class="btn btn-sm btn-secondary" onclick="toggleClassLive('${c.id}', true)">Start Live</button>`
+      )}
         </div>
 
         <h3>${escapeHTML(c.name)}</h3>
@@ -1437,9 +1454,9 @@ function renderClasses() {
 
         <div class="class-days-row">
           ${["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map(d => {
-            const isActive = Array.isArray(c.days) && c.days.includes(d);
-            return `<span class="day-badge ${isActive ? "active" : ""}">${d}</span>`;
-          }).join("")}
+        const isActive = Array.isArray(c.days) && c.days.includes(d);
+        return `<span class="day-badge ${isActive ? "active" : ""}">${d}</span>`;
+      }).join("")}
         </div>
 
         <div class="class-card-actions">
@@ -1808,10 +1825,10 @@ function renderFees() {
           <td><strong>${s.amount ? rupees(s.amount) : "₹0"}</strong></td>
           <td><span class="status-pill status-${s.status.toLowerCase()}">${escapeHTML(s.status)}</span></td>
           <td>
-            ${s.amount > 0 
-              ? `<button class="btn btn-sm btn-primary" onclick="openPaymentModal('${s.id}')">Record Payment</button>`
-              : `<button class="btn btn-sm btn-secondary" onclick="viewStudentLatestReceipt('${s.id}')">Receipt</button>`
-            }
+            ${s.amount > 0
+          ? `<button class="btn btn-sm btn-primary" onclick="openPaymentModal('${s.id}')">Record Payment</button>`
+          : `<button class="btn btn-sm btn-secondary" onclick="viewStudentLatestReceipt('${s.id}')">Receipt</button>`
+        }
           </td>
         </tr>
       `).join("") : `<tr><td colspan="6" style="text-align:center;padding:32px;color:var(--ink-400);">No records found.</td></tr>`;
@@ -2840,6 +2857,117 @@ function openBatchRemindersModal() {
 }
 window.blastReminders = openBatchRemindersModal;
 
+// =========================================================================
+// SHARE WEB APPLICATION VIA WHATSAPP (DIRECT MOBILE NUMBER)
+// =========================================================================
+const APP_SHARE_URL = "https://divinecoach.netlify.app/";
+
+function getShareTemplateMessage(appUrl = APP_SHARE_URL) {
+  return `Hello! 🌟\n\nHere is the link to access the Divine Coaching Portal:\n${appUrl}\n\nOpen this link to check class timetables, attendance records, study materials, and fee receipts directly on your phone or computer.\n\nSupport Helpline: +91 90000 00000\nDivine Coaching Admin`;
+}
+
+function openShareAppModal() {
+  const modal = document.getElementById("shareAppModal");
+  if (!modal) return;
+
+  const urlInput = document.getElementById("shareAppLinkInput");
+  if (urlInput) {
+    urlInput.value = APP_SHARE_URL;
+  }
+
+  const phoneInput = document.getElementById("sharePhoneNumber");
+  if (phoneInput) {
+    phoneInput.value = "";
+    setTimeout(() => phoneInput.focus(), 80);
+  }
+
+  const msgBox = document.getElementById("shareMessageText");
+  if (msgBox) {
+    msgBox.value = getShareTemplateMessage(APP_SHARE_URL);
+  }
+
+  openModal("shareAppModal");
+}
+
+function getSanitizedPhone(raw) {
+  if (!raw) return "";
+  let digits = raw.replace(/\D/g, "");
+  // If 10 digits (domestic Indian mobile), prepend 91
+  if (digits.length === 10) {
+    digits = "91" + digits;
+  }
+  return digits;
+}
+
+function sendShareViaWhatsApp() {
+  const phoneInput = document.getElementById("sharePhoneNumber");
+  const msgBox = document.getElementById("shareMessageText");
+
+  const rawPhone = phoneInput ? phoneInput.value.trim() : "";
+  if (!rawPhone) {
+    notify("Please enter a mobile number to share.", "error");
+    phoneInput?.focus();
+    return;
+  }
+
+  const cleanDigits = getSanitizedPhone(rawPhone);
+  if (!cleanDigits || cleanDigits.length < 10) {
+    notify("Please enter a valid 10-digit mobile number.", "error");
+    phoneInput?.focus();
+    return;
+  }
+
+  const msg = msgBox ? msgBox.value.trim() : getShareTemplateMessage(APP_SHARE_URL);
+  const waUrl = `https://wa.me/${cleanDigits}?text=${encodeURIComponent(msg)}`;
+  window.open(waUrl, "_blank");
+
+  notify(`WhatsApp opened to share app link with ${rawPhone}!`);
+
+  api("/api/share-app", {
+    method: "POST",
+    body: JSON.stringify({ recipient: rawPhone, phone: rawPhone, method: "whatsapp" })
+  }).catch(() => { });
+}
+
+function copyShareLink() {
+  const url = APP_SHARE_URL;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(url).then(() => {
+      notify("Web app URL copied to clipboard!");
+    }).catch(() => {
+      const urlInput = document.getElementById("shareAppLinkInput");
+      urlInput?.select();
+      document.execCommand("copy");
+      notify("Web app URL copied!");
+    });
+  } else {
+    const urlInput = document.getElementById("shareAppLinkInput");
+    urlInput?.select();
+    document.execCommand("copy");
+    notify("Web app URL copied!");
+  }
+}
+
+function copyShareMessage() {
+  const msgBox = document.getElementById("shareMessageText");
+  const msg = msgBox ? msgBox.value.trim() : "";
+  if (!msg) return;
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(msg).then(() => {
+      notify("Share message copied to clipboard!");
+    }).catch(() => {
+      msgBox?.select();
+      document.execCommand("copy");
+      notify("Share message copied!");
+    });
+  } else {
+    msgBox?.select();
+    document.execCommand("copy");
+    notify("Share message copied!");
+  }
+}
+
 
 // CSV Exports
 function exportStudentsCSV() {
@@ -3301,6 +3429,22 @@ function bindEvents() {
   document.getElementById("exportSummaryBtn")?.addEventListener("click", exportLedgerCSV);
   document.getElementById("blastRemindersBtn")?.addEventListener("click", blastReminders);
   document.getElementById("targetDetailsBtn")?.addEventListener("click", () => setPage("fees"));
+
+  // Share Web App Bindings
+  document.getElementById("topShareAppBtn")?.addEventListener("click", () => openShareAppModal());
+  document.getElementById("sidebarShareBtn")?.addEventListener("click", () => openShareAppModal());
+  document.getElementById("qaShareApp")?.addEventListener("click", () => openShareAppModal());
+  document.getElementById("copyShareLinkBtn")?.addEventListener("click", copyShareLink);
+  document.getElementById("copyShareMsgBtn")?.addEventListener("click", copyShareMessage);
+  document.getElementById("sendShareWhatsAppBtn")?.addEventListener("click", sendShareViaWhatsApp);
+
+  // Pressing Enter in phone input automatically triggers WhatsApp sharing
+  document.getElementById("sharePhoneNumber")?.addEventListener("keydown", e => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      sendShareViaWhatsApp();
+    }
+  });
 
   // Chart toggle
   document.querySelectorAll("#chartPeriodTabs .tab-btn").forEach(btn => {

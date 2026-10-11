@@ -1,24 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="theme-color" content="#4f46e5">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="format-detection" content="telephone=no">
-  <meta name="description" content="Divine Coaching — Comprehensive coaching class management system for students, faculty, scheduling, attendance, and fee ledgers.">
+  <meta name="description"
+    content="Divine Coaching — Comprehensive coaching class management system for students, faculty, scheduling, attendance, and fee ledgers.">
   <title>Divine Coaching — Coaching Class Management</title>
-  
+
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
-  
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Manrope:wght@500;600;700;800&display=swap"
+    rel="stylesheet">
+
   <!-- Modern Stylesheet -->
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <div class="app">
     <!-- Overlay for mobile drawer -->
@@ -29,18 +35,23 @@
       <div class="brand">
         <div class="brand-mark">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke-linejoin="round"/>
+            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
+              stroke-linejoin="round" />
           </svg>
         </div>
         <div>
           <div class="brand-title">Divine</div>
           <div class="brand-badge">Coaching Portal</div>
         </div>
-        <button class="icon-btn sidebar-collapse-btn" id="sidebarInnerToggle" title="Collapse sidebar" aria-label="Collapse sidebar" style="margin-left:auto;width:32px;height:32px;background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.12);color:#cbd5e1;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;">
+        <button class="icon-btn sidebar-collapse-btn" id="sidebarInnerToggle" title="Collapse sidebar"
+          aria-label="Collapse sidebar"
+          style="margin-left:auto;width:32px;height:32px;background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.12);color:#cbd5e1;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" style="width:16px;height:16px;">
             <rect x="3" y="3" width="18" height="18" rx="3"></rect>
             <line x1="9" y1="3" x2="9" y2="21"></line>
-            <rect x="4.5" y="4.5" width="3.5" height="15" rx="1" fill="currentColor" opacity="0.35" stroke="none"></rect>
+            <rect x="4.5" y="4.5" width="3.5" height="15" rx="1" fill="currentColor" opacity="0.35" stroke="none">
+            </rect>
           </svg>
         </button>
       </div>
@@ -49,20 +60,20 @@
         <div class="nav-heading" id="sidebarNavHeading">Workspace</div>
         <button class="nav-btn active" data-page="dashboard" id="nav-dashboard">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="3" y="3" width="7" height="9" rx="1.5"/>
-            <rect x="14" y="3" width="7" height="5" rx="1.5"/>
-            <rect x="14" y="12" width="7" height="9" rx="1.5"/>
-            <rect x="3" y="16" width="7" height="5" rx="1.5"/>
+            <rect x="3" y="3" width="7" height="9" rx="1.5" />
+            <rect x="14" y="3" width="7" height="5" rx="1.5" />
+            <rect x="14" y="12" width="7" height="9" rx="1.5" />
+            <rect x="3" y="16" width="7" height="5" rx="1.5" />
           </svg>
           <span>Overview</span>
         </button>
 
         <button class="nav-btn" data-page="students" id="nav-students">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-            <circle cx="9" cy="7" r="4"/>
-            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
           </svg>
           <span>Students</span>
           <span class="nav-badge" id="studentsBadge">20</span>
@@ -70,10 +81,10 @@
 
         <button class="nav-btn" data-page="teachers" id="nav-teachers">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-            <circle cx="9" cy="7" r="4"/>
-            <line x1="19" y1="8" x2="19" y2="14"/>
-            <line x1="22" y1="11" x2="16" y2="11"/>
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <line x1="19" y1="8" x2="19" y2="14" />
+            <line x1="22" y1="11" x2="16" y2="11" />
           </svg>
           <span>Teachers</span>
           <span class="nav-badge" id="teachersBadge">20</span>
@@ -81,10 +92,10 @@
 
         <button class="nav-btn" data-page="classes" id="nav-classes">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-            <line x1="16" y1="2" x2="16" y2="6"/>
-            <line x1="8" y1="2" x2="8" y2="6"/>
-            <line x1="3" y1="10" x2="21" y2="10"/>
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+            <line x1="16" y1="2" x2="16" y2="6" />
+            <line x1="8" y1="2" x2="8" y2="6" />
+            <line x1="3" y1="10" x2="21" y2="10" />
           </svg>
           <span>Classes &amp; Timetable</span>
           <span class="nav-badge" id="classesBadge">20</span>
@@ -92,8 +103,8 @@
 
         <button class="nav-btn" data-page="attendance" id="nav-attendance">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M9 11l3 3L22 4"/>
-            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+            <path d="M9 11l3 3L22 4" />
+            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
           </svg>
           <span>Attendance</span>
           <span class="nav-badge" id="attendanceBadge">20</span>
@@ -101,9 +112,9 @@
 
         <button class="nav-btn" data-page="fees" id="nav-fees">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="2" y="4" width="20" height="16" rx="2"/>
-            <line x1="2" y1="10" x2="22" y2="10"/>
-            <circle cx="7" cy="15" r="1"/>
+            <rect x="2" y="4" width="20" height="16" rx="2" />
+            <line x1="2" y1="10" x2="22" y2="10" />
+            <circle cx="7" cy="15" r="1" />
           </svg>
           <span>Fees &amp; Ledger</span>
           <span class="nav-badge" id="feesBadge">20</span>
@@ -111,25 +122,25 @@
 
         <button class="nav-btn" data-page="reports" id="nav-reports">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="18" y1="20" x2="18" y2="10"/>
-            <line x1="12" y1="20" x2="12" y2="4"/>
-            <line x1="6" y1="20" x2="6" y2="14"/>
+            <line x1="18" y1="20" x2="18" y2="10" />
+            <line x1="12" y1="20" x2="12" y2="4" />
+            <line x1="6" y1="20" x2="6" y2="14" />
           </svg>
           <span>Reports &amp; Stats</span>
           <span class="nav-badge" id="reportsBadge">20</span>
         </button>
         <button class="nav-btn" data-page="teacher-portal" id="nav-teacher-portal" style="display:none;">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-            <circle cx="9" cy="7" r="4"/>
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
           </svg>
           <span>My Faculty Hub</span>
         </button>
 
         <button class="nav-btn" data-page="student-portal" id="nav-student-portal" style="display:none;">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
-            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+            <path d="M6 12v5c3 3 9 3 12 0v-5" />
           </svg>
           <span>My Student Portal</span>
         </button>
@@ -138,7 +149,8 @@
 
         <button class="nav-btn" data-page="testimonials" id="nav-testimonials">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+            <path
+              d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
           </svg>
           <span>Testimonials</span>
           <span class="nav-badge" id="testimonialsBadge">12</span>
@@ -146,27 +158,40 @@
 
         <button class="nav-btn" data-page="gallery" id="nav-gallery">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-            <circle cx="8.5" cy="8.5" r="1.5"/>
-            <polyline points="21 15 16 10 5 21"/>
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+            <circle cx="8.5" cy="8.5" r="1.5" />
+            <polyline points="21 15 16 10 5 21" />
           </svg>
           <span>Photo Gallery</span>
           <span class="nav-badge" id="galleryBadge">16</span>
         </button>
+
+        <button class="nav-btn" id="sidebarShareBtn" type="button" title="Share App Link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="18" cy="5" r="3" />
+            <circle cx="6" cy="12" r="3" />
+            <circle cx="18" cy="19" r="3" />
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+          </svg>
+          <span>Share Web App</span>
+        </button>
       </nav>
 
       <div class="sidebar-footer">
-        <div class="user-snippet" id="sidebarUserSnippet" style="cursor:pointer;" title="Click to Switch Account or Sign Out">
+        <div class="user-snippet" id="sidebarUserSnippet" style="cursor:pointer;"
+          title="Click to Switch Account or Sign Out">
           <div class="user-avatar" id="sidebarUserAvatar">AM</div>
           <div class="user-info">
             <strong id="sidebarUserName">Alex Morgan</strong>
             <span id="sidebarUserRole">Admin &bull; Main Branch</span>
           </div>
-          <button class="icon-btn" id="sidebarLogoutBtn" title="Switch Account / Logout" style="margin-left:auto;width:28px;height:28px;padding:4px;">
+          <button class="icon-btn" id="sidebarLogoutBtn" title="Switch Account / Logout"
+            style="margin-left:auto;width:28px;height:28px;padding:4px;">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;">
-              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-              <polyline points="16 17 21 12 16 7"/>
-              <line x1="21" y1="12" x2="9" y2="12"/>
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+              <polyline points="16 17 21 12 16 7" />
+              <line x1="21" y1="12" x2="9" y2="12" />
             </svg>
           </button>
         </div>
@@ -178,18 +203,21 @@
       <!-- Sticky Topbar -->
       <header class="topbar">
         <div class="topbar-left">
-          <button class="icon-btn sidebar-toggle-btn" id="sidebarToggleBtn" title="Collapse sidebar" aria-label="Toggle sidebar">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <button class="icon-btn sidebar-toggle-btn" id="sidebarToggleBtn" title="Collapse sidebar"
+            aria-label="Toggle sidebar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
               <rect x="3" y="3" width="18" height="18" rx="3"></rect>
               <line x1="9" y1="3" x2="9" y2="21"></line>
-              <rect x="4.5" y="4.5" width="3.5" height="15" rx="1" fill="currentColor" opacity="0.35" stroke="none"></rect>
+              <rect x="4.5" y="4.5" width="3.5" height="15" rx="1" fill="currentColor" opacity="0.35" stroke="none">
+              </rect>
             </svg>
           </button>
           <button class="mobile-menu-toggle" id="menuToggle" aria-label="Toggle navigation">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="3" y1="12" x2="21" y2="12"/>
-              <line x1="3" y1="6" x2="21" y2="6"/>
-              <line x1="3" y1="18" x2="21" y2="18"/>
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="18" x2="21" y2="18" />
             </svg>
           </button>
           <div class="breadcrumbs">
@@ -203,34 +231,49 @@
           <!-- Universal Search -->
           <div class="search-box">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="11" cy="11" r="8"/>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
-            <input type="search" class="search-input" id="globalSearch" placeholder="Search students, faculty, classes..." aria-label="Universal search">
+            <input type="search" class="search-input" id="globalSearch"
+              placeholder="Search students, faculty, classes..." aria-label="Universal search">
             <span class="search-shortcut">/</span>
           </div>
 
           <!-- Theme Switcher -->
           <button class="icon-btn" id="themeToggle" title="Toggle Light / Dark mode" aria-label="Toggle theme">
             <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
             </svg>
           </button>
 
           <!-- Notification Drawer Toggle -->
           <button class="icon-btn" id="notifBtn" title="Notifications" aria-label="View notifications">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
-              <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+              <path d="M13.73 21a2 2 0 0 1-3.46 0" />
             </svg>
             <span class="badge-dot" id="notifDot"></span>
           </button>
 
+          <!-- Share App Button -->
+          <button class="btn btn-secondary btn-sm" id="topShareAppBtn" title="Share App Link to Mobile Number"
+            aria-label="Share App Link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;">
+              <circle cx="18" cy="5" r="3" />
+              <circle cx="6" cy="12" r="3" />
+              <circle cx="18" cy="19" r="3" />
+              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+              <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+            </svg>
+            <span>Share App</span>
+          </button>
+
           <!-- Quick Record Payment -->
-          <button class="btn btn-primary btn-sm" id="topRecordPaymentBtn" title="Record Payment" aria-label="Record Payment">
+          <button class="btn btn-primary btn-sm" id="topRecordPaymentBtn" title="Record Payment"
+            aria-label="Record Payment">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="12" y1="5" x2="12" y2="19"/>
-              <line x1="5" y1="12" x2="19" y2="12"/>
+              <line x1="12" y1="5" x2="12" y2="19" />
+              <line x1="5" y1="12" x2="19" y2="12" />
             </svg>
             <span>Record Payment</span>
           </button>
@@ -273,16 +316,16 @@
             <div class="head-actions">
               <button class="btn btn-secondary" id="exportSummaryBtn">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                  <polyline points="7 10 12 15 17 10"/>
-                  <line x1="12" y1="15" x2="12" y2="3"/>
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" y1="15" x2="12" y2="3" />
                 </svg>
                 <span>Export Summary</span>
               </button>
               <button class="btn btn-primary" id="dashRecordPaymentBtn">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <line x1="12" y1="5" x2="12" y2="19"/>
-                  <line x1="5" y1="12" x2="19" y2="12"/>
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
                 </svg>
                 <span>Record a Payment</span>
               </button>
@@ -319,6 +362,13 @@
                 <span>Today's live session</span>
               </div>
             </div>
+            <div class="quick-action-card" id="qaShareApp">
+              <div class="qa-icon tint-purple">🔗</div>
+              <div class="qa-info">
+                <strong>Share Web App</strong>
+                <span>Send link to mobile</span>
+              </div>
+            </div>
           </div>
 
           <!-- Key Metrics Grid -->
@@ -328,8 +378,8 @@
                 <span class="stat-label">Total Enrolled</span>
                 <span class="stat-icon tint-indigo">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
                   </svg>
                 </span>
               </div>
@@ -345,8 +395,8 @@
                 <span class="stat-label">Fees Collected</span>
                 <span class="stat-icon tint-green">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="12" y1="1" x2="12" y2="23"/>
-                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                    <line x1="12" y1="1" x2="12" y2="23" />
+                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
                   </svg>
                 </span>
               </div>
@@ -362,8 +412,8 @@
                 <span class="stat-label">Outstanding Balance</span>
                 <span class="stat-icon tint-amber">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="10"/>
-                    <polyline points="12 6 12 12 16 14"/>
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="12 6 12 12 16 14" />
                   </svg>
                 </span>
               </div>
@@ -379,8 +429,8 @@
                 <span class="stat-label">Attendance Rate</span>
                 <span class="stat-icon tint-rose">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                    <polyline points="22 4 12 14.01 9 11.01"/>
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                    <polyline points="22 4 12 14.01 9 11.01" />
                   </svg>
                 </span>
               </div>
@@ -527,21 +577,22 @@
             <div>
               <div class="page-eyebrow">Student Roster &amp; Profiles</div>
               <h1 class="page-title">Students (20)</h1>
-              <p class="page-subtitle">Manage enrolled students, academic courses, guardian contacts, and fee balances.</p>
+              <p class="page-subtitle">Manage enrolled students, academic courses, guardian contacts, and fee balances.
+              </p>
             </div>
             <div class="head-actions">
               <button class="btn btn-secondary" id="exportStudentsBtn">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                  <polyline points="7 10 12 15 17 10"/>
-                  <line x1="12" y1="15" x2="12" y2="3"/>
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" y1="15" x2="12" y2="3" />
                 </svg>
                 <span>Export CSV</span>
               </button>
               <button class="btn btn-primary" id="addStudentBtn">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <line x1="12" y1="5" x2="12" y2="19"/>
-                  <line x1="5" y1="12" x2="19" y2="12"/>
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
                 </svg>
                 <span>Enroll Student</span>
               </button>
@@ -551,18 +602,22 @@
           <section class="panel">
             <div class="filter-toolbar">
               <div class="tabs-group" id="studentFilterTabs">
-                <button class="tab-btn active" data-filter="all">All Students (<span id="countAllStudents">20</span>)</button>
-                <button class="tab-btn" data-filter="overdue">Overdue (<span id="countOverdueStudents">5</span>)</button>
-                <button class="tab-btn" data-filter="partial">Partial (<span id="countPartialStudents">6</span>)</button>
+                <button class="tab-btn active" data-filter="all">All Students (<span
+                    id="countAllStudents">20</span>)</button>
+                <button class="tab-btn" data-filter="overdue">Overdue (<span
+                    id="countOverdueStudents">5</span>)</button>
+                <button class="tab-btn" data-filter="partial">Partial (<span
+                    id="countPartialStudents">6</span>)</button>
                 <button class="tab-btn" data-filter="paid">Paid (<span id="countPaidStudents">9</span>)</button>
               </div>
 
               <div class="search-box">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="11" cy="11" r="8"/>
-                  <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
                 </svg>
-                <input type="search" class="search-input" id="studentSearchInput" placeholder="Filter by name, phone, course...">
+                <input type="search" class="search-input" id="studentSearchInput"
+                  placeholder="Filter by name, phone, course...">
               </div>
             </div>
 
@@ -602,13 +657,14 @@
             <div>
               <div class="page-eyebrow">Academic Faculty</div>
               <h1 class="page-title">Teachers &amp; Faculty (20)</h1>
-              <p class="page-subtitle">Manage faculty contacts, qualifications, assigned subjects, and schedule availability.</p>
+              <p class="page-subtitle">Manage faculty contacts, qualifications, assigned subjects, and schedule
+                availability.</p>
             </div>
             <div class="head-actions">
               <button class="btn btn-primary" id="addTeacherBtn">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <line x1="12" y1="5" x2="12" y2="19"/>
-                  <line x1="5" y1="12" x2="19" y2="12"/>
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
                 </svg>
                 <span>Add Teacher</span>
               </button>
@@ -618,17 +674,19 @@
           <section class="panel">
             <div class="filter-toolbar">
               <div class="tabs-group" id="teacherFilterTabs">
-                <button class="tab-btn active" data-filter="all">All Faculty (<span id="countAllTeachers">20</span>)</button>
+                <button class="tab-btn active" data-filter="all">All Faculty (<span
+                    id="countAllTeachers">20</span>)</button>
                 <button class="tab-btn" data-filter="active">Active (<span id="countActiveTeachers">20</span>)</button>
                 <button class="tab-btn" data-filter="leave">On Leave (0)</button>
               </div>
 
               <div class="search-box">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="11" cy="11" r="8"/>
-                  <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
                 </svg>
-                <input type="search" class="search-input" id="teacherSearchInput" placeholder="Filter by subject or name...">
+                <input type="search" class="search-input" id="teacherSearchInput"
+                  placeholder="Filter by subject or name...">
               </div>
             </div>
 
@@ -652,8 +710,8 @@
             <div class="head-actions">
               <button class="btn btn-primary" id="addClassBtn">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <line x1="12" y1="5" x2="12" y2="19"/>
-                  <line x1="5" y1="12" x2="19" y2="12"/>
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
                 </svg>
                 <span>Add Class Schedule</span>
               </button>
@@ -674,10 +732,11 @@
 
               <div class="search-box">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="11" cy="11" r="8"/>
-                  <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
                 </svg>
-                <input type="search" class="search-input" id="classSearchInput" placeholder="Filter classes, subjects, rooms...">
+                <input type="search" class="search-input" id="classSearchInput"
+                  placeholder="Filter classes, subjects, rooms...">
               </div>
             </div>
 
@@ -696,20 +755,21 @@
             <div>
               <div class="page-eyebrow">Daily Attendance Registry</div>
               <h1 class="page-title">Attendance Tracker (20)</h1>
-              <p class="page-subtitle">Mark daily attendance for batches, monitor student presence, and alert parents.</p>
+              <p class="page-subtitle">Mark daily attendance for batches, monitor student presence, and alert parents.
+              </p>
             </div>
             <div class="head-actions">
               <button class="btn btn-secondary" id="markAllPresentBtn">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <polyline points="20 6 9 17 4 12"/>
+                  <polyline points="20 6 9 17 4 12" />
                 </svg>
                 <span>Mark All Present</span>
               </button>
               <button class="btn btn-primary" id="saveAttendanceBtn">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
-                  <polyline points="17 21 17 13 7 13 7 21"/>
-                  <polyline points="7 3 7 8 15 8"/>
+                  <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                  <polyline points="17 21 17 13 7 13 7 21" />
+                  <polyline points="7 3 7 8 15 8" />
                 </svg>
                 <span>Save Attendance Sheet</span>
               </button>
@@ -757,12 +817,13 @@
             <div class="filter-toolbar">
               <div>
                 <strong>Class Roster (20 Students)</strong>
-                <span style="color:var(--ink-500);font-size:12px;margin-left:8px;" id="attClassMetaLabel">Advanced Mathematics &bull; Room 02</span>
+                <span style="color:var(--ink-500);font-size:12px;margin-left:8px;" id="attClassMetaLabel">Advanced
+                  Mathematics &bull; Room 02</span>
               </div>
               <button class="btn btn-sm btn-secondary" id="notifyAbsenteesBtn">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M22 2L11 13"/>
-                  <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                  <path d="M22 2L11 13" />
+                  <polygon points="22 2 15 22 11 13 2 9 22 2" />
                 </svg>
                 <span>Notify Absentees</span>
               </button>
@@ -796,21 +857,22 @@
             <div>
               <div class="page-eyebrow">Finance &amp; Collections</div>
               <h1 class="page-title">Fees &amp; Ledger (20 Transactions)</h1>
-              <p class="page-subtitle">Track student fee installments, view payment receipts, and audit collection ledger.</p>
+              <p class="page-subtitle">Track student fee installments, view payment receipts, and audit collection
+                ledger.</p>
             </div>
             <div class="head-actions">
               <button class="btn btn-secondary" id="exportLedgerBtn">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                  <polyline points="7 10 12 15 17 10"/>
-                  <line x1="12" y1="15" x2="12" y2="3"/>
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" y1="15" x2="12" y2="3" />
                 </svg>
                 <span>Export Ledger CSV</span>
               </button>
               <button class="btn btn-primary" id="feesRecordPaymentBtn">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <line x1="12" y1="5" x2="12" y2="19"/>
-                  <line x1="5" y1="12" x2="19" y2="12"/>
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
                 </svg>
                 <span>Record a Payment</span>
               </button>
@@ -875,8 +937,8 @@
 
               <div class="search-box">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="11" cy="11" r="8"/>
-                  <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
                 </svg>
                 <input type="search" class="search-input" id="feeSearchInput" placeholder="Search receipt, student...">
               </div>
@@ -936,14 +998,15 @@
             <div>
               <div class="page-eyebrow">Executive Intelligence</div>
               <h1 class="page-title">Reports &amp; Center Analytics (20 Batches)</h1>
-              <p class="page-subtitle">Monthly financial health, batch occupancy, faculty distribution, and attendance statistics.</p>
+              <p class="page-subtitle">Monthly financial health, batch occupancy, faculty distribution, and attendance
+                statistics.</p>
             </div>
             <div class="head-actions">
               <button class="btn btn-secondary" id="printReportBtn">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <polyline points="6 9 6 2 18 2 18 9"/>
-                  <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
-                  <rect x="6" y="14" width="12" height="8"/>
+                  <polyline points="6 9 6 2 18 2 18 9" />
+                  <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+                  <rect x="6" y="14" width="12" height="8" />
                 </svg>
                 <span>Print Executive Report</span>
               </button>
@@ -952,25 +1015,29 @@
 
           <div class="stat-grid">
             <article class="stat-card primary">
-              <div class="stat-head"><span class="stat-label">Average Attendance</span><span class="stat-icon tint-indigo">✓</span></div>
+              <div class="stat-head"><span class="stat-label">Average Attendance</span><span
+                  class="stat-icon tint-indigo">✓</span></div>
               <div class="stat-val" id="repAttendance">95.2%</div>
               <div class="stat-foot"><span class="trend-badge trend-up">↑ 3.1% vs Sep</span></div>
             </article>
 
             <article class="stat-card success">
-              <div class="stat-head"><span class="stat-label">Revenue Collected</span><span class="stat-icon tint-green">₹</span></div>
+              <div class="stat-head"><span class="stat-label">Revenue Collected</span><span
+                  class="stat-icon tint-green">₹</span></div>
               <div class="stat-val" id="repCollected">₹3,48,500</div>
               <div class="stat-foot"><span>October Term to Date</span></div>
             </article>
 
             <article class="stat-card warning">
-              <div class="stat-head"><span class="stat-label">Target Completion</span><span class="stat-icon tint-amber">◎</span></div>
+              <div class="stat-head"><span class="stat-label">Target Completion</span><span
+                  class="stat-icon tint-amber">◎</span></div>
               <div class="stat-val" id="repTargetPct">77%</div>
               <div class="stat-foot"><span>Goal: ₹4,50,000</span></div>
             </article>
 
             <article class="stat-card danger">
-              <div class="stat-head"><span class="stat-label">Total Batches</span><span class="stat-icon tint-rose">▣</span></div>
+              <div class="stat-head"><span class="stat-label">Total Batches</span><span
+                  class="stat-icon tint-rose">▣</span></div>
               <div class="stat-val" id="repBatches">20</div>
               <div class="stat-foot"><span>385 enrolled seatings</span></div>
             </article>
@@ -1016,7 +1083,8 @@
             <div>
               <div class="page-eyebrow">Faculty Portal</div>
               <h1 class="page-title" id="tpTeacherTitle">Faculty Dashboard</h1>
-              <p class="page-subtitle">Your assigned class timetable, enrolled students, and direct attendance management.</p>
+              <p class="page-subtitle">Your assigned class timetable, enrolled students, and direct attendance
+                management.</p>
             </div>
             <div class="head-actions">
               <button class="btn btn-secondary" id="tpSwitchBtn">Switch Faculty Account</button>
@@ -1027,8 +1095,10 @@
           <div class="panel" style="margin-bottom:24px;">
             <div class="panel-body" style="padding:24px;">
               <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
-                <div class="photo-display-circle" id="tpAvatarCircle" style="width:84px;height:84px;min-width:84px;min-height:84px;">
-                  <img id="tpAvatarImg" src="" alt="Teacher Photo" style="display:none;width:100%;height:100%;object-fit:cover;border-radius:50%;">
+                <div class="photo-display-circle" id="tpAvatarCircle"
+                  style="width:84px;height:84px;min-width:84px;min-height:84px;">
+                  <img id="tpAvatarImg" src="" alt="Teacher Photo"
+                    style="display:none;width:100%;height:100%;object-fit:cover;border-radius:50%;">
                   <span id="tpAvatarInitials" class="photo-placeholder-initials" style="font-size:26px;">TC</span>
                 </div>
                 <div style="flex:1;min-width:240px;">
@@ -1036,15 +1106,20 @@
                     <h2 style="font-size:22px;margin:0;" id="tpName">Dr. Priya Menon</h2>
                     <span class="status-pill status-paid" id="tpStatus">Active Faculty</span>
                   </div>
-                  <div style="font-size:13px;color:var(--primary);font-weight:600;margin-top:4px;" id="tpQualification">M.Sc. Mathematics, B.Ed.</div>
+                  <div style="font-size:13px;color:var(--primary);font-weight:600;margin-top:4px;" id="tpQualification">
+                    M.Sc. Mathematics, B.Ed.</div>
                   <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;" id="tpSubjectsTags">
                     <!-- Populated dynamically -->
                   </div>
                 </div>
-                <div style="display:flex;flex-direction:column;gap:8px;font-size:12px;background:var(--bg-card-subtle);padding:14px 18px;border-radius:var(--radius-md);border:1px solid var(--border-subtle);min-width:220px;">
-                  <div><span style="color:var(--ink-400);">Contact:</span> <strong id="tpPhone">+91 90000 00001</strong></div>
-                  <div><span style="color:var(--ink-400);">Email:</span> <strong id="tpEmail">teacher@northstar.edu</strong></div>
-                  <div><span style="color:var(--ink-400);">Hours:</span> <strong id="tpAvailability">Mon–Sat · 9:00 am–6:00 pm</strong></div>
+                <div
+                  style="display:flex;flex-direction:column;gap:8px;font-size:12px;background:var(--bg-card-subtle);padding:14px 18px;border-radius:var(--radius-md);border:1px solid var(--border-subtle);min-width:220px;">
+                  <div><span style="color:var(--ink-400);">Contact:</span> <strong id="tpPhone">+91 90000 00001</strong>
+                  </div>
+                  <div><span style="color:var(--ink-400);">Email:</span> <strong
+                      id="tpEmail">teacher@northstar.edu</strong></div>
+                  <div><span style="color:var(--ink-400);">Hours:</span> <strong id="tpAvailability">Mon–Sat · 9:00
+                      am–6:00 pm</strong></div>
                 </div>
               </div>
             </div>
@@ -1103,7 +1178,8 @@
             <div>
               <div class="page-eyebrow">Student Academic &amp; Fee Portal</div>
               <h1 class="page-title" id="spStudentTitle">Student Dashboard</h1>
-              <p class="page-subtitle">Personal academic schedule, verified fee ledger, payment receipts, and enrollment record.</p>
+              <p class="page-subtitle">Personal academic schedule, verified fee ledger, payment receipts, and enrollment
+                record.</p>
             </div>
             <div class="head-actions">
               <button class="btn btn-secondary" id="spSwitchBtn">Switch Student Account</button>
@@ -1114,8 +1190,10 @@
           <div class="panel" style="margin-bottom:24px;">
             <div class="panel-body" style="padding:24px;">
               <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
-                <div class="photo-display-circle" id="spAvatarCircle" style="width:84px;height:84px;min-width:84px;min-height:84px;">
-                  <img id="spAvatarImg" src="" alt="Student Photo" style="display:none;width:100%;height:100%;object-fit:cover;border-radius:50%;">
+                <div class="photo-display-circle" id="spAvatarCircle"
+                  style="width:84px;height:84px;min-width:84px;min-height:84px;">
+                  <img id="spAvatarImg" src="" alt="Student Photo"
+                    style="display:none;width:100%;height:100%;object-fit:cover;border-radius:50%;">
                   <span id="spAvatarInitials" class="photo-placeholder-initials" style="font-size:26px;">ST</span>
                 </div>
                 <div style="flex:1;min-width:240px;">
@@ -1124,18 +1202,26 @@
                     <span class="tag-pill" style="font-size:12px;font-weight:700;" id="spClassBadge">Class 12</span>
                     <span class="status-pill status-overdue" id="spFeeStatusPill">Overdue</span>
                   </div>
-                  <div style="font-size:13px;color:var(--primary);font-weight:600;margin-top:4px;" id="spCourse">Mathematics · Grade 12</div>
-                  <div style="font-size:12px;color:var(--ink-700);margin-top:4px;display:flex;align-items:center;gap:6px;">
+                  <div style="font-size:13px;color:var(--primary);font-weight:600;margin-top:4px;" id="spCourse">
+                    Mathematics · Grade 12</div>
+                  <div
+                    style="font-size:12px;color:var(--ink-700);margin-top:4px;display:flex;align-items:center;gap:6px;">
                     <span>🏫 School:</span> <strong id="spSchool">Delhi Public School, R.K. Puram</strong>
                   </div>
-                  <div style="font-size:12px;color:var(--ink-600);margin-top:4px;display:flex;align-items:center;gap:6px;">
-                    <span>📍 Address:</span> <strong id="spAddress">B-402, Oberoi Splendor, JVLR, Andheri East, Mumbai</strong>
+                  <div
+                    style="font-size:12px;color:var(--ink-600);margin-top:4px;display:flex;align-items:center;gap:6px;">
+                    <span>📍 Address:</span> <strong id="spAddress">B-402, Oberoi Splendor, JVLR, Andheri East,
+                      Mumbai</strong>
                   </div>
                 </div>
-                <div style="display:flex;flex-direction:column;gap:8px;font-size:12px;background:var(--bg-card-subtle);padding:14px 18px;border-radius:var(--radius-md);border:1px solid var(--border-subtle);min-width:240px;">
-                  <div><span style="color:var(--ink-400);">Student Contact:</span> <strong id="spPhone">+91 98201 12345</strong></div>
-                  <div><span style="color:var(--ink-400);">Email:</span> <strong id="spEmail">riya.sharma@example.com</strong></div>
-                  <div><span style="color:var(--ink-400);">Guardian:</span> <strong id="spGuardian">Suresh Sharma (+91 98201 54321)</strong></div>
+                <div
+                  style="display:flex;flex-direction:column;gap:8px;font-size:12px;background:var(--bg-card-subtle);padding:14px 18px;border-radius:var(--radius-md);border:1px solid var(--border-subtle);min-width:240px;">
+                  <div><span style="color:var(--ink-400);">Student Contact:</span> <strong id="spPhone">+91 98201
+                      12345</strong></div>
+                  <div><span style="color:var(--ink-400);">Email:</span> <strong
+                      id="spEmail">riya.sharma@example.com</strong></div>
+                  <div><span style="color:var(--ink-400);">Guardian:</span> <strong id="spGuardian">Suresh Sharma (+91
+                      98201 54321)</strong></div>
                 </div>
               </div>
             </div>
@@ -1144,19 +1230,22 @@
           <!-- Financial Snapshot & Dues -->
           <div class="stat-grid" style="margin-bottom:24px;">
             <article class="stat-card danger">
-              <div class="stat-head"><span class="stat-label">Fee Balance Due</span><span class="stat-icon tint-rose">₹</span></div>
+              <div class="stat-head"><span class="stat-label">Fee Balance Due</span><span
+                  class="stat-icon tint-rose">₹</span></div>
               <div class="stat-val" id="spPendingAmount" style="color:var(--danger-text);">₹4,500</div>
               <div class="stat-foot"><span id="spDueDateText">Due Date: Oct 05, 2026</span></div>
             </article>
 
             <article class="stat-card success">
-              <div class="stat-head"><span class="stat-label">Total Paid to Date</span><span class="stat-icon tint-green">✓</span></div>
+              <div class="stat-head"><span class="stat-label">Total Paid to Date</span><span
+                  class="stat-icon tint-green">✓</span></div>
               <div class="stat-val" id="spPaidAmount">₹40,500</div>
               <div class="stat-foot"><span>Verified installments received</span></div>
             </article>
 
             <article class="stat-card primary">
-              <div class="stat-head"><span class="stat-label">Annual Tuition Fee</span><span class="stat-icon tint-indigo">📋</span></div>
+              <div class="stat-head"><span class="stat-label">Annual Tuition Fee</span><span
+                  class="stat-icon tint-indigo">📋</span></div>
               <div class="stat-val" id="spTotalFee">₹45,000</div>
               <div class="stat-foot"><span>Full academic year</span></div>
             </article>
@@ -1204,13 +1293,14 @@
             <div>
               <div class="page-eyebrow">Hall of Fame &amp; Feedback</div>
               <h1 class="page-title">Student &amp; Parent Testimonials (12)</h1>
-              <p class="page-subtitle">Real success stories, verified rankers in IIT-JEE, NEET, Board examinations, and parental feedback.</p>
+              <p class="page-subtitle">Real success stories, verified rankers in IIT-JEE, NEET, Board examinations, and
+                parental feedback.</p>
             </div>
             <div class="head-actions">
               <button class="btn btn-primary" id="openTestimonialModalBtn">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M12 20h9"/>
-                  <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                  <path d="M12 20h9" />
+                  <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
                 </svg>
                 <span>Write a Testimonial</span>
               </button>
@@ -1220,22 +1310,26 @@
           <!-- Highlight KPI Stats -->
           <div class="stat-grid" style="margin-bottom:24px;">
             <article class="stat-card primary">
-              <div class="stat-head"><span class="stat-label">Average Rating</span><span class="stat-icon tint-indigo">★</span></div>
+              <div class="stat-head"><span class="stat-label">Average Rating</span><span
+                  class="stat-icon tint-indigo">★</span></div>
               <div class="stat-val">4.9 / 5.0</div>
               <div class="stat-foot"><span>Based on 250+ student reviews</span></div>
             </article>
             <article class="stat-card success">
-              <div class="stat-head"><span class="stat-label">Selection Rate</span><span class="stat-icon tint-green">🎯</span></div>
+              <div class="stat-head"><span class="stat-label">Selection Rate</span><span
+                  class="stat-icon tint-green">🎯</span></div>
               <div class="stat-val">93.4%</div>
               <div class="stat-foot"><span>Qualified in Premier Entrance Tests</span></div>
             </article>
             <article class="stat-card">
-              <div class="stat-head"><span class="stat-label">Top IIT-JEE Rank</span><span class="stat-icon tint-amber">🏆</span></div>
+              <div class="stat-head"><span class="stat-label">Top IIT-JEE Rank</span><span
+                  class="stat-icon tint-amber">🏆</span></div>
               <div class="stat-val">AIR 142</div>
               <div class="stat-foot"><span>IIT Bombay Computer Science</span></div>
             </article>
             <article class="stat-card info">
-              <div class="stat-head"><span class="stat-label">Top NEET Score</span><span class="stat-icon tint-purple">🩺</span></div>
+              <div class="stat-head"><span class="stat-label">Top NEET Score</span><span
+                  class="stat-icon tint-purple">🩺</span></div>
               <div class="stat-val">695 / 720</div>
               <div class="stat-foot"><span>AIIMS &amp; JIPMER Cohort</span></div>
             </article>
@@ -1244,7 +1338,8 @@
           <section class="panel">
             <div class="filter-toolbar">
               <div class="tabs-group" id="testimonialFilterTabs">
-                <button class="tab-btn active" data-test-filter="all">All Stories (<span id="countAllTestimonials">12</span>)</button>
+                <button class="tab-btn active" data-test-filter="all">All Stories (<span
+                    id="countAllTestimonials">12</span>)</button>
                 <button class="tab-btn" data-test-filter="iit-jee">IIT-JEE Achievers (4)</button>
                 <button class="tab-btn" data-test-filter="neet">NEET / Medical (3)</button>
                 <button class="tab-btn" data-test-filter="boards">Board Toppers (3)</button>
@@ -1253,14 +1348,16 @@
 
               <div class="search-box">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="11" cy="11" r="8"/>
-                  <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
                 </svg>
-                <input type="search" class="search-input" id="testimonialSearchInput" placeholder="Filter by student, school, rank...">
+                <input type="search" class="search-input" id="testimonialSearchInput"
+                  placeholder="Filter by student, school, rank...">
               </div>
             </div>
 
-            <div class="testimonials-grid" id="testimonialsGrid" style="display:grid;grid-template-columns:repeat(auto-fill, minmax(360px, 1fr));gap:20px;padding:24px;">
+            <div class="testimonials-grid" id="testimonialsGrid"
+              style="display:grid;grid-template-columns:repeat(auto-fill, minmax(360px, 1fr));gap:20px;padding:24px;">
               <!-- Generated by JS -->
             </div>
           </section>
@@ -1275,14 +1372,15 @@
             <div>
               <div class="page-eyebrow">Campus &amp; Facilities</div>
               <h1 class="page-title">Photo Gallery &amp; Campus Tour (16)</h1>
-              <p class="page-subtitle">Explore our state-of-the-art smart classrooms, advanced science labs, study library, and felicitation ceremonies.</p>
+              <p class="page-subtitle">Explore our state-of-the-art smart classrooms, advanced science labs, study
+                library, and felicitation ceremonies.</p>
             </div>
             <div class="head-actions">
               <button class="btn btn-primary" id="openPhotoUploadBtn">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                  <circle cx="8.5" cy="8.5" r="1.5"/>
-                  <polyline points="21 15 16 10 5 21"/>
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <polyline points="21 15 16 10 5 21" />
                 </svg>
                 <span>Upload Photo</span>
               </button>
@@ -1302,14 +1400,16 @@
 
               <div class="search-box">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="11" cy="11" r="8"/>
-                  <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
                 </svg>
-                <input type="search" class="search-input" id="gallerySearchInput" placeholder="Filter photos by title, facility...">
+                <input type="search" class="search-input" id="gallerySearchInput"
+                  placeholder="Filter photos by title, facility...">
               </div>
             </div>
 
-            <div class="gallery-grid" id="galleryGrid" style="display:grid;grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));gap:20px;padding:24px;">
+            <div class="gallery-grid" id="galleryGrid"
+              style="display:grid;grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));gap:20px;padding:24px;">
               <!-- Generated by JS -->
             </div>
           </section>
@@ -1336,20 +1436,25 @@
       </div>
       <div class="modal-body">
         <!-- Role Selector Tabs -->
-        <div class="tabs-group" id="loginRoleTabs" style="margin-bottom:16px;display:grid;grid-template-columns:1fr 1fr 1fr;">
+        <div class="tabs-group" id="loginRoleTabs"
+          style="margin-bottom:16px;display:grid;grid-template-columns:1fr 1fr 1fr;">
           <button type="button" class="tab-btn active" data-login-role="admin">👑 Admin</button>
           <button type="button" class="tab-btn" data-login-role="teacher">👩‍🏫 Teacher</button>
           <button type="button" class="tab-btn" data-login-role="student">🎓 Student</button>
         </div>
 
         <!-- Role Description Pill -->
-        <div style="background:var(--bg-card-subtle);border:1px solid var(--border-subtle);border-radius:var(--radius-md);padding:10px 14px;margin-bottom:14px;font-size:12px;color:var(--ink-600);" id="loginRoleDesc">
-          <strong>Admin Access:</strong> Full portal management, fee reminders, faculty hiring, student enrollment, photo uploads.
+        <div
+          style="background:var(--bg-card-subtle);border:1px solid var(--border-subtle);border-radius:var(--radius-md);padding:10px 14px;margin-bottom:14px;font-size:12px;color:var(--ink-600);"
+          id="loginRoleDesc">
+          <strong>Admin Access:</strong> Full portal management, fee reminders, faculty hiring, student enrollment,
+          photo uploads.
         </div>
 
         <!-- Quick 1-Click Demo Login Chips -->
         <div style="margin-bottom:16px;">
-          <div style="font-size:11px;font-weight:700;color:var(--ink-500);margin-bottom:6px;">Quick 1-Click Demo Logins:</div>
+          <div style="font-size:11px;font-weight:700;color:var(--ink-500);margin-bottom:6px;">Quick 1-Click Demo Logins:
+          </div>
           <div style="display:flex;gap:6px;flex-wrap:wrap;" id="loginDemoChips">
             <!-- Populated dynamically based on role -->
           </div>
@@ -1359,17 +1464,20 @@
           <input type="hidden" id="loginActiveRole" value="admin">
           <div class="form-group" style="margin-bottom:14px;">
             <label class="form-label" for="loginUsername" id="loginUsernameLabel">Admin Name or Username</label>
-            <input type="text" class="form-input" id="loginUsername" required placeholder="admin or Alex Morgan" value="admin">
+            <input type="text" class="form-input" id="loginUsername" required placeholder="admin or Alex Morgan"
+              value="admin">
           </div>
 
           <div class="form-group" style="margin-bottom:14px;">
             <label class="form-label" for="loginPassword">Password</label>
-            <input type="password" class="form-input" id="loginPassword" required placeholder="Enter password" value="admin123">
+            <input type="password" class="form-input" id="loginPassword" required placeholder="Enter password"
+              value="admin123">
           </div>
 
           <div class="form-error" id="loginError" style="margin-bottom:12px;"></div>
 
-          <button type="submit" class="btn btn-primary" id="loginSubmitBtn" style="width:100%;justify-content:center;padding:11px;">
+          <button type="submit" class="btn btn-primary" id="loginSubmitBtn"
+            style="width:100%;justify-content:center;padding:11px;">
             <span>Sign In to Portal &rarr;</span>
           </button>
         </form>
@@ -1400,7 +1508,8 @@
 
             <div class="form-group">
               <label class="form-label" for="payAmountInput">Payment Amount (₹)</label>
-              <input type="number" class="form-input" id="payAmountInput" min="1" step="1" required placeholder="e.g. 4500">
+              <input type="number" class="form-input" id="payAmountInput" min="1" step="1" required
+                placeholder="e.g. 4500">
             </div>
 
             <div class="form-group">
@@ -1460,14 +1569,21 @@
               <div class="photo-sub">Displayed in rosters, receipts, and profiles</div>
               <div class="photo-btns">
                 <label class="btn btn-sm btn-secondary upload-btn-label">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    style="width:13px;height:13px;">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="17 8 12 3 7 8" />
+                    <line x1="12" y1="3" x2="12" y2="15" />
+                  </svg>
                   <span>Upload Photo</span>
                   <input type="file" id="stuPhotoFileInput" accept="image/*" style="display:none;">
                 </label>
-                <button type="button" class="btn btn-sm btn-secondary" id="stuRandomPhotoBtn" title="Choose from curated student avatars">
+                <button type="button" class="btn btn-sm btn-secondary" id="stuRandomPhotoBtn"
+                  title="Choose from curated student avatars">
                   <span>🎲 Random Avatar</span>
                 </button>
-                <button type="button" class="btn btn-sm btn-secondary" id="stuClearPhotoBtn" style="display:none;" title="Reset to initials">
+                <button type="button" class="btn btn-sm btn-secondary" id="stuClearPhotoBtn" style="display:none;"
+                  title="Reset to initials">
                   <span>✕ Clear</span>
                 </button>
               </div>
@@ -1478,7 +1594,8 @@
           <div class="form-grid">
             <div class="form-group">
               <label class="form-label" for="stuName">Full Name</label>
-              <input type="text" class="form-input" id="stuName" required placeholder="e.g. Aarav Sharma" maxlength="80">
+              <input type="text" class="form-input" id="stuName" required placeholder="e.g. Aarav Sharma"
+                maxlength="80">
             </div>
 
             <div class="form-group">
@@ -1488,17 +1605,20 @@
 
             <div class="form-group full">
               <label class="form-label" for="stuSchool">School / College Name</label>
-              <input type="text" class="form-input" id="stuSchool" placeholder="e.g. Delhi Public School or St. Xavier's High School" maxlength="120">
+              <input type="text" class="form-input" id="stuSchool"
+                placeholder="e.g. Delhi Public School or St. Xavier's High School" maxlength="120">
             </div>
 
             <div class="form-group full">
               <label class="form-label" for="stuCourse">Course / Batch Subject</label>
-              <input type="text" class="form-input" id="stuCourse" required placeholder="e.g. Mathematics · Grade 12" maxlength="100">
+              <input type="text" class="form-input" id="stuCourse" required placeholder="e.g. Mathematics · Grade 12"
+                maxlength="100">
             </div>
 
             <div class="form-group full">
               <label class="form-label" for="stuAddress">Residential Address</label>
-              <input type="text" class="form-input" id="stuAddress" placeholder="e.g. Flat 402, Green Meadows, Powai, Mumbai" maxlength="200">
+              <input type="text" class="form-input" id="stuAddress"
+                placeholder="e.g. Flat 402, Green Meadows, Powai, Mumbai" maxlength="200">
             </div>
 
             <div class="form-group">
@@ -1567,14 +1687,21 @@
               <div class="photo-sub">Displayed in timetable, faculty directory, and cards</div>
               <div class="photo-btns">
                 <label class="btn btn-sm btn-secondary upload-btn-label">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    style="width:13px;height:13px;">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="17 8 12 3 7 8" />
+                    <line x1="12" y1="3" x2="12" y2="15" />
+                  </svg>
                   <span>Upload Photo</span>
                   <input type="file" id="tchPhotoFileInput" accept="image/*" style="display:none;">
                 </label>
-                <button type="button" class="btn btn-sm btn-secondary" id="tchRandomPhotoBtn" title="Choose from curated faculty portraits">
+                <button type="button" class="btn btn-sm btn-secondary" id="tchRandomPhotoBtn"
+                  title="Choose from curated faculty portraits">
                   <span>🎲 Random Avatar</span>
                 </button>
-                <button type="button" class="btn btn-sm btn-secondary" id="tchClearPhotoBtn" style="display:none;" title="Reset to initials">
+                <button type="button" class="btn btn-sm btn-secondary" id="tchClearPhotoBtn" style="display:none;"
+                  title="Reset to initials">
                   <span>✕ Clear</span>
                 </button>
               </div>
@@ -1585,7 +1712,8 @@
           <div class="form-grid">
             <div class="form-group full">
               <label class="form-label" for="tchName">Full Name</label>
-              <input type="text" class="form-input" id="tchName" required placeholder="e.g. Dr. Priya Menon" maxlength="80">
+              <input type="text" class="form-input" id="tchName" required placeholder="e.g. Dr. Priya Menon"
+                maxlength="80">
             </div>
 
             <div class="form-group">
@@ -1600,12 +1728,14 @@
 
             <div class="form-group full">
               <label class="form-label" for="tchQualification">Qualification / Degrees</label>
-              <input type="text" class="form-input" id="tchQualification" required placeholder="e.g. M.Sc. Mathematics, B.Ed.">
+              <input type="text" class="form-input" id="tchQualification" required
+                placeholder="e.g. M.Sc. Mathematics, B.Ed.">
             </div>
 
             <div class="form-group full">
               <label class="form-label" for="tchSubjects">Subjects Taught (comma separated)</label>
-              <input type="text" class="form-input" id="tchSubjects" required placeholder="e.g. Mathematics, Calculus, Algebra">
+              <input type="text" class="form-input" id="tchSubjects" required
+                placeholder="e.g. Mathematics, Calculus, Algebra">
             </div>
 
             <div class="form-group">
@@ -1624,7 +1754,8 @@
 
             <div class="form-group full">
               <label class="form-label" for="tchAvailability">Availability Timings</label>
-              <input type="text" class="form-input" id="tchAvailability" required placeholder="Mon–Sat · 9:00 am–6:00 pm">
+              <input type="text" class="form-input" id="tchAvailability" required
+                placeholder="Mon–Sat · 9:00 am–6:00 pm">
             </div>
 
             <div class="form-error" id="teacherFormError"></div>
@@ -1655,7 +1786,8 @@
           <div class="form-grid">
             <div class="form-group full">
               <label class="form-label" for="clsName">Batch / Class Name</label>
-              <input type="text" class="form-input" id="clsName" required placeholder="e.g. Advanced Mathematics" maxlength="80">
+              <input type="text" class="form-input" id="clsName" required placeholder="e.g. Advanced Mathematics"
+                maxlength="80">
             </div>
 
             <div class="form-group">
@@ -1696,13 +1828,20 @@
             <div class="form-group full">
               <label class="form-label">Days of Week</label>
               <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:6px;">
-                <label style="display:flex;align-items:center;gap:4px;font-size:12px;"><input type="checkbox" name="clsDay" value="Mon"> Mon</label>
-                <label style="display:flex;align-items:center;gap:4px;font-size:12px;"><input type="checkbox" name="clsDay" value="Tue"> Tue</label>
-                <label style="display:flex;align-items:center;gap:4px;font-size:12px;"><input type="checkbox" name="clsDay" value="Wed"> Wed</label>
-                <label style="display:flex;align-items:center;gap:4px;font-size:12px;"><input type="checkbox" name="clsDay" value="Thu"> Thu</label>
-                <label style="display:flex;align-items:center;gap:4px;font-size:12px;"><input type="checkbox" name="clsDay" value="Fri"> Fri</label>
-                <label style="display:flex;align-items:center;gap:4px;font-size:12px;"><input type="checkbox" name="clsDay" value="Sat"> Sat</label>
-                <label style="display:flex;align-items:center;gap:4px;font-size:12px;"><input type="checkbox" name="clsDay" value="Sun"> Sun</label>
+                <label style="display:flex;align-items:center;gap:4px;font-size:12px;"><input type="checkbox"
+                    name="clsDay" value="Mon"> Mon</label>
+                <label style="display:flex;align-items:center;gap:4px;font-size:12px;"><input type="checkbox"
+                    name="clsDay" value="Tue"> Tue</label>
+                <label style="display:flex;align-items:center;gap:4px;font-size:12px;"><input type="checkbox"
+                    name="clsDay" value="Wed"> Wed</label>
+                <label style="display:flex;align-items:center;gap:4px;font-size:12px;"><input type="checkbox"
+                    name="clsDay" value="Thu"> Thu</label>
+                <label style="display:flex;align-items:center;gap:4px;font-size:12px;"><input type="checkbox"
+                    name="clsDay" value="Fri"> Fri</label>
+                <label style="display:flex;align-items:center;gap:4px;font-size:12px;"><input type="checkbox"
+                    name="clsDay" value="Sat"> Sat</label>
+                <label style="display:flex;align-items:center;gap:4px;font-size:12px;"><input type="checkbox"
+                    name="clsDay" value="Sun"> Sun</label>
               </div>
             </div>
 
@@ -1797,9 +1936,9 @@
         <button type="button" class="btn btn-secondary" data-close-modal>Close</button>
         <button type="button" class="btn btn-primary" id="printReceiptBtn">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="6 9 6 2 18 2 18 9"/>
-            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
-            <rect x="6" y="14" width="12" height="8"/>
+            <polyline points="6 9 6 2 18 2 18 9" />
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+            <rect x="6" y="14" width="12" height="8" />
           </svg>
           <span>Print / Download PDF</span>
         </button>
@@ -1840,7 +1979,8 @@
         <button class="close-btn" data-close-modal>&times;</button>
       </div>
       <div class="modal-body">
-        <p id="deleteConfirmMessage" style="font-size:13px;color:var(--ink-700);">Are you sure you want to delete this entry?</p>
+        <p id="deleteConfirmMessage" style="font-size:13px;color:var(--ink-700);">Are you sure you want to delete this
+          entry?</p>
       </div>
       <div class="modal-foot">
         <button type="button" class="btn btn-secondary" data-close-modal>Cancel</button>
@@ -1861,7 +2001,8 @@
       </div>
       <div class="modal-body">
         <input type="hidden" id="remindStudentId">
-        <div style="background:var(--bg-card-subtle);border:1px solid var(--border-subtle);border-radius:var(--radius-md);padding:14px;margin-bottom:16px;">
+        <div
+          style="background:var(--bg-card-subtle);border:1px solid var(--border-subtle);border-radius:var(--radius-md);padding:14px;margin-bottom:16px;">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
             <div>
               <strong style="font-size:15px;" id="remindStudentName">Riya Sharma</strong>
@@ -1869,7 +2010,8 @@
             </div>
             <div style="text-align:right;">
               <span class="status-pill status-overdue" id="remindStudentStatus">Overdue</span>
-              <div style="font-size:14px;font-weight:800;color:var(--danger-text);margin-top:4px;" id="remindStudentAmount">₹4,500</div>
+              <div style="font-size:14px;font-weight:800;color:var(--danger-text);margin-top:4px;"
+                id="remindStudentAmount">₹4,500</div>
             </div>
           </div>
           <div style="font-size:11px;color:var(--ink-500);" id="remindStudentDueDate">Due: Oct 05, 2026</div>
@@ -1887,7 +2029,8 @@
           <textarea class="form-textarea" id="remindMessageText" rows="4"></textarea>
         </div>
 
-        <div style="font-size:11px;color:var(--ink-500);display:flex;align-items:center;gap:6px;" id="remindLastSentText">
+        <div style="font-size:11px;color:var(--ink-500);display:flex;align-items:center;gap:6px;"
+          id="remindLastSentText">
           <span>🕒 Last sent: Not yet dispatched</span>
         </div>
       </div>
@@ -1980,7 +2123,8 @@
           <div class="form-grid">
             <div class="form-group">
               <label class="form-label" for="testAchievement">Exam Rank / Result *</label>
-              <input type="text" class="form-input" id="testAchievement" required placeholder="e.g. AIR 142 · IIT Bombay (CSE) or 98.6% CBSE">
+              <input type="text" class="form-input" id="testAchievement" required
+                placeholder="e.g. AIR 142 · IIT Bombay (CSE) or 98.6% CBSE">
             </div>
             <div class="form-group">
               <label class="form-label" for="testCategory">Category *</label>
@@ -1996,7 +2140,8 @@
           <div class="form-grid">
             <div class="form-group">
               <label class="form-label" for="testSchool">School Name *</label>
-              <input type="text" class="form-input" id="testSchool" required placeholder="e.g. DPS R.K. Puram / Bombay Scottish">
+              <input type="text" class="form-input" id="testSchool" required
+                placeholder="e.g. DPS R.K. Puram / Bombay Scottish">
             </div>
             <div class="form-group">
               <label class="form-label" for="testRating">Star Rating (1 - 5) *</label>
@@ -2010,7 +2155,8 @@
 
           <div class="form-group">
             <label class="form-label" for="testQuote">Your Testimonial / Review *</label>
-            <textarea class="form-input" id="testQuote" rows="4" required placeholder="Share how Divine Coaching faculty, study materials, and tests helped you succeed..."></textarea>
+            <textarea class="form-input" id="testQuote" rows="4" required
+              placeholder="Share how Divine Coaching faculty, study materials, and tests helped you succeed..."></textarea>
           </div>
         </div>
         <div class="modal-foot">
@@ -2036,7 +2182,8 @@
           <div class="form-alert" id="photoFormError"></div>
           <div class="form-group">
             <label class="form-label" for="photoTitle">Photo Title *</label>
-            <input type="text" class="form-input" id="photoTitle" required placeholder="e.g. Smart Physics Demonstration Lab">
+            <input type="text" class="form-input" id="photoTitle" required
+              placeholder="e.g. Smart Physics Demonstration Lab">
           </div>
 
           <div class="form-grid">
@@ -2063,7 +2210,8 @@
 
           <div class="form-group">
             <label class="form-label" for="photoCaption">Photo Caption &amp; Description *</label>
-            <textarea class="form-input" id="photoCaption" rows="3" required placeholder="Describe what is taking place in this photo..."></textarea>
+            <textarea class="form-input" id="photoCaption" rows="3" required
+              placeholder="Describe what is taking place in this photo..."></textarea>
           </div>
         </div>
         <div class="modal-foot">
@@ -2076,12 +2224,17 @@
 
   <!-- 9. PHOTO LIGHTBOX MODAL -->
   <div class="modal-overlay" id="photoLightboxModal" style="background:rgba(0,0,0,0.92);backdrop-filter:blur(10px);">
-    <div style="position:relative;max-width:min(900px, 94vw);max-height:90vh;margin:auto;display:flex;flex-direction:column;align-items:center;">
-      <button class="close-btn" data-close-modal style="position:absolute;top:-40px;right:0;color:#fff;font-size:32px;background:none;border:none;cursor:pointer;">&times;</button>
-      <div style="width:100%;max-height:70vh;overflow:hidden;border-radius:12px;background:#000;display:flex;align-items:center;justify-content:center;">
-        <img id="lightboxImg" src="" alt="Photo Full View" style="max-width:100%;max-height:70vh;object-fit:contain;border-radius:12px;">
+    <div
+      style="position:relative;max-width:min(900px, 94vw);max-height:90vh;margin:auto;display:flex;flex-direction:column;align-items:center;">
+      <button class="close-btn" data-close-modal
+        style="position:absolute;top:-40px;right:0;color:#fff;font-size:32px;background:none;border:none;cursor:pointer;">&times;</button>
+      <div
+        style="width:100%;max-height:70vh;overflow:hidden;border-radius:12px;background:#000;display:flex;align-items:center;justify-content:center;">
+        <img id="lightboxImg" src="" alt="Photo Full View"
+          style="max-width:100%;max-height:70vh;object-fit:contain;border-radius:12px;">
       </div>
-      <div style="width:100%;margin-top:16px;background:var(--bg-card);padding:16px 20px;border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,0.4);">
+      <div
+        style="width:100%;margin-top:16px;background:var(--bg-card);padding:16px 20px;border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,0.4);">
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
           <h3 id="lightboxTitle" style="margin:0;font-size:18px;color:var(--ink-900);">Photo Title</h3>
           <span class="tag-pill" id="lightboxCategory" style="font-size:11px;">Category</span>
@@ -2091,13 +2244,82 @@
     </div>
   </div>
 
+  <!-- 10. SHARE WEB APPLICATION MODAL -->
+  <div class="modal-overlay" id="shareAppModal">
+    <div class="modal-card" style="width:min(480px, 100%);">
+      <div class="modal-head">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div
+            style="width:40px;height:40px;border-radius:12px;background:rgba(37,211,102,0.15);color:#25D366;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg viewBox="0 0 24 24" fill="currentColor" style="width:22px;height:22px;">
+              <path
+                d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19.01L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67M9.53 7.33C9.33 7.33 9.01 7.41 8.74 7.7C8.47 8 7.72 8.7 7.72 10.12C7.72 11.54 8.76 12.91 8.91 13.1C9.05 13.3 11.1 16.46 14.23 17.81C14.97 18.13 15.56 18.33 16.01 18.47C16.76 18.71 17.44 18.67 17.98 18.59C18.58 18.5 19.82 17.84 20.08 17.11C20.34 16.38 20.34 15.76 20.26 15.63C20.18 15.5 19.98 15.43 19.68 15.28C19.38 15.13 17.91 14.41 17.63 14.31C17.36 14.21 17.16 14.16 16.96 14.46C16.76 14.75 16.19 15.43 16.01 15.63C15.84 15.83 15.66 15.86 15.36 15.71C15.07 15.56 14.12 15.25 12.99 14.24C12.11 13.45 11.52 12.48 11.35 12.19C11.17 11.89 11.33 11.73 11.48 11.58C11.61 11.45 11.77 11.24 11.92 11.07C12.07 10.9 12.12 10.78 12.22 10.58C12.32 10.38 12.27 10.21 12.19 10.06C12.12 9.92 11.52 8.44 11.27 7.84C11.03 7.26 10.78 7.34 10.59 7.33C10.41 7.32 10.21 7.33 10.01 7.33" />
+            </svg>
+          </div>
+          <div>
+            <h2>Share via WhatsApp</h2>
+            <p>Send the web app link directly to any mobile number.</p>
+          </div>
+        </div>
+        <button class="close-btn" data-close-modal>&times;</button>
+      </div>
 
+      <div class="modal-body">
+        <!-- 1. App URL Preview -->
+        <div class="form-group" style="margin-bottom:14px;">
+          <label class="form-label" for="shareAppLinkInput">App Link</label>
+          <div style="display:flex;gap:8px;">
+            <input type="url" class="form-input" id="shareAppLinkInput"
+              value="https://divinecoach.netlify.app/" readonly
+              style="font-family:monospace;font-size:12.5px;background:var(--bg-elevated);color:var(--brand-600);font-weight:600;">
+            <button type="button" class="btn btn-secondary btn-sm" id="copyShareLinkBtn" title="Copy URL">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                style="width:14px;height:14px;">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+              </svg>
+              <span>Copy</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 2. Mobile Number Input -->
+        <div class="form-group" style="margin-bottom:14px;">
+          <label class="form-label" for="sharePhoneNumber">Recipient Mobile Number *</label>
+          <input type="tel" class="form-input" id="sharePhoneNumber" placeholder="Enter mobile number (e.g. 9820112345)"
+            maxlength="15" autocomplete="tel">
+          <span style="font-size:11px;color:var(--ink-500);margin-top:4px;display:block;">
+            Enter the 10-digit mobile number to send the app link via WhatsApp.
+          </span>
+        </div>
+
+        <!-- 3. Message Preview -->
+        <div class="form-group" style="margin-bottom:14px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+            <label class="form-label" for="shareMessageText" style="margin:0;">Message Preview</label>
+            <button type="button" class="text-btn" id="copyShareMsgBtn"
+              style="font-size:11px;color:var(--brand-600);cursor:pointer;">Copy Text</button>
+          </div>
+          <textarea class="form-input" id="shareMessageText" rows="4"
+            style="font-size:13px;line-height:1.5;resize:vertical;"></textarea>
+        </div>
+      </div>
+
+      <div class="modal-foot" style="gap:8px;justify-content:flex-end;">
+        <button type="button" class="btn btn-secondary btn-sm" data-close-modal>Cancel</button>
+        <button type="button" class="btn btn-whatsapp" id="sendShareWhatsAppBtn"
+          style="font-weight:600;padding:8px 18px;">
+          <span>🟢 Share on WhatsApp</span>
+        </button>
+      </div>
+    </div>
+  </div>
 
   <!-- Toast Notification element -->
   <div class="toast-notice" id="toastNotice" role="status">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;">
-      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-      <polyline points="22 4 12 14.01 9 11.01"/>
+      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+      <polyline points="22 4 12 14.01 9 11.01" />
     </svg>
     <span id="toastNoticeText"></span>
   </div>
@@ -2110,4 +2332,5 @@
   <!-- Scripts -->
   <script src="app.js"></script>
 </body>
+
 </html>

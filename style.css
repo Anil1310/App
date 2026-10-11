@@ -2045,7 +2045,8 @@ table th {
     width: 15px;
     height: 15px;
   }
-  #topRecordPaymentBtn {
+  #topRecordPaymentBtn,
+  #topShareAppBtn {
     width: 32px;
     height: 32px;
     min-width: 32px;
@@ -2055,10 +2056,12 @@ table th {
     align-items: center;
     justify-content: center;
   }
-  #topRecordPaymentBtn span {
+  #topRecordPaymentBtn span,
+  #topShareAppBtn span {
     display: none;
   }
-  #topRecordPaymentBtn svg {
+  #topRecordPaymentBtn svg,
+  #topShareAppBtn svg {
     width: 15px;
     height: 15px;
     margin: 0;

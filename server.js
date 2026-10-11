@@ -155,10 +155,10 @@ async function handleApi(request, response, url) {
       const teacher = (store.teachers || []).find(t => {
         const cleanTName = t.name.replace(/^(dr\.|prof\.|mr\.|mrs\.|ms\.)\s*/i, "").trim().toLowerCase();
         return t.name.toLowerCase() === username.toLowerCase() ||
-               cleanTName === cleanUsername ||
-               t.name.toLowerCase().includes(cleanUsername) ||
-               t.email.toLowerCase() === username.toLowerCase() ||
-               t.id.toLowerCase() === username.toLowerCase();
+          cleanTName === cleanUsername ||
+          t.name.toLowerCase().includes(cleanUsername) ||
+          t.email.toLowerCase() === username.toLowerCase() ||
+          t.id.toLowerCase() === username.toLowerCase();
       });
       if (!teacher) {
         throw Object.assign(new Error(`No faculty member found with name "${username}".`), { status: 404 });
@@ -191,11 +191,11 @@ async function handleApi(request, response, url) {
       const student = (store.students || []).find(s => {
         const cleanSName = s.name.replace(/^(dr\.|prof\.|mr\.|mrs\.|ms\.)\s*/i, "").trim().toLowerCase();
         return s.name.toLowerCase() === username.toLowerCase() ||
-               cleanSName === cleanUsername ||
-               s.name.toLowerCase().includes(cleanUsername) ||
-               s.email.toLowerCase() === username.toLowerCase() ||
-               (s.phone && s.phone.replace(/\D/g, "") === username.replace(/\D/g, "")) ||
-               s.id.toLowerCase() === username.toLowerCase();
+          cleanSName === cleanUsername ||
+          s.name.toLowerCase().includes(cleanUsername) ||
+          s.email.toLowerCase() === username.toLowerCase() ||
+          (s.phone && s.phone.replace(/\D/g, "") === username.replace(/\D/g, "")) ||
+          s.id.toLowerCase() === username.toLowerCase();
       });
       if (!student) {
         throw Object.assign(new Error(`No enrolled student found with name "${username}".`), { status: 404 });
@@ -658,6 +658,25 @@ async function handleApi(request, response, url) {
     return sendJson(response, 200, { ok: true, student, phone, method, lastRemindedAt: student.lastRemindedAt });
   }
 
+  // Share Web Application Link API
+  if (request.method === "POST" && url.pathname === "/api/share-app") {
+    const body = await readBody(request);
+    const recipient = body.recipient || "Contact";
+    const phone = body.phone || "";
+    const method = body.method || "whatsapp";
+    store.notifications = store.notifications || [];
+    store.notifications.unshift({
+      id: `notif-${Date.now()}`,
+      title: "App Link Shared",
+      message: `Shared portal link via ${method.toUpperCase()} with ${recipient} (${phone}).`,
+      time: "Just now",
+      type: "info",
+      read: false
+    });
+    writeStore(store);
+    return sendJson(response, 200, { ok: true, recipient, phone, method });
+  }
+
   if (request.method === "POST" && url.pathname === "/api/reminders/batch") {
     const owing = (store.students || []).filter(s => s.amount > 0);
     const nowStr = new Date().toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit", hour12: true });
@@ -815,4 +834,4 @@ const server = http.createServer(async (request, response) => {
   }
 });
 
-server.listen(port, () => console.log(`Divine Coaching is running at http://localhost:${port}`));
+server.listen(port, () => console.log(`Divine Coaching is running at http://localhost:${port} (Live: https://divinecoach.netlify.app/)`));
