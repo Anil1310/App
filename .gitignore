@@ -2,3 +2,5 @@ node_modules/
 .DS_Store
 *.log
 .gemini/
+__pycache__/
+*.pyc

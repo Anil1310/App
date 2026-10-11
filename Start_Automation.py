@@ -209,17 +209,12 @@ def main():
     while True:
         print_banner(target_project)
         print(f"{BOLD}What would you like to do?{RESET}\n")
-        print(f"  {GREEN}[1]${RESET} ⚡ {BOLD}Quick Push Changes${RESET}")
-        print(f"      {DIM}Stage, commit, push edits to GitHub & update live Netlify site{RESET}\n")
-        print(f"  {GREEN}[2]${RESET} 🌐 {BOLD}Deploy Project to Netlify (Interactive 1, 2, 3...)${RESET}")
-        print(f"      {DIM}Select which existing published project to update (divinecoach, etc.){RESET}\n")
-        print(f"  {GREEN}[3]${RESET} ⬇️  {BOLD}Quick Pull Changes${RESET}")
-        print(f"      {DIM}Fetch & pull latest changes from GitHub into local folder{RESET}\n")
-        print(f"  {GREEN}[4]${RESET} 📊 {BOLD}View Project Info & Status${RESET}")
-        print(f"      {DIM}View branch, remote, live links, and uncommitted changes{RESET}\n")
-        print(f"  {GREEN}[5]${RESET} 📁 {BOLD}Switch Working Project{RESET}")
-        print(f"      {DIM}Select another project on your Desktop{RESET}\n")
-        print(f"  {RED}[6]${RESET} ❌ {BOLD}Exit{RESET}\n")
+        print(f"  {GREEN}[1]{RESET} ⚡ {BOLD}Quick Push Changes{RESET}  {DIM}(Stage, commit, push to GitHub & update Netlify){RESET}")
+        print(f"  {GREEN}[2]{RESET} 🌐 {BOLD}Deploy to Netlify{RESET}   {DIM}(Interactive 1, 2, 3 project selector){RESET}")
+        print(f"  {GREEN}[3]{RESET} ⬇️  {BOLD}Quick Pull Changes{RESET}  {DIM}(Pull latest commits from GitHub){RESET}")
+        print(f"  {GREEN}[4]{RESET} 📊 {BOLD}View Project Info & Status{RESET}  {DIM}(Show branch, recent commits, live links){RESET}")
+        print(f"  {GREEN}[5]{RESET} 📁 {BOLD}Switch Working Project{RESET}  {DIM}(Select another Desktop project){RESET}")
+        print(f"  {RED}[6]{RESET} ❌ {BOLD}Exit{RESET}\n")
 
         try:
             choice = input(f"{YELLOW}{BOLD}Enter choice (1-6): {RESET}").strip()
@@ -241,10 +236,13 @@ def main():
             for i, p in enumerate(all_projs, start=1):
                 is_curr = f" {CYAN}(📍 Current){RESET}" if p == target_project else ""
                 print(f"  [{i}] {os.path.basename(p)}{is_curr}")
-            p_ans = input(f"\n{YELLOW}Choose project (1-{len(all_projs)}): {RESET}").strip()
-            if p_ans.isdigit() and 1 <= int(p_ans) <= len(all_projs):
-                target_project = all_projs[int(p_ans) - 1]
-                print(f"{GREEN}Switched to: {os.path.basename(target_project)}{RESET}")
+            try:
+                p_ans = input(f"\n{YELLOW}Choose project (1-{len(all_projs)}): {RESET}").strip()
+                if p_ans.isdigit() and 1 <= int(p_ans) <= len(all_projs):
+                    target_project = all_projs[int(p_ans) - 1]
+                    print(f"{GREEN}Switched to: {os.path.basename(target_project)}{RESET}")
+            except (EOFError, KeyboardInterrupt):
+                pass
         elif choice in ("6", "q", "exit"):
             print(f"\n{GREEN}Goodbye! 👋{RESET}\n")
             break
