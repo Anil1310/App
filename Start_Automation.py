@@ -181,6 +181,19 @@ def delete_netlify(project_dir):
     subprocess.run(["node", helper_path, project_dir, "--delete"])
 
 
+def delete_github(project_dir):
+    """Run GitHub interactive repository deletion tool."""
+    helper_path = os.path.join(project_dir, "helper_github.js")
+    if not os.path.exists(helper_path):
+        helper_path = os.path.join(DESKTOP_DIR, "GitHub Automation", "helper_github.js")
+
+    if not os.path.exists(helper_path):
+        print(f"{RED}Error: helper_github.js not found.{RESET}")
+        return
+
+    subprocess.run(["node", helper_path])
+
+
 def quick_pull(project_dir):
     """Pull latest updates from GitHub."""
     branch, remote = get_git_info(project_dir)
@@ -221,16 +234,17 @@ def main():
     while True:
         print_banner(target_project)
         print(f"{BOLD}What would you like to do?{RESET}\n")
-        print(f"  {GREEN}[1]{RESET} ⚡ {BOLD}Quick Push Changes{RESET}      {DIM}(Stage, commit, push to GitHub & update Netlify){RESET}")
-        print(f"  {GREEN}[2]{RESET} 🌐 {BOLD}Deploy to Netlify{RESET}       {DIM}(Interactive 1, 2, 3 project selector){RESET}")
-        print(f"  {RED}[3]{RESET} 🗑️  {BOLD}Delete Netlify Project{RESET}  {DIM}(Permanently remove unwanted sites){RESET}")
-        print(f"  {GREEN}[4]{RESET} ⬇️  {BOLD}Quick Pull Changes{RESET}      {DIM}(Pull latest commits from GitHub){RESET}")
-        print(f"  {GREEN}[5]{RESET} 📊 {BOLD}View Project Info & Status{RESET}  {DIM}(Show branch, recent commits, live links){RESET}")
-        print(f"  {GREEN}[6]{RESET} 📁 {BOLD}Switch Working Project{RESET}  {DIM}(Select another Desktop project){RESET}")
-        print(f"  {RED}[7]{RESET} ❌ {BOLD}Exit{RESET}\n")
+        print(f"  {GREEN}[1]{RESET} ⚡ {BOLD}Quick Push Changes{RESET}         {DIM}(Stage, commit, push to GitHub & update Netlify){RESET}")
+        print(f"  {GREEN}[2]{RESET} 🌐 {BOLD}Deploy to Netlify{RESET}          {DIM}(Interactive 1, 2, 3 project selector){RESET}")
+        print(f"  {RED}[3]{RESET} 🗑️  {BOLD}Delete Netlify Project{RESET}     {DIM}(Permanently remove unwanted Netlify sites){RESET}")
+        print(f"  {RED}[4]{RESET} 🗑️  {BOLD}Delete GitHub Repository{RESET}   {DIM}(Permanently remove GitHub repositories){RESET}")
+        print(f"  {GREEN}[5]{RESET} ⬇️  {BOLD}Quick Pull Changes{RESET}         {DIM}(Pull latest commits from GitHub){RESET}")
+        print(f"  {GREEN}[6]{RESET} 📊 {BOLD}View Project Info & Status{RESET}     {DIM}(Show branch, recent commits, live links){RESET}")
+        print(f"  {GREEN}[7]{RESET} 📁 {BOLD}Switch Working Project{RESET}     {DIM}(Select another Desktop project){RESET}")
+        print(f"  {RED}[8]{RESET} ❌ {BOLD}Exit{RESET}\n")
 
         try:
-            choice = input(f"{YELLOW}{BOLD}Enter choice (1-7): {RESET}").strip()
+            choice = input(f"{YELLOW}{BOLD}Enter choice (1-8): {RESET}").strip()
         except (EOFError, KeyboardInterrupt):
             print("\nExiting...")
             break
@@ -242,10 +256,12 @@ def main():
         elif choice == "3":
             delete_netlify(target_project)
         elif choice == "4":
-            quick_pull(target_project)
+            delete_github(target_project)
         elif choice == "5":
-            view_status(target_project)
+            quick_pull(target_project)
         elif choice == "6":
+            view_status(target_project)
+        elif choice == "7":
             all_projs = list_desktop_projects()
             print(f"\n{BOLD}Available Desktop Projects:{RESET}")
             for i, p in enumerate(all_projs, start=1):
@@ -258,11 +274,11 @@ def main():
                     print(f"{GREEN}Switched to: {os.path.basename(target_project)}{RESET}")
             except (EOFError, KeyboardInterrupt):
                 pass
-        elif choice in ("7", "q", "exit"):
+        elif choice in ("8", "q", "exit"):
             print(f"\n{GREEN}Goodbye! 👋{RESET}\n")
             break
         else:
-            print(f"{RED}Invalid selection. Please choose 1 to 7.{RESET}")
+            print(f"{RED}Invalid selection. Please choose 1 to 8.{RESET}")
 
         try:
             input(f"\n{DIM}Press [ENTER] to return to menu...{RESET}")
