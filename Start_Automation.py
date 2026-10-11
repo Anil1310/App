@@ -270,11 +270,12 @@ def main():
         print(f"  {RED}[5]{RESET} 🗑️  {BOLD}Delete Netlify Project{RESET}   {DIM}(Permanently remove unwanted Netlify site){RESET}\n")
 
         print(f"  {CYAN}{BOLD}--- ⚙️  WORKSPACE & EXIT ---{RESET}")
-        print(f"  {GREEN}[6]{RESET} 📊 {BOLD}Project Info & Switch{RESET}    {DIM}(View branch, commits, or switch project){RESET}")
-        print(f"  {RED}[7]{RESET} ❌ {BOLD}Exit{RESET}\n")
+        print(f"  {GREEN}[6]{RESET} 📊 {BOLD}View Project Info & Status{RESET} {DIM}(Show branch, recent commits, live links){RESET}")
+        print(f"  {GREEN}[7]{RESET} 📁 {BOLD}Switch Working Project{RESET}     {DIM}(Select another Desktop project){RESET}")
+        print(f"  {RED}[8]{RESET} ❌ {BOLD}Exit{RESET}\n")
 
         try:
-            choice = input(f"{YELLOW}{BOLD}Enter choice (1-7): {RESET}").strip()
+            choice = input(f"{YELLOW}{BOLD}Enter choice (1-8): {RESET}").strip()
         except (EOFError, KeyboardInterrupt):
             print("\nExiting...")
             break
@@ -290,12 +291,25 @@ def main():
         elif choice == "5":
             delete_netlify(target_project)
         elif choice == "6":
-            target_project = view_status_and_switch(target_project)
-        elif choice in ("7", "q", "exit"):
+            view_status(target_project)
+        elif choice == "7":
+            all_projs = list_desktop_projects()
+            print(f"\n{BOLD}Available Desktop Projects:{RESET}")
+            for i, p in enumerate(all_projs, start=1):
+                is_curr = f" {CYAN}(📍 Current){RESET}" if p == target_project else ""
+                print(f"  [{i}] {os.path.basename(p)}{is_curr}")
+            try:
+                p_ans = input(f"\n{YELLOW}Choose project (1-{len(all_projs)}): {RESET}").strip()
+                if p_ans.isdigit() and 1 <= int(p_ans) <= len(all_projs):
+                    target_project = all_projs[int(p_ans) - 1]
+                    print(f"{GREEN}Switched to: {os.path.basename(target_project)}{RESET}")
+            except (EOFError, KeyboardInterrupt):
+                pass
+        elif choice in ("8", "q", "exit"):
             print(f"\n{GREEN}Goodbye! 👋{RESET}\n")
             break
         else:
-            print(f"{RED}Invalid selection. Please choose 1 to 7.{RESET}")
+            print(f"{RED}Invalid selection. Please choose 1 to 8.{RESET}")
 
         try:
             input(f"\n{DIM}Press [ENTER] to return to menu...{RESET}")
